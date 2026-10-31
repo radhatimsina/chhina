@@ -143,6 +143,35 @@ details.pc .pcb{padding:0 14px 12px;}
 .scroll .tw{overflow-x:auto}
 .scroll ul{margin:6px 0 0;padding-left:20px}
 .scroll .small{font-size:13px;color:#6B3A1A;margin-top:18px}
+/* One-page Letter sheet used to make the PDF */
+.sheet{position:fixed;left:-20000px;top:0;width:816px;height:1056px;background:#fff;padding:30px;overflow:hidden;}
+.sheet .fit{width:756px;transform-origin:top left;}
+.sheet .scroll{margin:0;max-width:none;width:100%;padding:16px 24px 12px;font-size:13px;line-height:1.35;background:#FBF3DC;border:3px double #7A1420;}
+.sheet .scroll::before,.sheet .scroll::after{display:none;}
+.sheet .scroll .inv .om{font-size:30px;}
+.sheet .scroll .inv .gan{font-size:14px;}
+.sheet .scroll .ttl{font-size:22px;margin:4px 0 0;}
+.sheet .scroll .who{font-size:16px;margin-bottom:2px;}
+.sheet .scroll h3{font-size:14.5px;margin:9px 0 5px;padding-bottom:2px;}
+.sheet .scroll .kv{grid-template-columns:1fr 1fr;gap:1px 20px;}
+.sheet .scroll .kv div{padding:1px 0;}
+.sheet .scroll .charts{gap:16px;flex-wrap:nowrap;}
+.sheet .scroll .charts{justify-content:center;gap:40px;}
+.sheet .scroll .charts figure{flex:0 0 255px;max-width:255px;}
+.sheet .scroll .charts figcaption{font-size:12px;margin-top:2px;}
+.sheet .scroll table{font-size:12px;}
+.sheet .scroll th,.sheet .scroll td{padding:2px 5px;}
+.sheet .scroll ul{margin:2px 0 0;}
+.sheet .scroll .small{font-size:11px;margin-top:6px;}
+.sheet .pfoot{text-align:center;font-size:10.5px;color:#6B3A1A;margin-top:6px;}
+@media print{
+  @page{size:letter;margin:0.4in;}
+  body{background:#fff;}
+  body *{visibility:hidden;}
+  #scroll,#scroll *{visibility:visible;}
+  #scroll{position:absolute;left:0;top:0;width:100%;margin:0;}
+  #scroll::before,#scroll::after{display:none;}
+}
 </style>
 </head>
 <body>
@@ -569,6 +598,9 @@ mFull:'जन्म तिथि, समय और स्थान पता ह
 emptyRead:'अपना चिना भरें; चिना क्या कहता है, कौन सी पूजा उपयुक्त है देखें और प्रश्न पूछें।',
 emptyCreate:'जन्म विवरण भरकर "चिना बनाएँ" दबाएँ। चिना, उसकी व्याख्या और पूजा सुझाव यहाँ दिखेंगे।'});
 let lang='en';
+Object.assign(T.en,{savePdf:'Save as PDF (8.5 × 11 in)',pdfMaking:'Making the PDF…',pdfDone:'PDF saved.',pdfFail:'The PDF could not be made here. Use your browser\u2019s Print and choose "Save as PDF".',pdfMade:'Made on chhina.vercel.app'});
+Object.assign(T.ne,{savePdf:'PDF मा सेभ गर्नुहोस् (८.५ × ११ इन्च)',pdfMaking:'PDF बनाउँदै…',pdfDone:'PDF सेभ भयो।',pdfFail:'यहाँ PDF बन्न सकेन। ब्राउजरको Print मा गएर "Save as PDF" छान्नुहोस्।',pdfMade:'chhina.vercel.app मा बनाइएको'});
+Object.assign(T.hi,{savePdf:'PDF सेव करें (8.5 × 11 इंच)',pdfMaking:'PDF बन रहा है…',pdfDone:'PDF सेव हो गया।',pdfFail:'यहाँ PDF नहीं बन सका। ब्राउज़र के Print में जाकर "Save as PDF" चुनें।',pdfMade:'chhina.vercel.app पर बनाया गया'});
 let guideLang='ne';
 const t=k=>(T[lang][k]??T.en[k]??k);
 const isDv=()=>lang!=='en';
@@ -757,17 +789,49 @@ function standaloneHtml(){
    `<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&family=Yatra+One&display=swap" rel="stylesheet"><style>body{margin:0;padding:24px 14px;background:#2b1d14}${css}</style></head><body>${sc.outerHTML}</body></html>`;
 }
 
+/* ===== PDF (one Letter page) ===== */
+function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector(`script[src="${src}"]`))return res();const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+async function savePdf(statusEl,btn){
+  const src=document.getElementById('scroll');if(!src)return;
+  btn.disabled=true;statusEl.textContent=t('pdfMaking');
+  let sheet;
+  try{
+    await Promise.all([loadScript('vendor/html2canvas.min.js'),loadScript('vendor/jspdf.umd.min.js')]);
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    sheet=document.createElement('div');sheet.className='sheet';
+    const fit=document.createElement('div');fit.className='fit';
+    const clone=src.cloneNode(true);clone.removeAttribute('id');clone.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+    const foot=document.createElement('div');foot.className='pfoot';
+    foot.textContent=t('pdfMade')+' · '+dn(new Date().toISOString().slice(0,10));
+    fit.appendChild(clone);fit.appendChild(foot);sheet.appendChild(fit);document.body.appendChild(sheet);
+    // Shrink to fit one page: widen the layout and scale it down until it fits the height.
+    const W=756,H=996;let scale=1;
+    for(let i=0;i<4;i++){fit.style.width=(W/scale)+'px';fit.style.transform=`scale(${scale})`;
+      const h=fit.scrollHeight*scale;if(h<=H+1)break;scale=scale*H/h;}
+    const canvas=await html2canvas(sheet,{scale:2.5,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:1200});
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({unit:'in',format:'letter',orientation:'portrait'});
+    pdf.addImage(canvas.toDataURL('image/jpeg',0.92),'JPEG',0,0,8.5,11);
+    const nm=(document.getElementById('nm').value.trim()||'chhina').replace(/[\\/:*?"<>|]+/g,'').slice(0,40);
+    pdf.save(`${nm}-chhina.pdf`);
+    statusEl.textContent=t('pdfDone');
+  }catch(e){statusEl.textContent=t('pdfFail');try{window.print();}catch(_){}}
+  finally{if(sheet)sheet.remove();btn.disabled=false;}
+}
+
 /* ===== Create tab ===== */
 let lastChart=null;
 function renderCreate(ch){
   const box=document.getElementById('createOut');
   box.innerHTML=renderScroll(ch)+
    `<div class="btnrow" style="justify-content:center">
-      <button class="btn" id="bSave" type="button">${esc(t('saveHtml'))}</button>
+      <button class="btn" id="bPdf" type="button">${esc(t('savePdf'))}</button>
+      <button class="btn ghost" id="bSave" type="button">${esc(t('saveHtml'))}</button>
       <button class="btn ghost" id="bSvg" type="button">${esc(t('saveSvg'))}</button>
     </div><p class="hint" id="saveMsg" style="text-align:center"></p>
     ${guidePanels('c')}`;
   const msg=document.getElementById('saveMsg');
+  document.getElementById('bPdf').onclick=e=>savePdf(msg,e.currentTarget);
   document.getElementById('bSave').onclick=()=>saveFile('chhina.html',standaloneHtml(),msg);
   document.getElementById('bSvg').onclick=()=>{const svg=document.querySelector('#fig1 svg').outerHTML;saveFile('chhina-lagna.svg','<?xml version="1.0" encoding="UTF-8"?>\n'+svg,msg);};
   wireGuide('c',chartFromCalc(ch));
