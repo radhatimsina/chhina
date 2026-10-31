@@ -1,5 +1,4 @@
 {
-  "functions": { "api/claude.js": { "maxDuration": 120 } },
   "headers": [
     { "source": "/(.*)", "headers": [
       { "key": "X-Content-Type-Options", "value": "nosniff" },

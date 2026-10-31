@@ -1,40 +1,26 @@
-# Chhina · चिना — public site
+# Chhina · चिना
 
-Make a Nepali–Hindu chhina from birth details, or upload a photo of a chhina to have it read and explained in Nepali, with questions about puja.
+A free Nepali–Hindu chhina (janma kundali) site. Live at https://chhina.vercel.app
 
-## What's in here
+Everything runs in the visitor's browser. There is no server, no AI and no API key, so there is nothing to pay for beyond Vercel's free hosting.
 
-- `index.html` — the whole site. Charts, panchang and dasha are calculated in the visitor's browser.
-- `api/claude.js` — server function. It holds your Anthropic API key and the prompts, and only does three jobs: read a chhina photo, explain a chhina, answer questions about it.
-- `api/_prompts.js` — the Nepali/Hindi/English prompts, including the puja and samagri guidance.
-- `vercel.json` — gives the function up to 120 seconds for long readings.
+## What it does
 
-## Deploy (about 5 minutes)
+- **Create a chhina** from birth date (AD or Bikram Sambat), time and place: Lagna and Navamsa charts, panchang, graha table, Vimshottari dasha and basic yogas.
+- **Read a chhina**: the visitor fills in the Lagna and each planet's rashi number from their own chhina (a photo can be shown alongside for reference; it never leaves the device).
+- **Explanation** in simple Nepali or English: Lagna, Moon sign, nakshatra and naming syllable, each planet's house, yogas and doshas (Manglik, Kaal Sarpa, grahan, Gandmool), current Sade Sati or dhaiya, and the current dasha.
+- **Puja and remedies**: which planets need shanti and why, with deity, day, beej mantra, daan and a full samagri list, plus simple home puja steps.
+- **Questions**: topic buttons and typed questions in Nepali, Hindi or English (work, marriage, health, study, children, home, legal, debt, going abroad, samagri for named pujas, gemstones, naming).
 
-1. Unzip this folder on your computer and open a terminal in it.
-2. Run `npx vercel --prod` and follow the prompts. Choose the scope **radhatimsina's projects** (or EverTrust Holding Group LLC) and name the project `chhina`.
-3. Add your API key:
-   - Vercel dashboard → project **chhina** → Settings → Environment Variables
-   - Name `ANTHROPIC_API_KEY`, value = your key from console.anthropic.com, environment **Production**
-   - Then redeploy: `npx vercel --prod` again (or Deployments → Redeploy).
-4. Open the `chhina-….vercel.app` link. Until the key is added, chhina creation works and the reading/question parts say they're unavailable.
+## Files
 
-To use your own domain: Vercel → project → Settings → Domains.
+- `index.html` — page, chart engine and translations
+- `guide.js` — the knowledge base and the explanation, puja and question logic
 
-## Cost control
+## Accuracy notes
 
-Every reading, explanation and question is billed to your Anthropic account.
+Lahiri ayanamsa, mean lunar node, whole-sign houses. Planets are accurate to a few arcminutes for 1800–2050. Explanations and puja guidance are rule-based and follow common Nepali Hindu practice; they are guidance, not prediction. Practice varies by family and region.
 
-- **Set a monthly spend limit** in the Anthropic Console (Settings → Limits). This is the real ceiling.
-- Built-in limits (change in Vercel environment variables, then redeploy):
-  - `LIMIT_PER_IP_HOUR` — calls per visitor per hour (default 25)
-  - `LIMIT_READS_PER_IP_DAY` — photo readings per visitor per day (default 8)
-  - `LIMIT_DAILY_TOTAL` — all calls from everyone per day (default 600)
-- These counters live in memory, so they reset when Vercel recycles the function. They slow abuse; the Console spend limit is the guarantee.
-- `CLAUDE_MODEL` — defaults to `claude-sonnet-5-5`. Set `claude-haiku-5-5` for cheaper answers (photo reading is less reliable on Haiku).
+## Deploys
 
-Rough guide: a photo reading plus its Nepali explanation is a few cents on Sonnet; each question is about a cent.
-
-## Privacy
-
-Photos go to Anthropic only to be read, and the site doesn't store them or the questions.
+Pushing to `main` redeploys automatically on Vercel (project `chhina`, radhatimsina's projects).

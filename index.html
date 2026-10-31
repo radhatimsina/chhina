@@ -93,6 +93,17 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
 .msg.a p{margin:5px 0;}
 .askrow{display:flex;gap:8px;align-items:flex-end;margin-top:12px;flex-wrap:wrap;}
 .askrow textarea{flex:1 1 240px;min-height:52px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);resize:vertical;}
+details.pc{border:1.5px solid var(--line);border-radius:12px;margin:10px 0;background:var(--bg);}
+details.pc summary{cursor:pointer;padding:11px 14px;list-style:revert;line-height:1.5;}
+details.pc .why{display:block;font-size:13.5px;color:var(--muted);margin-top:2px;}
+details.pc .pcb{padding:0 14px 12px;}
+.gl{margin:6px 0;padding-left:20px;line-height:1.7;}
+.gl li{margin:3px 0;}
+.gk{color:var(--muted);font-size:14px;}
+.mantra{font-weight:600;color:var(--gold);}
+.pgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 10px;}
+.pgrid label{margin:8px 0 3px;}
+.pgrid select{padding:7px 8px;}
 .foot{margin-top:34px;color:var(--muted);font-size:13.5px;max-width:70ch;}
 .hidden{display:none !important;}
 @media (prefers-reduced-motion:no-preference){.scrollwrap{animation:unroll .6s ease-out;}@keyframes unroll{from{opacity:.0;transform:translateY(10px)}to{opacity:1;transform:none}}}
@@ -211,19 +222,28 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
   <!-- READ -->
   <section id="paneRead" class="hidden grid">
     <div class="card sticky">
-      <h2 data-i18n="uploadTitle"></h2>
-      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a photo">
+      <h2 data-i18n="mTitle"></h2>
+      <p class="hint" data-i18n="mHint"></p>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a photo" style="margin-top:12px">
         <div data-i18n="uploadHint"></div>
         <img id="prev" alt="" class="hidden">
       </div>
       <input type="file" id="file" accept="image/*" class="hidden">
-      <div class="btnrow">
-        <button class="btn ghost" id="pick" type="button" data-i18n="choose"></button>
-        <button class="btn" id="readBtn" type="button" disabled data-i18n="readBtn"></button>
-        <button class="btn ghost hidden" id="stopRead" type="button" data-i18n="stop"></button>
+      <label for="mName" data-i18n="name"></label>
+      <input type="text" id="mName" maxlength="80">
+      <label for="mLagna" data-i18n="mLagna"></label>
+      <select id="mLagna"></select>
+      <label data-i18n="mPlanets"></label>
+      <div class="pgrid" id="mPlanets"></div>
+      <div class="row2">
+        <div><label for="mNak" data-i18n="mNak"></label><select id="mNak"></select></div>
+        <div><label for="mPada" data-i18n="mPada"></label><select id="mPada"></select></div>
       </div>
-      <div id="readErr" class="err" role="alert"></div>
-      <p class="hint" data-i18n="readNote"></p>
+      <label for="mDasha" data-i18n="mDasha"></label>
+      <select id="mDasha"></select>
+      <div class="btnrow"><button class="btn" id="mGo" type="button" data-i18n="mGo"></button></div>
+      <div id="mErr" class="err" role="alert"></div>
+      <p class="hint" data-i18n="mFull"></p>
     </div>
     <div id="readOut">
       <div class="empty"><div class="om">ॐ</div><p data-i18n="emptyRead"></p></div>
@@ -524,16 +544,32 @@ foot:'ग्रह स्थिति आपके ब्राउज़र म�
 Object.assign(T.en,{explainLangLbl:'Explain in',explain:'Explain this chhina',askTitle:'Ask about your chhina',askNote:'Ask anything about this chhina, including which puja to do, which god or goddess to worship, and what materials to prepare. Answers follow Nepali Hindu tradition and are guidance, not guarantees. For large rituals, call your purohit.',askPh:'Type your question…',send:'Ask'});
 Object.assign(T.ne,{explainLangLbl:'व्याख्याको भाषा',explain:'यो चिनाको व्याख्या गर्नुहोस्',askTitle:'आफ्नो चिनाबारे प्रश्न सोध्नुहोस्',askNote:'यो चिनाबारे जे पनि सोध्न सक्नुहुन्छ: कुन पूजा गर्ने, कुन देवी-देवताको आराधना गर्ने, र के-के सामग्री तयार गर्ने। उत्तर नेपाली हिन्दु परम्परामा आधारित मार्गदर्शन हो, ग्यारेन्टी होइन। ठूला पूजाका लागि आफ्नो पुरोहित बोलाउनुहोस्।',askPh:'आफ्नो प्रश्न यहाँ लेख्नुहोस्…',send:'सोध्नुहोस्'});
 Object.assign(T.hi,{explainLangLbl:'व्याख्या की भाषा',explain:'इस चिना की व्याख्या करें',askTitle:'अपने चिना के बारे में पूछें',askNote:'इस चिना के बारे में कुछ भी पूछें: कौन सी पूजा करें, किस देवी-देवता की आराधना करें, और क्या सामग्री तैयार करें। उत्तर परंपरा पर आधारित मार्गदर्शन है, गारंटी नहीं। बड़ी पूजा के लिए अपने पुरोहित को बुलाएँ।',askPh:'अपना प्रश्न यहाँ लिखें…',send:'पूछें'});
-const CHIPS={
- ne:['मेरो चिनाले मेरो स्वभावबारे के भन्छ?','अहिले कुन दशा चलिरहेको छ र यसले के असर गर्छ?','मेरो चिनामा कुन ग्रह कमजोर छ र त्यसको शान्तिका लागि कुन पूजा गर्नुपर्छ?','मलाई काम र आम्दानीमा समस्या भइरहेको छ। कुन देवताको आराधना र कुन पूजा गर्दा राम्रो हुन्छ?','नवग्रह शान्ति पूजाका लागि के-के सामग्री तयार गर्नुपर्छ? पूरा सूची दिनुहोस्।','घरमै गर्न सकिने सजिलो पूजा, मन्त्र र दान बताउनुहोस्।','मेरो चिनामा मांगलिक वा कालसर्प दोष छ? छ भने के गर्नुपर्छ?'],
- hi:['मेरा चिना मेरे स्वभाव के बारे में क्या कहता है?','अभी कौन सी दशा चल रही है और उसका क्या असर है?','मेरे चिना में कौन सा ग्रह कमज़ोर है और उसकी शांति के लिए कौन सी पूजा करें?','मुझे काम और आमदनी में परेशानी है। किस देवता की आराधना और कौन सी पूजा अच्छी रहेगी?','नवग्रह शांति पूजा के लिए क्या-क्या सामग्री चाहिए? पूरी सूची दें।','घर पर की जा सकने वाली आसान पूजा, मंत्र और दान बताइए।','क्या मेरे चिना में मांगलिक या कालसर्प दोष है? हो तो क्या करें?'],
- en:['What does my chhina say about my nature?','Which dasha am I in now and what does it bring?','Which planet is weak in my chhina, and which puja calms it?','I am having trouble with work and income. Which deity should I worship and which puja helps?','What materials do I need for a Navagraha shanti puja? Give the full list.','Tell me a simple puja, mantra and donation I can do at home.','Is there Manglik or Kaal Sarpa dosha in my chhina? If so, what should I do?']
-};
-const ACK={ne:'हुन्छ, म यही चिनाका आधारमा सरल नेपालीमा उत्तर दिन्छु।',hi:'ठीक है, मैं इसी चिना के आधार पर उत्तर दूँगा।',en:'Understood. I will answer based on this chhina.'};
-Object.assign(T.en,{readNote:'The photo is sent to Claude (by Anthropic) only to read it, and this site does not store it. Handwriting can be misread, so check the result against the original.',errNoAI:'Reading and explaining are not available right now. You can still make a chhina.',errGranted:'Reading and explaining are not available right now. You can still make a chhina.',errRate:'You have used today\u2019s limit for readings and questions. Please try again later.'});
-Object.assign(T.ne,{readNote:'फोटो पढ्नका लागि मात्र Claude (Anthropic) लाई पठाइन्छ, यो साइटले फोटो राख्दैन। हस्तलिखित अक्षर गलत पढिन सक्छ, त्यसैले नतिजा मूल चिनासँग मिलाउनुहोस्।',errNoAI:'अहिले पढ्ने र व्याख्या गर्ने सुविधा उपलब्ध छैन। चिना भने बनाउन सकिन्छ।',errGranted:'अहिले पढ्ने र व्याख्या गर्ने सुविधा उपलब्ध छैन। चिना भने बनाउन सकिन्छ।',errRate:'आजको पढाइ र प्रश्नको सीमा पुग्यो। केही समयपछि फेरि प्रयास गर्नुहोस्।'});
-Object.assign(T.hi,{readNote:'फोटो केवल पढ़ने के लिए Claude (Anthropic) को भेजी जाती है, यह साइट फोटो नहीं रखती। हस्तलिखित अक्षर गलत पढ़े जा सकते हैं, इसलिए नतीजे को मूल चिना से मिलाएँ।',errNoAI:'अभी पढ़ने और व्याख्या की सुविधा उपलब्ध नहीं है। चिना फिर भी बना सकते हैं।',errGranted:'अभी पढ़ने और व्याख्या की सुविधा उपलब्ध नहीं है। चिना फिर भी बना सकते हैं।',errRate:'आज की पढ़ाई और प्रश्नों की सीमा पूरी हो गई। कुछ समय बाद फिर कोशिश करें।'});
+Object.assign(T.en,{tagline:'Make a Nepali–Hindu chhina from birth details, or read your own chhina. Free, in Nepali and English.',
+mTitle:'Read your chhina',mHint:'Look at your chhina and fill in what is written. In a Nepali (North Indian) chhina, the number in the top middle box is the Lagna, and the number in the box where a planet sits is that planet\u2019s rashi.',
+uploadHint:'Optional: add a photo of your chhina to look at while you fill this in. It stays on your device and is not sent anywhere.',
+mLagna:'Lagna (number in the top middle box)',mPlanets:'Rashi number of the box each planet sits in',mUnknown:'—',mNak:'Janma nakshatra (if written)',mPada:'Pada',mDasha:'Current mahadasha (if known)',
+mGo:'Explain my chhina',mErrNeed:'Enter at least the Lagna or the Moon\u2019s rashi.',mChart:'Your chhina, redrawn',
+mFull:'If you know the birth date, time and place, use "Create a chhina" for the full chhina with exact degrees and dasha dates.',
+emptyRead:'Fill in your chhina to see what it says, which pujas suit it, and to ask questions.',
+emptyCreate:'Enter the birth details and choose Make the chhina. Your chhina, its explanation and puja guidance appear here.'});
+Object.assign(T.ne,{tagline:'जन्म विवरणबाट नेपाली–हिन्दु चिना बनाउनुहोस्, वा आफ्नो चिना पढ्नुहोस्। निःशुल्क, नेपालीमा।',
+mTitle:'आफ्नो चिना पढ्नुहोस्',mHint:'आफ्नो चिना हेरेर लेखिएको कुरा भर्नुहोस्। नेपाली (उत्तर भारतीय) चिनामा माथि बीचको कोठामा लेखिएको अंक लग्न हो, र ग्रह बसेको कोठामा लेखिएको अंक त्यो ग्रहको राशि हो।',
+uploadHint:'चाहनुहुन्छ भने चिनाको फोटो राख्नुहोस्, भर्दा हेर्न सजिलो हुन्छ। फोटो तपाईंकै फोनमा रहन्छ, कतै पठाइँदैन।',
+mLagna:'लग्न (माथि बीचको कोठाको अंक)',mPlanets:'हरेक ग्रह बसेको कोठाको राशि अंक',mUnknown:'—',mNak:'जन्म नक्षत्र (लेखिएको भए)',mPada:'चरण',mDasha:'अहिलेको महादशा (थाहा भए)',
+mGo:'मेरो चिनाको व्याख्या गर्नुहोस्',mErrNeed:'कम्तीमा लग्न वा चन्द्रको राशि भर्नुहोस्।',mChart:'तपाईंको चिना (फेरि बनाइएको)',
+mFull:'जन्म मिति, समय र स्थान थाहा भए "चिना बनाउने" मा हालेर अंश र दशाका मितिसहित पूरा चिना बनाउनुहोस्।',
+emptyRead:'आफ्नो चिना भर्नुहोस्; चिनाले के भन्छ, कुन पूजा उपयुक्त छ हेर्न र प्रश्न सोध्न सकिन्छ।',
+emptyCreate:'जन्म विवरण भरेर "चिना बनाउनुहोस्" थिच्नुहोस्। चिना, यसको व्याख्या र पूजा सम्बन्धी सुझाव यहाँ देखिन्छन्।'});
+Object.assign(T.hi,{tagline:'जन्म विवरण से नेपाली–हिन्दू चिना बनाएँ, या अपना चिना पढ़ें। निःशुल्क।',
+mTitle:'अपना चिना पढ़ें',mHint:'अपना चिना देखकर जो लिखा है वह भरें। उत्तर भारतीय चिना में ऊपर बीच वाले खाने का अंक लग्न है, और ग्रह जिस खाने में है उसका अंक उस ग्रह की राशि है।',
+uploadHint:'चाहें तो चिना की फोटो लगाएँ, भरते समय देखने में आसानी होगी। फोटो आपके फ़ोन में ही रहती है, कहीं भेजी नहीं जाती।',
+mLagna:'लग्न (ऊपर बीच वाले खाने का अंक)',mPlanets:'हर ग्रह वाले खाने का राशि अंक',mUnknown:'—',mNak:'जन्म नक्षत्र (लिखा हो तो)',mPada:'चरण',mDasha:'चालू महादशा (पता हो तो)',
+mGo:'मेरे चिना की व्याख्या करें',mErrNeed:'कम से कम लग्न या चंद्र की राशि भरें।',mChart:'आपका चिना (दोबारा बना)',
+mFull:'जन्म तिथि, समय और स्थान पता हो तो "चिना बनाएँ" में डालकर पूरा चिना बनाएँ।',
+emptyRead:'अपना चिना भरें; चिना क्या कहता है, कौन सी पूजा उपयुक्त है देखें और प्रश्न पूछें।',
+emptyCreate:'जन्म विवरण भरकर "चिना बनाएँ" दबाएँ। चिना, उसकी व्याख्या और पूजा सुझाव यहाँ दिखेंगे।'});
 let lang='en';
+let guideLang='ne';
 const t=k=>(T[lang][k]??T.en[k]??k);
 const isDv=()=>lang!=='en';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -561,7 +597,8 @@ function applyLang(){
   bsM.innerHTML=Array.from({length:12},(_,i)=>`<option value="${i}">${esc(bsmName(i))}</option>`).join('');
   bsM.value=cur||'0';
   if(lastChart) renderCreate(lastChart);
-  if(lastExtract) renderRead(lastExtract);
+  buildManualOptions();
+  if(lastManual) renderManual();
 }
 
 /* ===== Charts (SVG) ===== */
@@ -704,177 +741,6 @@ function renderScroll(ch){
   </article></div>`;
 }
 
-/* ===== AI helpers ===== */
-let sampleFn=null, imgLimits=null, aiReady=false;
-const API='/api/claude';
-async function initAI(){
-  try{const r=await fetch(API,{method:'GET'});const j=await r.json();if(j&&j.ok){sampleFn=true;imgLimits={mediaTypes:['image/jpeg','image/png','image/webp','image/gif','image/heic','image/heif']};}}
-  catch(e){sampleFn=null;}
-  aiReady=true;
-  updateReadState(); if(lastChart) renderCreate(lastChart);
-}
-function httpErr(status,body){
-  const code=status===429?'rate_limited':status===503?'sampling_disabled':status===413?'image_rejected':(body&&body.code)||'upstream_error';
-  return {code,message:(body&&body.error)||('HTTP '+status)};
-}
-async function apiStream(payload,{signal,onText}={}){
-  let text='';
-  let r;
-  try{r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal});}
-  catch(e){throw {code:e&&e.name==='AbortError'?'cancelled':'upstream_error',message:String(e)};}
-  if(!r.ok){let j=null;try{j=await r.json();}catch(e){}throw httpErr(r.status,j);}
-  const rd=r.body.getReader();const dec=new TextDecoder();
-  try{
-    for(;;){const {done,value}=await rd.read();if(done)break;
-      text+=dec.decode(value,{stream:true});
-      const i=text.indexOf('\u0000ERR:');
-      if(i>=0){const code=text.slice(i+5).trim()||'upstream_error';text=text.slice(0,i);throw {code,message:'stream error',text:text||undefined};}
-      if(onText)onText({text});}
-  }catch(e){if(e&&e.code)throw e;throw {code:signal&&signal.aborted?'cancelled':'upstream_error',message:String(e),text:text||undefined};}
-  if(!text.trim())throw {code:'empty_completion',message:'empty'};
-  return {text};
-}
-function shrinkImage(file){
-  return new Promise((res,rej)=>{
-    const url=URL.createObjectURL(file);const img=new Image();
-    img.onload=()=>{const max=1800;let w=img.naturalWidth,h=img.naturalHeight;const k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
-      const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);
-      URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',0.86).split(',')[1]);};
-    img.onerror=()=>{URL.revokeObjectURL(url);rej({code:'image_rejected',message:'decode'});};
-    img.src=url;});
-}
-async function apiRead(file,signal){
-  const image=await shrinkImage(file);
-  let r;
-  try{r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'read',image,mediaType:'image/jpeg'}),signal});}
-  catch(e){throw {code:e&&e.name==='AbortError'?'cancelled':'upstream_error',message:String(e)};}
-  let j=null;try{j=await r.json();}catch(e){}
-  if(!r.ok)throw httpErr(r.status,j);
-  if(!j||!j.data)throw {code:'invalid_json',message:'no data'};
-  return j.data;
-}
-function errCopy(e){
-  switch(e&&e.code){
-    case 'not_granted':case 'sampling_disabled':case 'not_declared':case 'capability_disabled':case 'capability_removed':return t('errGranted');
-    case 'rate_limited':return t('errRate');
-    case 'image_rejected':case 'images_unavailable':return t('errImage');
-    case 'invalid_json':return t('errJson');
-    case 'cancelled':return '';
-    default:return t('errGeneric');}
-}
-function mdLite(s){
-  const lines=esc(s).split(/\n+/);let html='';
-  for(const ln of lines){
-    const l=ln.trim();if(!l)continue;
-    const m=l.match(/^#{1,4}\s*(.+)$/);
-    const bold=x=>x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-    if(m)html+=`<h4>${bold(m[1])}</h4>`;
-    else if(/^[-*•]\s+/.test(l))html+=`<p>• ${bold(l.replace(/^[-*•]\s+/,''))}</p>`;
-    else html+=`<p>${bold(l)}</p>`;
-  }return html;
-}
-function chartSummary(ch){
-  const lines=[];
-  lines.push(`Birth: ${ch.inp.y}-${pad(ch.inp.m)}-${pad(ch.inp.d)} ${ch.timeUnknown?'(time unknown)':pad(ch.inp.h)+':'+pad(ch.inp.mi)}, place ${ch.inp.placeName||''}`);
-  lines.push(`Bikram Sambat (approx.): ${ch.bs.y} ${BSM_EN[ch.bs.m]} ${ch.bs.d}`);
-  lines.push(`Lagna: ${ch.timeUnknown?'unknown (chart from Moon sign)':SIGN_EN[ch.asc.sign]+' '+ch.asc.deg.toFixed(1)+'°'}`);
-  ch.gr.forEach(x=>lines.push(`${x.k}: ${SIGN_EN[x.sign]} ${x.deg.toFixed(1)}°, nakshatra ${NAK_EN[x.nak]} pada ${x.pada}, house ${ch.timeUnknown?'?':x.house}${x.retro&&x.k!=='Rahu'&&x.k!=='Ketu'?', retrograde':''}${dignityNote(x)?' ('+dignityNote(x).replace(/.*/,m=>m)+')':''}`));
-  lines.push(`Tithi: ${ch.panch.tithiN<=15?'Shukla':'Krishna'} ${TITHI_EN[(ch.panch.tithiN-1)%15]}; Yoga: ${YOGA_EN[ch.panch.yogaN]}; Karana: ${KAR_EN[ch.panch.karana]}; Weekday: ${WD_EN[ch.panch.wd]}`);
-  const cd=currentDasha(ch);
-  if(cd)lines.push(`Current Vimshottari: ${cd.md.lord} mahadasha (${isoDate(cd.md.start)} to ${isoDate(cd.md.end)})${cd.ad?`, ${cd.ad.lord} antardasha until ${isoDate(cd.ad.end)}`:''}`);
-  lines.push('Yogas noted: '+yogaList(ch).join(' | '));
-  return lines.join('\n');
-}
-let explainLang='ne';
-const aiState={c:{exp:'',turns:[],busy:false},r:{exp:'',turns:[],busy:false}};
-const chipHandlers={};
-function resetAI(px){aiState[px]={exp:'',turns:[],busy:false};}
-const LANGNAME={en:'English',ne:'Nepali',hi:'Hindi'};
-function aiPanels(px){
-  const opts=['ne','en','hi'].map(l=>`<option value="${l}" ${l===explainLang?'selected':''}>${{ne:'नेपाली',en:'English',hi:'हिन्दी'}[l]}</option>`).join('');
-  return `<div class="card ai"><div class="aihead"><h2>${esc(t('explainTitle'))}</h2>
-      <label class="inl">${esc(t('explainLangLbl'))} <select id="${px}Lang">${opts}</select></label></div>
-    <div class="btnrow"><button class="btn" id="${px}Exp" type="button" ${sampleFn?'':'disabled'}>${esc(t('explain'))}</button>
-      <button class="btn ghost hidden" id="${px}Stop" type="button">${esc(t('stopAI'))}</button></div>
-    <div class="out" id="${px}Out"><p class="hint">${esc(t('aiNote'))}</p></div></div>
-  <div class="card ai"><h2>${esc(t('askTitle'))}</h2><p class="hint">${esc(t('askNote'))}</p>
-    <div class="chips" id="${px}Chips"></div>
-    <div class="chat" id="${px}Chat" aria-live="polite"></div>
-    <div class="askrow"><textarea id="${px}Q" rows="2" placeholder="${esc(t('askPh'))}" ${sampleFn?'':'disabled'}></textarea>
-      <button class="btn" id="${px}Send" type="button" ${sampleFn?'':'disabled'}>${esc(t('send'))}</button>
-      <button class="btn ghost hidden" id="${px}QStop" type="button">${esc(t('stopAI'))}</button></div></div>`;
-}
-function renderChips(px){
-  const box=document.getElementById(px+'Chips');if(!box)return;
-  box.innerHTML=CHIPS[explainLang].map((c,i)=>`<button type="button" data-i="${i}" ${sampleFn?'':'disabled'}>${esc(c)}</button>`).join('');
-  box.querySelectorAll('button').forEach(b=>b.onclick=()=>chipHandlers[px]&&chipHandlers[px](CHIPS[explainLang][+b.dataset.i]));
-}
-function renderChat(px){
-  const box=document.getElementById(px+'Chat');if(!box)return;
-  box.innerHTML=aiState[px].turns.map(m=>`<div class="msg ${m.role==='user'?'u':'a'}">${m.role==='user'?esc(m.content):mdLite(m.content)}</div>`).join('');
-}
-function wireAI(px,summaryFn,extra,mode){
-  const $=id=>document.getElementById(px+id);
-  const sel=$('Lang');
-  sel.onchange=()=>{explainLang=sel.value;document.querySelectorAll('select[id$="Lang"]').forEach(x=>x.value=explainLang);renderChips('c');renderChips('r');};
-  $('Exp').onclick=()=>runExplain(px,summaryFn(),extra,mode);
-  if(aiState[px].exp)$('Out').innerHTML=mdLite(aiState[px].exp);
-  chipHandlers[px]=q=>askChat(px,q,summaryFn,extra);
-  renderChips(px);renderChat(px);
-  const send=()=>{const q=$('Q').value.trim();if(q)askChat(px,q,summaryFn,extra);};
-  $('Send').onclick=send;
-  $('Q').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}};
-}
-async function runExplain(px,summary,extra,mode){
-  const g=id=>document.getElementById(px+id);
-  if(!sampleFn){const o=g('Out');if(o)o.innerHTML=`<p class="err">${esc(t('errNoAI'))}</p>`;return;}
-  const ctl=new AbortController();const st=g('Stop');st.onclick=()=>ctl.abort();st.classList.remove('hidden');g('Exp').disabled=true;
-  g('Out').innerHTML=`<p class="hint">…</p>`;let errMsg='';
-  try{
-    await apiStream({kind:'explain',lang:explainLang,mode,summary},{signal:ctl.signal,onText:({text})=>{aiState[px].exp=text;const o=g('Out');if(o)o.innerHTML=mdLite(text);}});
-  }catch(e){if(e&&e.text)aiState[px].exp=e.text;errMsg=errCopy(e);}
-  finally{
-    const o=g('Out');if(o){o.innerHTML=aiState[px].exp?mdLite(aiState[px].exp):'';if(errMsg)o.insertAdjacentHTML('beforeend',`<p class="err">${esc(errMsg)}</p>`);}
-    const b=g('Exp');if(b)b.disabled=false;const s2=g('Stop');if(s2)s2.classList.add('hidden');
-  }
-}
-async function askChat(px,q,summaryFn,extra){
-  const g=id=>document.getElementById(px+id);
-  const st=aiState[px];
-  if(!sampleFn){const c=g('Chat');if(c)c.insertAdjacentHTML('beforeend',`<p class="err">${esc(t('errNoAI'))}</p>`);return;}
-  if(st.busy)return;st.busy=true;
-  st.turns.push({role:'user',content:q});g('Q').value='';renderChat(px);
-  g('Chat').insertAdjacentHTML('beforeend',`<div class="msg a" id="${px}Live"><p class="hint">…</p></div>`);
-  const ctl=new AbortController();const stop=g('QStop');stop.onclick=()=>ctl.abort();stop.classList.remove('hidden');g('Send').disabled=true;
-  const hist=st.turns.length>15?st.turns.slice(-15):st.turns;
-  let errMsg='';
-  try{
-    const {text}=await apiStream({kind:'chat',lang:explainLang,source:extra?'read':'create',summary:summaryFn(),turns:hist},{signal:ctl.signal,onText:({text})=>{const l=document.getElementById(px+'Live');if(l)l.innerHTML=mdLite(text);}});
-    st.turns.push({role:'assistant',content:text});
-  }catch(e){
-    if(e&&e.text)st.turns.push({role:'assistant',content:e.text});
-    else{st.turns.pop();const qq=g('Q');if(qq)qq.value=q;}
-    errMsg=errCopy(e);
-  }finally{
-    st.busy=false;renderChat(px);
-    if(errMsg){const c=g('Chat');if(c)c.insertAdjacentHTML('beforeend',`<p class="err">${esc(errMsg)}</p>`);}
-    const s2=g('QStop');if(s2)s2.classList.add('hidden');const sd=g('Send');if(sd)sd.disabled=false;
-  }
-}
-const READ_EXTRA='This chhina was transcribed from a photograph. Explain the chhina as written. If a placement looks unclear, inconsistent or missing, say so briefly instead of guessing. Where a calculated check is included, treat the written chhina as primary and mention any big difference only briefly.';
-function readSummary(ex){
-  const b=ex.birth||{},p=ex.person||{},pc=ex.panchang||{};const lines=[];
-  lines.push('WRITTEN CHHINA (read from a photo, may contain misreadings)');
-  lines.push(`Name: ${p.name||'unknown'}; gender: ${p.gender||'unknown'}; birth: AD ${b.ad_date||'?'}, BS ${b.bs_date||'?'}, time ${b.time_24h||'?'}, place ${b.place||'?'}`);
-  lines.push(`Chart style: ${ex.chart_style||'?'}; Lagna sign: ${Number.isInteger(ex.lagna_sign)?SIGN_EN[ex.lagna_sign-1]:'not written'}`);
-  (ex.planets||[]).forEach(pl=>lines.push(`${pl.name}: sign ${Number.isInteger(pl.sign)?SIGN_EN[pl.sign-1]:'?'}, house ${pl.house||'?'}${pl.degrees?', '+pl.degrees:''}${pl.retrograde?', retrograde':''}`));
-  lines.push(`Panchang as written: ${JSON.stringify(pc)}`);
-  if(ex.dasha&&(ex.dasha.balance_at_birth||ex.dasha.other))lines.push(`Dasha as written: ${[ex.dasha.balance_at_birth,ex.dasha.other].filter(Boolean).join('; ')}`);
-  if(ex.notes)lines.push(`Other text on the chhina: ${ex.notes}`);
-  const inp=birthFromExtract(ex);
-  if(inp){try{lines.push('\nCALCULATED CHECK from the written birth details (Lahiri, whole-sign):\n'+chartSummary(computeChart(inp)));}catch(e){}}
-  return lines.join('\n');
-}
 /* ===== Download helpers ===== */
 async function saveFile(name,data,statusEl){
   try{
@@ -900,11 +766,11 @@ function renderCreate(ch){
       <button class="btn" id="bSave" type="button">${esc(t('saveHtml'))}</button>
       <button class="btn ghost" id="bSvg" type="button">${esc(t('saveSvg'))}</button>
     </div><p class="hint" id="saveMsg" style="text-align:center"></p>
-    ${aiPanels('c')}`;
+    ${guidePanels('c')}`;
   const msg=document.getElementById('saveMsg');
   document.getElementById('bSave').onclick=()=>saveFile('chhina.html',standaloneHtml(),msg);
   document.getElementById('bSvg').onclick=()=>{const svg=document.querySelector('#fig1 svg').outerHTML;saveFile('chhina-lagna.svg','<?xml version="1.0" encoding="UTF-8"?>\n'+svg,msg);};
-  wireAI('c',()=>chartSummary(ch),'','create');
+  wireGuide('c',chartFromCalc(ch));
 }
 function readForm(){
   const err=m=>{throw new Error(m)};
@@ -926,121 +792,54 @@ function readForm(){
 }
 function generate(){
   const e=document.getElementById('formErr');e.textContent='';
-  try{const inp=readForm();lastChart=computeChart(inp);resetAI('c');renderCreate(lastChart);
+  try{const inp=readForm();lastChart=computeChart(inp);guideState.c={turns:[]};renderCreate(lastChart);
     document.getElementById('createOut').scrollIntoView({behavior:'smooth',block:'start'});}
   catch(x){e.textContent=x.message;}
 }
 
-/* ===== Read tab ===== */
-let lastExtract=null,imgFile=null;
-function updateReadState(){
-  const b=document.getElementById('readBtn');
-  b.disabled=!(sampleFn&&imgFile);
-  const er=document.getElementById('readErr');
-  if(aiReady&&(!sampleFn||!imgLimits)&&!er.textContent) er.textContent=t('errNoAI');
-}
+/* ===== Read tab (manual entry) ===== */
+let lastManual=null;
 function setFile(f){
-  if(!f)return;imgFile=f;
+  if(!f)return;
   const rd=new FileReader();rd.onload=()=>{const p=document.getElementById('prev');p.src=rd.result;p.classList.remove('hidden');};rd.readAsDataURL(f);
-  document.getElementById('readErr').textContent='';updateReadState();
 }
-async function doRead(){
-  const er=document.getElementById('readErr');er.textContent='';
-  const btn=document.getElementById('readBtn'),stop=document.getElementById('stopRead'),out=document.getElementById('readOut');
-  if(!sampleFn||!imgFile){er.textContent=t('errNoAI');return;}
-  const ctl=new AbortController();stop.onclick=()=>ctl.abort();stop.classList.remove('hidden');btn.disabled=true;
-  out.innerHTML=`<div class="card"><p>${esc(t('reading'))}</p></div>`;
-  try{
-    const data=await apiRead(imgFile,ctl.signal);
-    resetAI('r');lastExtract=data;renderRead(data);
-    runExplain('r',readSummary(data),READ_EXTRA,'read');
-  }catch(e){
-    out.innerHTML='';const c=errCopy(e);if(c)er.textContent=c;
-    out.innerHTML=`<div class="empty"><div class="om">ॐ</div><p>${esc(t('emptyRead'))}</p></div>`;
-  }finally{stop.classList.add('hidden');updateReadState();}
+function buildManualOptions(){
+  const signOpts=`<option value="">${esc(t('mUnknown'))}</option>`+Array.from({length:12},(_,i)=>`<option value="${i}">${dn(i+1)} · ${esc(signShort(i))}</option>`).join('');
+  const set=(id,html)=>{const el=document.getElementById(id);const v=el.value;el.innerHTML=html;el.value=v;};
+  set('mLagna',signOpts);
+  const prev={};GRAHA.forEach(k=>{const el=document.getElementById('mP_'+k);prev[k]=el?el.value:'';});
+  document.getElementById('mPlanets').innerHTML=GRAHA.map(k=>`<div><label for="mP_${k}">${esc(gName(k))}</label><select id="mP_${k}">${signOpts}</select></div>`).join('');
+  GRAHA.forEach(k=>document.getElementById('mP_'+k).value=prev[k]||'');
+  set('mNak',`<option value="">${esc(t('mUnknown'))}</option>`+Array.from({length:27},(_,i)=>`<option value="${i}">${dn(i+1)} · ${esc(nakName(i))}</option>`).join(''));
+  set('mPada',`<option value="">${esc(t('mUnknown'))}</option>`+[1,2,3,4].map(p=>`<option value="${p}">${dn(p)}</option>`).join(''));
+  set('mDasha',`<option value="">${esc(t('mUnknown'))}</option>`+DSEQ.map(k=>`<option value="${k}">${esc(gName(k))}</option>`).join(''));
 }
-const nz=v=>(v===null||v===undefined||v==='')?`<span style="color:var(--muted)">${esc(t('unreadable'))}</span>`:esc(v);
-function extractedItems(ex){
-  const L=Number.isInteger(ex.lagna_sign)?ex.lagna_sign-1:null;
-  const items=[];const loose=[];
-  (ex.planets||[]).forEach(p=>{
-    if(!GRAHA.includes(p.name))return;
-    let sign=Number.isInteger(p.sign)?p.sign-1:null;
-    if(sign==null&&L!=null&&Number.isInteger(p.house))sign=(L+p.house-1)%12;
-    if(sign==null&&L==null&&Number.isInteger(p.house)){loose.push({p,house:p.house});return;}
-    if(sign==null){loose.push({p,house:null});return;}
-    items.push({sign,a:gAb(p.name),r:!!p.retrograde&&p.name!=='Rahu'&&p.name!=='Ketu',k:p.name});
-  });
-  return {L,items,loose};
+function readManual(){
+  const v=id=>document.getElementById(id).value;
+  const num=id=>v(id)===''?null:+v(id);
+  const P={};GRAHA.forEach(k=>{const s=num('mP_'+k);if(s!=null)P[k]={sign:s,house:0,retro:false};});
+  let lagna=num('mLagna');const moonChart=lagna==null;
+  if(moonChart){if(!P.Moon)throw new Error(t('mErrNeed'));lagna=P.Moon.sign;}
+  GRAHA.forEach(k=>{if(P[k])P[k].house=((P[k].sign-lagna+12)%12)+1;});
+  const md=v('mDasha');
+  return {name:v('mName').trim(),lagna,moonChart,P,nak:num('mNak'),pada:num('mPada'),
+    dasha:md?{md,ad:null,mdEnd:null,adEnd:null}:null,saturnNow:saturnNowSign(),Ldeg:null};
 }
-function renderRead(ex){
-  const out=document.getElementById('readOut');
-  const {L,items,loose}=extractedItems(ex);
-  const b=ex.birth||{},p=ex.person||{},pc=ex.panchang||{};
-  let chartHtml='';
-  if(L!=null&&items.length){
-    chartHtml=chartSvg('north',items,L,t('drawn'),isDv()?'ल':'Asc');
-  }else if(loose.length&&loose.every(l=>l.house)){
-    const hp=Array.from({length:12},()=>[]);loose.forEach(l=>hp[l.house-1].push({a:gAb(l.p.name),r:!!l.p.retrograde}));
-    chartHtml=svgNorth(hp,null,t('drawn'),isDv()?'ल':'Asc');
-  }
-  const kv=(a,v)=>`<tr><th>${esc(a)}</th><td>${v}</td></tr>`;
-  const planetsRows=(ex.planets||[]).map(pl=>`<tr><td>${esc(gName(pl.name)||pl.name)}</td><td>${Number.isInteger(pl.sign)?esc(signShort(pl.sign-1)):'—'}</td><td>${Number.isInteger(pl.house)?dn(pl.house):'—'}</td><td>${esc(pl.degrees||'')}${pl.retrograde?' (R)':''}</td></tr>`).join('');
-  out.innerHTML=`<div class="card"><h2>${esc(t('extracted'))}</h2>
-    <div class="tw"><table class="mini"><tbody>
-      ${kv(t('name'),nz(p.name))}${kv(t('gender'),nz(p.gender))}
-      ${kv(t('adDate'),nz(b.ad_date))}${kv(t('bsDate'),nz(b.bs_date))}${kv(t('timeLbl'),nz(b.time_24h))}${kv(t('placeLbl'),nz(b.place))}
-      ${kv(t('lagnaWritten'),Number.isInteger(ex.lagna_sign)?esc(signName(ex.lagna_sign-1)):nz(null))}
-      ${kv(t('moonSign'),Number.isInteger(pc.moon_sign)?esc(signName(pc.moon_sign-1)):nz(null))}
-      ${kv(t('tithi'),nz([pc.paksha,pc.tithi].filter(Boolean).join(' ')||null))}${kv(t('nakshatra'),nz(pc.nakshatra?(pc.nakshatra+(pc.pada?' · '+pc.pada:'')):null))}
-      ${kv(t('yoga'),nz(pc.yoga))}${kv(t('karana'),nz(pc.karana))}${kv(t('vara'),nz(pc.weekday))}
-    </tbody></table></div></div>
-    ${chartHtml?`<div class="card" style="margin-top:18px"><h2>${esc(t('drawn'))}</h2><div class="scroll" style="margin:10px auto;max-width:420px;padding:20px;border:0;background:var(--paper)"><div class="charts"><figure style="max-width:380px">${chartHtml}</figure></div></div></div>`:''}
-    <div class="card" style="margin-top:18px"><h2>${esc(t('planetsWritten'))}</h2><div class="tw"><table class="mini"><thead><tr><th>${esc(t('graha'))}</th><th>${esc(t('rashi'))}</th><th>${esc(t('bhava'))}</th><th>${esc(t('degree'))}</th></tr></thead><tbody>${planetsRows||`<tr><td colspan="4">${esc(t('unreadable'))}</td></tr>`}</tbody></table></div>
-      ${ex.dasha&&(ex.dasha.balance_at_birth||ex.dasha.other)?`<p class="hint">${esc([ex.dasha.balance_at_birth,ex.dasha.other].filter(Boolean).join(' · '))}</p>`:''}
-    </div>
-    ${ex.notes?`<div class="card" style="margin-top:18px"><h2>${esc(t('notes'))}</h2><p style="white-space:pre-wrap;margin:0">${esc(ex.notes)}</p></div>`:''}
-    <div class="btnrow">
-      <button class="btn" id="rCmp" type="button">${esc(t('compare'))}</button>
-      <button class="btn ghost" id="rUse" type="button">${esc(t('useCreate'))}</button>
-    </div>
-    <div id="cmpOut"></div>
-    ${aiPanels('r')}`;
-  document.getElementById('rCmp').onclick=()=>compareWithCalc(ex);
-  document.getElementById('rUse').onclick=()=>useInCreate(ex);
-  wireAI('r',()=>readSummary(ex),READ_EXTRA,'read');
+function renderManual(){
+  const C=lastManual;if(!C)return;
+  const items=GRAHA.filter(k=>C.P[k]).map(k=>({sign:C.P[k].sign,a:gAb(k),r:false}));
+  const style=document.getElementById('style').value;
+  const svg=chartSvg(style,items,C.lagna,t('mChart'),C.moonChart?'':(isDv()?'ल':'Asc'));
+  document.getElementById('readOut').innerHTML=`<div class="card"><h2>${esc(t('mChart'))}${C.name?' — '+esc(C.name):''}</h2>
+    <div class="scroll" style="margin:14px auto;max-width:440px;padding:22px"><div class="charts"><figure style="max-width:400px">${svg}<figcaption>${esc(C.moonChart?t('chandraChart'):t('lagnaChart'))}</figcaption></figure></div></div></div>
+    ${guidePanels('r')}`;
+  wireGuide('r',C);
 }
-function birthFromExtract(ex){
-  const b=ex.birth||{};let y,m,d;
-  if(b.ad_date&&/^\d{4}-\d{2}-\d{2}$/.test(b.ad_date)){[y,m,d]=b.ad_date.split('-').map(Number);}
-  else if(b.bs_date&&/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(b.bs_date)){const [by,bm,bd]=b.bs_date.split('/').map(Number);const a=bsToAD(by,bm-1,bd);y=a.y;m=a.m;d=a.d;}
-  else return null;
-  if(!b.time_24h||!/^\d{1,2}:\d{2}$/.test(b.time_24h))return null;
-  const [h,mi]=b.time_24h.split(':').map(Number);
-  if(typeof b.lat!=='number'||typeof b.lon!=='number')return null;
-  let tz=b.tz_iana||'Asia/Kathmandu';try{new Intl.DateTimeFormat('en-US',{timeZone:tz});}catch(e){tz='Asia/Kathmandu';}
-  return {y,m,d,h,mi,lat:b.lat,lon:b.lon,tz,offOv:null,timeUnknown:false,placeName:b.place||''};
-}
-function compareWithCalc(ex){
-  const out=document.getElementById('cmpOut');const inp=birthFromExtract(ex);
-  if(!inp){out.innerHTML=`<div class="card" style="margin-top:18px"><p class="hint">${esc(t('cmpNeed'))}</p></div>`;return;}
-  const ch=computeChart(inp);
-  const rows=[];
-  const cmp=(label,w,c)=>{const ok=w!=null&&w===c;rows.push(`<tr><td>${esc(label)}</td><td>${w!=null?esc(signShort(w)):'—'}</td><td>${esc(signShort(c))}</td><td class="${ok?'ok':'bad'}">${w==null?'—':ok?'✓':'✗'}</td></tr>`);};
-  cmp(t('lagna'),Number.isInteger(ex.lagna_sign)?ex.lagna_sign-1:null,ch.asc.sign);
-  const {items}=extractedItems(ex);
-  GRAHA.forEach(k=>{const w=items.find(i=>i.k===k);cmp(gName(k),w?w.sign:null,ch.g[k].sign);});
-  out.innerHTML=`<div class="card" style="margin-top:18px"><h2>${esc(t('cmpTitle'))}</h2><div class="tw"><table class="mini"><thead><tr><th></th><th>${esc(t('written'))}</th><th>${esc(t('calc'))}</th><th>${esc(t('match'))}</th></tr></thead><tbody>${rows.join('')}</tbody></table></div><p class="hint">${esc(t('cmpNote'))}</p></div>`;
-}
-function useInCreate(ex){
-  const b=ex.birth||{},p=ex.person||{};
-  document.getElementById('nm').value=p.name||'';
-  if(b.ad_date&&/^\d{4}-\d{2}-\d{2}$/.test(b.ad_date)){document.getElementById('calMode').value='AD';document.getElementById('adDate').value=b.ad_date;}
-  else if(b.bs_date&&/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(b.bs_date)){const [y,m,d]=b.bs_date.split('/').map(Number);document.getElementById('calMode').value='BS';document.getElementById('bsY').value=y;document.getElementById('bsM').value=m-1;document.getElementById('bsD').value=d;}
-  syncCal();
-  if(b.time_24h&&/^\d{1,2}:\d{2}$/.test(b.time_24h)){document.getElementById('tm').value=b.time_24h.split(':').map(x=>pad(+x)).join(':');document.getElementById('tmUnknown').checked=false;}
-  if(typeof b.lat==='number'&&typeof b.lon==='number'){document.getElementById('place').value='custom';document.getElementById('lat').value=b.lat;document.getElementById('lon').value=b.lon;document.getElementById('tzName').value=b.tz_iana||'Asia/Kathmandu';}
-  showTab('create');
+function doManual(){
+  const er=document.getElementById('mErr');er.textContent='';
+  try{lastManual=readManual();guideState.r={turns:[]};renderManual();
+    if(window.innerWidth<960)document.getElementById('readOut').scrollIntoView({behavior:'smooth',block:'start'});}
+  catch(e){er.textContent=e.message;}
 }
 
 /* ===== Wiring ===== */
@@ -1071,16 +870,15 @@ function showTab(n){
   const file=document.getElementById('file'),drop=document.getElementById('drop');
   const pick=()=>file.click();
   drop.addEventListener('click',pick);drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
-  document.getElementById('pick').addEventListener('click',pick);
   file.addEventListener('change',()=>setFile(file.files[0]));
   ['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('on');}));
   ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('on');}));
   drop.addEventListener('drop',e=>{if(e.dataTransfer&&e.dataTransfer.files[0])setFile(e.dataTransfer.files[0]);});
-  document.getElementById('readBtn').addEventListener('click',doRead);
+  document.getElementById('mGo').addEventListener('click',doManual);
   applyLang();
   const c=document.querySelector('#place option[value="custom"]');if(c)c.textContent=t('custom');
-  initAI();
 })();
 </script>
+<script src="guide.js"></script>
 </body>
 </html>
