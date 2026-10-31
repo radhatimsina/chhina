@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chhina · चिना — Nepali Hindu janma kundali</title>
+<meta name="description" content="Make a Nepali–Hindu chhina (janma kundali) from birth details, or upload a photo of a chhina to have it read and explained in Nepali, with puja guidance.">
+<meta property="og:title" content="Chhina · चिना">
+<meta property="og:description" content="चिना बनाउनुहोस् वा फोटोबाट चिना पढ्नुहोस् — सरल नेपालीमा व्याख्या र पूजा सम्बन्धी मार्गदर्शन।">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%AA%94%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#ECEAF3; --surface:#F8F7FC; --surface2:#EAE8F3; --ink:#1B1D3A; --muted:#565980;
+  --line:#C9C7DA; --accent:#A5171F; --accent-ink:#FFF7F2; --gold:#8F6409; --focus:#2B4BD8;
+  --font-body:'Hind','Noto Sans Devanagari',system-ui,sans-serif;
+  --font-display:'Yatra One','Hind','Noto Serif Devanagari',Georgia,serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --surface:#1B1E3B; --surface2:#242851; --ink:#EDE9DC; --muted:#A4A7C6;
+    --line:#32376A; --accent:#F0665A; --accent-ink:#1A0B0C; --gold:#E3B341; --focus:#8EA2FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --surface:#1B1E3B; --surface2:#242851; --ink:#EDE9DC; --muted:#A4A7C6;
+  --line:#32376A; --accent:#F0665A; --accent-ink:#1A0B0C; --gold:#E3B341; --focus:#8EA2FF;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:inherit;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;}
+button,input,select,textarea{font:inherit;color:inherit;}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 64px;}
+header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;padding:12px 0 22px;}
+.brand h1{font-family:var(--font-display);font-weight:400;font-size:clamp(46px,9vw,84px);line-height:1;margin:0;letter-spacing:.01em;}
+.brand h1 small{display:block;font-family:var(--font-body);font-size:clamp(15px,2.2vw,18px);color:var(--muted);letter-spacing:0;margin-top:10px;font-weight:400;max-width:34em;}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;padding:3px;background:var(--surface);}
+.seg button{border:0;background:transparent;padding:6px 14px;border-radius:999px;cursor:pointer;color:var(--muted);font-weight:500;}
+.seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:var(--ink);color:var(--bg);}
+.tabs{display:flex;gap:8px;margin:6px 0 20px;flex-wrap:wrap;}
+.tabs .seg{width:100%;max-width:520px;}
+.tabs .seg button{flex:1;padding:10px 14px;}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;}
+@media(min-width:960px){.grid{grid-template-columns:360px minmax(0,1fr);align-items:start;}.sticky{position:sticky;top:16px;}}
+.card{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:18px;}
+.card h2{font-family:var(--font-display);font-weight:400;font-size:22px;margin:0 0 12px;}
+fieldset{border:0;padding:0;margin:0 0 18px;}
+legend{font-weight:600;padding:0;margin-bottom:8px;color:var(--gold);}
+label{display:block;font-size:14px;color:var(--muted);margin:10px 0 4px;}
+input[type=text],input[type=number],input[type=date],input[type=time],select{width:100%;padding:9px 11px;border:1.5px solid var(--line);border-radius:9px;background:var(--bg);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.row3{display:grid;grid-template-columns:1.2fr 1.6fr 1fr;gap:10px;}
+.check{display:flex;gap:8px;align-items:center;margin-top:10px;color:var(--ink);font-size:15px;}
+.check input{width:18px;height:18px;}
+.btn{border:0;border-radius:10px;padding:12px 18px;cursor:pointer;font-weight:600;background:var(--accent);color:var(--accent-ink);}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);}
+.btn[disabled]{opacity:.55;cursor:not-allowed;}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.hint{font-size:13.5px;color:var(--muted);margin:6px 0 0;}
+.err{color:var(--accent);font-weight:500;margin-top:10px;}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:36px 20px;text-align:center;color:var(--muted);}
+.empty .om{font-family:var(--font-display);font-size:56px;color:var(--accent);line-height:1;}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:26px 16px;text-align:center;cursor:pointer;background:var(--bg);}
+.drop:hover,.drop.on{border-color:var(--accent);}
+.drop img{max-width:100%;max-height:340px;border-radius:8px;display:block;margin:12px auto 0;}
+.ai{margin-top:22px;}
+.ai .out{white-space:normal;line-height:1.7;}
+.ai .out h4{margin:16px 0 4px;font-family:var(--font-display);font-weight:400;font-size:18px;color:var(--gold);}
+.ai .out p{margin:6px 0;}
+.mini{width:100%;border-collapse:collapse;font-size:15px;}
+.mini th,.mini td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top;}
+.mini th{color:var(--muted);font-weight:500;}
+.ok{color:#2E8B57;font-weight:600}.bad{color:var(--accent);font-weight:600}
+.tw{overflow-x:auto;}
+.aihead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;}
+.aihead h2{margin:0}
+.inl{display:flex;gap:8px;align-items:center;margin:0;color:var(--muted);font-size:14px;}
+.inl select{width:auto;padding:6px 10px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px;}
+.chips button{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:16px;padding:7px 12px;cursor:pointer;font-size:14px;text-align:left;line-height:1.4;}
+.chips button:hover{border-color:var(--accent);}
+.chat{margin-top:10px;}
+.msg{padding:10px 14px;border-radius:14px;margin:10px 0;max-width:94%;line-height:1.7;}
+.msg.u{background:var(--surface2);margin-left:auto;white-space:pre-wrap;}
+.msg.a{border:1.5px solid var(--line);background:var(--bg);}
+.msg.a h4{margin:12px 0 4px;font-family:var(--font-display);font-weight:400;font-size:17px;color:var(--gold);}
+.msg.a p{margin:5px 0;}
+.askrow{display:flex;gap:8px;align-items:flex-end;margin-top:12px;flex-wrap:wrap;}
+.askrow textarea{flex:1 1 240px;min-height:52px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);resize:vertical;}
+.foot{margin-top:34px;color:var(--muted);font-size:13.5px;max-width:70ch;}
+.hidden{display:none !important;}
+@media (prefers-reduced-motion:no-preference){.scrollwrap{animation:unroll .6s ease-out;}@keyframes unroll{from{opacity:.0;transform:translateY(10px)}to{opacity:1;transform:none}}}
+</style>
+<style id="scrollcss">
+.scroll{--paper:#EBD9A6;--paper2:#E2CB92;--ink:#3A0C16;--verm:#A5171F;--gold:#8F6409;
+  position:relative;max-width:860px;margin:30px auto;padding:44px 28px 40px;color:var(--ink);
+  font-family:'Hind','Noto Sans Devanagari',system-ui,sans-serif;font-size:15.5px;line-height:1.5;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(143,100,9,.10),transparent 38%),
+    radial-gradient(circle at 88% 74%,rgba(165,23,31,.07),transparent 42%),
+    repeating-linear-gradient(94deg,rgba(90,60,10,.035) 0 2px,transparent 2px 7px),
+    linear-gradient(180deg,var(--paper),var(--paper2));
+  border-left:2px solid rgba(58,12,22,.28);border-right:2px solid rgba(58,12,22,.28);box-sizing:border-box;}
+.scroll *{box-sizing:border-box;}
+.scroll::before,.scroll::after{content:"";position:absolute;left:-14px;right:-14px;height:22px;border-radius:12px;
+  background:linear-gradient(180deg,#7A1420,#4A0A14 55%,#2E060C);box-shadow:0 3px 8px rgba(0,0,0,.3);}
+.scroll::before{top:-14px}.scroll::after{bottom:-14px}
+.scroll h3{font-family:'Yatra One','Hind',serif;font-weight:400;color:var(--verm);font-size:20px;margin:26px 0 10px;border-bottom:1.5px solid rgba(143,100,9,.55);padding-bottom:4px;}
+.scroll .inv{text-align:center;color:var(--verm);font-family:'Yatra One','Hind',serif;}
+.scroll .inv .om{font-size:46px;line-height:1}
+.scroll .inv .gan{font-size:17px;margin-top:2px}
+.scroll .ttl{text-align:center;font-family:'Yatra One','Hind',serif;font-size:30px;margin:10px 0 2px;color:var(--ink);}
+.scroll .who{text-align:center;font-size:20px;font-weight:600;margin-bottom:6px}
+.scroll .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px 22px;}
+.scroll .kv div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted rgba(58,12,22,.35);padding:3px 0;}
+.scroll .kv span:first-child{color:#6B3A1A}
+.scroll .kv span:last-child{font-weight:600;text-align:right}
+.scroll .charts{display:flex;flex-wrap:wrap;gap:22px;justify-content:center}
+.scroll .charts figure{margin:0;flex:1 1 300px;max-width:380px;text-align:center}
+.scroll .charts figcaption{font-weight:600;margin-top:4px}
+.scroll .charts svg{width:100%;height:auto;display:block}
+.scroll table{width:100%;border-collapse:collapse;font-size:14.5px}
+.scroll th,.scroll td{border-bottom:1px solid rgba(58,12,22,.3);padding:5px 6px;text-align:left;vertical-align:top}
+.scroll th{color:var(--verm);font-weight:600}
+.scroll tr.cur td{background:rgba(165,23,31,.12);font-weight:600}
+.scroll .tw{overflow-x:auto}
+.scroll ul{margin:6px 0 0;padding-left:20px}
+.scroll .small{font-size:13px;color:#6B3A1A;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1><span data-i18n="appTitle">Chhina</span><small data-i18n="tagline"></small></h1>
+    </div>
+    <div class="seg" role="group" aria-label="Language">
+      <button data-lang="en" aria-pressed="true">English</button>
+      <button data-lang="ne" aria-pressed="false">नेपाली</button>
+      <button data-lang="hi" aria-pressed="false">हिन्दी</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <div class="seg" role="tablist">
+      <button role="tab" id="tabC" aria-selected="true" data-tab="create" data-i18n="tabCreate"></button>
+      <button role="tab" id="tabR" aria-selected="false" data-tab="read" data-i18n="tabRead"></button>
+    </div>
+  </div>
+
+  <!-- CREATE -->
+  <section id="paneCreate" class="grid">
+    <form id="form" class="card sticky" autocomplete="off" onsubmit="return false">
+      <fieldset>
+        <legend data-i18n="secPerson"></legend>
+        <label for="nm" data-i18n="name"></label>
+        <input type="text" id="nm" maxlength="80">
+        <label for="gender" data-i18n="gender"></label>
+        <select id="gender"><option value="" data-i18n="noSay"></option><option value="m" data-i18n="male"></option><option value="f" data-i18n="female"></option><option value="o" data-i18n="other"></option></select>
+      </fieldset>
+      <fieldset>
+        <legend data-i18n="secBirth"></legend>
+        <label for="calMode" data-i18n="calendar"></label>
+        <select id="calMode"><option value="AD" data-i18n="ad"></option><option value="BS" data-i18n="bs"></option></select>
+        <div id="adBox">
+          <label for="adDate" data-i18n="date"></label>
+          <input type="date" id="adDate" value="1995-06-15">
+        </div>
+        <div id="bsBox" class="hidden">
+          <label data-i18n="date"></label>
+          <div class="row3">
+            <input type="number" id="bsY" min="1900" max="2150" placeholder="2052" aria-label="Year">
+            <select id="bsM" aria-label="Month"></select>
+            <input type="number" id="bsD" min="1" max="32" placeholder="1" aria-label="Day">
+          </div>
+        </div>
+        <label for="tm" data-i18n="time"></label>
+        <input type="time" id="tm" value="06:30">
+        <label class="check"><input type="checkbox" id="tmUnknown"><span data-i18n="timeUnknown"></span></label>
+        <label for="place" data-i18n="place"></label>
+        <select id="place"></select>
+        <div class="row2">
+          <div><label for="lat" data-i18n="lat"></label><input type="number" step="0.0001" id="lat"></div>
+          <div><label for="lon" data-i18n="lon"></label><input type="number" step="0.0001" id="lon"></div>
+        </div>
+        <div class="row2">
+          <div><label for="tzName" data-i18n="tzName"></label><input type="text" id="tzName"></div>
+          <div><label for="offOv" data-i18n="offset"></label><input type="number" step="0.25" id="offOv" placeholder="5.75"></div>
+        </div>
+        <p class="hint" data-i18n="tzHint"></p>
+      </fieldset>
+      <fieldset>
+        <legend data-i18n="secStyle"></legend>
+        <select id="style"><option value="north" data-i18n="north"></option><option value="south" data-i18n="south"></option></select>
+      </fieldset>
+      <button class="btn" id="go" type="button" data-i18n="generate"></button>
+      <div id="formErr" class="err" role="alert"></div>
+    </form>
+
+    <div id="createOut">
+      <div class="empty"><div class="om">ॐ</div><p data-i18n="emptyCreate"></p></div>
+    </div>
+  </section>
+
+  <!-- READ -->
+  <section id="paneRead" class="hidden grid">
+    <div class="card sticky">
+      <h2 data-i18n="uploadTitle"></h2>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a photo">
+        <div data-i18n="uploadHint"></div>
+        <img id="prev" alt="" class="hidden">
+      </div>
+      <input type="file" id="file" accept="image/*" class="hidden">
+      <div class="btnrow">
+        <button class="btn ghost" id="pick" type="button" data-i18n="choose"></button>
+        <button class="btn" id="readBtn" type="button" disabled data-i18n="readBtn"></button>
+        <button class="btn ghost hidden" id="stopRead" type="button" data-i18n="stop"></button>
+      </div>
+      <div id="readErr" class="err" role="alert"></div>
+      <p class="hint" data-i18n="readNote"></p>
+    </div>
+    <div id="readOut">
+      <div class="empty"><div class="om">ॐ</div><p data-i18n="emptyRead"></p></div>
+    </div>
+  </section>
+
+  <p class="foot" data-i18n="foot"></p>
+</div>
+
+<script>
+/*ENGINE_START*/
+const D2R=Math.PI/180;
+const norm=x=>((x%360)+360)%360;
+const wrap180=x=>norm(x+180)-180;
+const S=d=>Math.sin(d*D2R), C=d=>Math.cos(d*D2R);
+function utcMs(y,m,d,h,mi){const t=new Date(0);t.setUTCFullYear(y,m-1,d);t.setUTCHours(h,mi,0,0);return t.getTime();}
+const jdFromMs=ms=>ms/86400000+2440587.5;
+const msFromJd=jd=>(jd-2440587.5)*86400000;
+const tcent=jd=>(jd-2451545)/36525;
+
+const fmtCache={};
+function tzOffsetMin(tz,y,m,d,h,mi){
+  let f=fmtCache[tz];
+  if(!f){f=fmtCache[tz]=new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'});}
+  const target=utcMs(y,m,d,h,mi); let off=0;
+  for(let i=0;i<3;i++){
+    const t=target-off*60000; const p={};
+    f.formatToParts(new Date(t)).forEach(x=>p[x.type]=x.value);
+    off=(utcMs(+p.year,+p.month,+p.day,(+p.hour)%24,+p.minute)-t)/60000;
+  }
+  return off;
+}
+
+function ayanamsa(jd){const T=tcent(jd);return 23.85306+(5028.796195*T+1.1054348*T*T)/3600;}
+function nutLon(jd){const T=tcent(jd);const om=125.04452-1934.136261*T;const L=280.4665+36000.7698*T;const Lm=218.3165+481267.8813*T;
+  return (-17.20*S(om)-1.32*S(2*L)-0.23*S(2*Lm)+0.21*S(2*om))/3600;}
+
+function sunTrop(jd){const T=tcent(jd);
+  const L0=280.46646+36000.76983*T+0.0003032*T*T;
+  const M=357.52911+35999.05029*T-0.0001537*T*T;
+  const Cc=(1.914602-0.004817*T-0.000014*T*T)*S(M)+(0.019993-0.000101*T)*S(2*M)+0.000289*S(3*M);
+  return norm(L0+Cc-0.00569-0.00478*S(125.04-1934.136*T));}
+
+const MOON_TERMS=[[0,0,1,0,6288774],[2,0,-1,0,1274027],[2,0,0,0,658314],[0,0,2,0,213618],[0,1,0,0,-185116],[0,0,0,2,-114332],[2,0,-2,0,58793],[2,-1,-1,0,57066],[2,0,1,0,53322],[2,-1,0,0,45758],[0,1,-1,0,-40923],[1,0,0,0,-34720],[0,1,1,0,-30383],[2,0,0,-2,15327],[0,0,1,2,-12528],[0,0,1,-2,10980],[4,0,-1,0,10675],[0,0,3,0,10034],[4,0,-2,0,8548],[2,1,-1,0,-7888],[2,1,0,0,-6766],[1,0,-1,0,-5163],[1,1,0,0,4987],[2,-1,1,0,4036],[2,0,2,0,3994],[4,0,0,0,3861],[2,0,-3,0,3665],[0,1,-2,0,-2689],[2,0,-1,2,-2602],[2,-1,-2,0,2390],[1,0,1,0,-2348],[2,-2,0,0,2236],[0,1,2,0,-2120],[0,2,0,0,-2069],[2,-2,-1,0,2048]];
+function moonTrop(jd){const T=tcent(jd);
+  const Lp=218.3164477+481267.88123421*T-0.0015786*T*T;
+  const D=297.8501921+445267.1114034*T-0.0018819*T*T;
+  const M=357.5291092+35999.0502909*T-0.0001536*T*T;
+  const Mp=134.9633964+477198.8675055*T+0.0087414*T*T;
+  const F=93.2720950+483202.0175233*T-0.0036539*T*T;
+  const E=1-0.002516*T-0.0000074*T*T;
+  let sum=0;
+  for(const t of MOON_TERMS){const am=Math.abs(t[1]);const e=am===1?E:am===2?E*E:1;
+    sum+=t[4]*e*S(t[0]*D+t[1]*M+t[2]*Mp+t[3]*F);}
+  sum+=3958*S(119.75+131.849*T)+1962*S(Lp-F)+318*S(53.09+479264.290*T);
+  return norm(Lp+sum/1e6+nutLon(jd));}
+
+// JPL approximate Keplerian elements (1800-2050), a,da,e,de,I,dI,L,dL,varpi,dvarpi,Omega,dOmega
+const EL={
+ Mercury:[0.38709927,0.00000037,0.20563593,0.00001906,7.00497902,-0.00594749,252.25032350,149472.67411175,77.45779628,0.16047689,48.33076593,-0.12534081],
+ Venus:[0.72333566,0.00000390,0.00677672,-0.00004107,3.39467605,-0.00078890,181.97909950,58517.81538729,131.60246718,0.00268329,76.67984255,-0.27769418],
+ Earth:[1.00000261,0.00000562,0.01671123,-0.00004392,-0.00001531,-0.01294668,100.46457166,35999.37244981,102.93768193,0.32327364,0,0],
+ Mars:[1.52371034,0.00001847,0.09339410,0.00007882,1.84969142,-0.00813131,-4.55343205,19140.30268499,-23.94362959,0.44441088,49.55953891,-0.29257343],
+ Jupiter:[5.20288700,-0.00011607,0.04838624,-0.00013253,1.30439695,-0.00183714,34.39644051,3034.74612775,14.72847983,0.21252668,100.47390909,0.20469106],
+ Saturn:[9.53667594,-0.00125060,0.05386179,-0.00050991,2.48599187,0.00193609,49.95424423,1222.49362201,92.59887831,-0.41897216,113.66242448,-0.28867794]
+};
+function helio(name,T){
+  const e=EL[name];
+  const a=e[0]+e[1]*T,ec=e[2]+e[3]*T,I=e[4]+e[5]*T,L=e[6]+e[7]*T,w=e[8]+e[9]*T,Om=e[10]+e[11]*T;
+  let M=wrap180(L-w); const Mr=M*D2R; let E=Mr+ec*Math.sin(Mr);
+  for(let i=0;i<12;i++){E-=(E-ec*Math.sin(E)-Mr)/(1-ec*Math.cos(E));}
+  const xp=a*(Math.cos(E)-ec), yp=a*Math.sqrt(1-ec*ec)*Math.sin(E);
+  const om=w-Om;
+  const co=C(om),so=S(om),cO=C(Om),sO=S(Om),cI=C(I),sI=S(I);
+  return [(co*cO-so*sO*cI)*xp+(-so*cO-co*sO*cI)*yp,(co*sO+so*cO*cI)*xp+(-so*sO+co*cO*cI)*yp,(so*sI)*xp+(co*sI)*yp];
+}
+function planetLonJ2000(name,jd){const T=tcent(jd);const p=helio(name,T),e=helio('Earth',T);
+  return norm(Math.atan2(p[1]-e[1],p[0]-e[0])/D2R);}
+function planetTrop(name,jd){const T=tcent(jd);
+  const prec=(5029.0966*T+1.11113*T*T)/3600;
+  return norm(planetLonJ2000(name,jd)+prec+nutLon(jd));}
+function isRetro(name,jd){return wrap180(planetLonJ2000(name,jd+0.1)-planetLonJ2000(name,jd-0.1))<0;}
+function rahuTrop(jd){const T=tcent(jd);return norm(125.0445479-1934.1362891*T+0.0020754*T*T);}
+
+function ascTrop(jd,lat,lon){
+  const T=tcent(jd);
+  const th=norm(280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T-T*T*T/38710000);
+  const ramc=norm(th+lon);
+  const eps=23.4392911-0.0130042*T;
+  const y=C(ramc), x=-(S(ramc)*C(eps)+Math.tan(lat*D2R)*S(eps));
+  return norm(Math.atan2(y,x)/D2R);
+}
+
+const GRAHA=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+function allPositions(jd){
+  const ay=ayanamsa(jd); const out={};
+  out.Sun={lon:norm(sunTrop(jd)-ay),retro:false};
+  out.Moon={lon:norm(moonTrop(jd)-ay),retro:false};
+  for(const n of ['Mars','Mercury','Jupiter','Venus','Saturn']) out[n]={lon:norm(planetTrop(n,jd)-ay),retro:isRetro(n,jd)};
+  const r=norm(rahuTrop(jd)-ay); out.Rahu={lon:r,retro:false}; out.Ketu={lon:norm(r+180),retro:false};
+  return {pos:out,ay};
+}
+
+// ---- Vimshottari ----
+const DSEQ=['Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury'];
+const DYRS={Ketu:7,Venus:20,Sun:6,Moon:10,Mars:7,Rahu:18,Jupiter:16,Saturn:19,Mercury:17};
+function vimshottari(moonLon,birthMs){
+  const nl=360/27, ni=Math.floor(moonLon/nl), frac=(moonLon-ni*nl)/nl, st=ni%9, Y=365.25*86400000;
+  let t=birthMs-frac*DYRS[DSEQ[st]]*Y; const list=[];
+  for(let i=0;i<10;i++){const lord=DSEQ[(st+i)%9];const dur=DYRS[lord]*Y;const md={lord,start:t,end:t+dur,ad:[]};
+    let tt=t;const li=DSEQ.indexOf(lord);
+    for(let j=0;j<9;j++){const l2=DSEQ[(li+j)%9];const d2=dur*DYRS[l2]/120;md.ad.push({lord:l2,start:tt,end:tt+d2});tt+=d2;}
+    list.push(md);t+=dur;}
+  return list;
+}
+
+// ---- Sankranti / Bikram Sambat ----
+const sunSid=jd=>norm(sunTrop(jd)-ayanamsa(jd));
+function sankranti(sign,approx){let jd=approx;const target=sign*30;
+  for(let i=0;i<40;i++){const d=wrap180(target-sunSid(jd));jd+=d/0.9856;if(Math.abs(d)<1e-7)break;}return jd;}
+const NPT=5.75;
+function sankrantiDay(sign,approx){const jd=sankranti(sign,approx);const lm=msFromJd(jd)+NPT*3600000;
+  const dt=new Date(lm);return {jd,dayMs:utcMs(dt.getUTCFullYear(),dt.getUTCMonth()+1,dt.getUTCDate(),0,0)};}
+function adToBS(y,m,d){
+  const dayMs=utcMs(y,m,d,0,0);const jdN=jdFromMs(dayMs+(23*3600+59*60)*1000-NPT*3600000);
+  let s=Math.floor(sunSid(jdN)/30);
+  let st=sankrantiDay(s,jdN-wrap180(sunSid(jdN)-s*30)/0.9856);
+  if(dayMs<st.dayMs){s=(s+11)%12;st=sankrantiDay(s,st.jd-30.4);}
+  const sy=new Date(st.dayMs).getUTCFullYear();
+  return {y:s>=9?sy+56:sy+57,m:s,d:Math.round((dayMs-st.dayMs)/86400000)+1};
+}
+function bsToAD(by,bm,bd){
+  const sy=bm>=9?by-56:by-57; const ay=by-57;
+  const approx=jdFromMs(utcMs(ay,4,14,0,0))+bm*30.44;
+  const st=sankrantiDay(bm,approx);
+  const dt=new Date(st.dayMs+(bd-1)*86400000);
+  return {y:dt.getUTCFullYear(),m:dt.getUTCMonth()+1,d:dt.getUTCDate()};
+}
+
+// ---- Sunrise (for Hindu weekday) ----
+function sunriseLocalHours(y,m,d,lat,lon,tzH,sunLonTrop){
+  const N=Math.round((utcMs(y,m,d,0,0)-utcMs(y,1,1,0,0))/86400000)+1;
+  const B=360/365*(N-81);const eot=9.87*S(2*B)-7.53*C(B)-1.5*S(B);
+  const noon=12-lon/15+tzH-eot/60;
+  const dec=Math.asin(S(23.4393)*S(sunLonTrop))/D2R;
+  let cosH=(C(90.833)-S(lat)*S(dec))/(C(lat)*C(dec));cosH=Math.max(-1,Math.min(1,cosH));
+  return noon-Math.acos(cosH)/D2R/15;
+}
+
+// ---- Master chart computation ----
+function computeChart(inp){
+  const {y,m,d,h,mi,lat,lon,tz,offOv,timeUnknown}=inp;
+  let offMin; if(offOv!=null&&!isNaN(offOv)) offMin=offOv*60; else {try{offMin=tzOffsetMin(tz,y,m,d,h,mi);}catch(e){offMin=345;}}
+  const tzH=offMin/60;
+  const ms=utcMs(y,m,d,h,mi)-offMin*60000; const jd=jdFromMs(ms);
+  const {pos,ay}=allPositions(jd);
+  const ascS=norm(ascTrop(jd,lat,lon)-ay);
+  const moonSign=Math.floor(pos.Moon.lon/30);
+  const lagnaSign=timeUnknown?moonSign:Math.floor(ascS/30);
+  const nl=360/27;
+  const gr=GRAHA.map(k=>{const lon_=pos[k].lon;const sign=Math.floor(lon_/30);
+    return {k,lon:lon_,sign,deg:lon_-sign*30,retro:pos[k].retro,nak:Math.floor(lon_/nl),pada:Math.floor((lon_%nl)/(nl/4))+1,
+      house:((sign-lagnaSign+12)%12)+1,nav:Math.floor(lon_*9/30)%12};});
+  const g=Object.fromEntries(gr.map(x=>[x.k,x]));
+  const tithiN=Math.floor(norm(pos.Moon.lon-pos.Sun.lon)/12)+1;
+  const yogaN=Math.floor(norm(pos.Sun.lon+pos.Moon.lon)/nl);
+  const kIdx=Math.floor(norm(pos.Moon.lon-pos.Sun.lon)/6);
+  const karana=kIdx===0?'K0':kIdx>=57?'K'+(kIdx-57+8):'K'+(((kIdx-1)%7)+1);
+  const sunT=sunTrop(jd);
+  const sr=sunriseLocalHours(y,m,d,lat,lon,tzH,sunT);
+  let wd=new Date(utcMs(y,m,d,0,0)).getUTCDay();
+  if(!timeUnknown&&(h+mi/60)<sr) wd=(wd+6)%7;
+  const asc={lon:ascS,sign:Math.floor(ascS/30),deg:ascS%30,nak:Math.floor(ascS/nl),pada:Math.floor((ascS%nl)/(nl/4))+1};
+  return {inp,tzH,jd,ms,ay,pos,gr,g,asc,lagnaSign,timeUnknown:!!timeUnknown,
+    panch:{tithiN,yogaN,karana,wd,nak:g.Moon.nak,pada:g.Moon.pada,sunrise:sr},
+    dasha:vimshottari(pos.Moon.lon,ms),
+    bs:adToBS(y,m,d)};
+}
+/*ENGINE_END*/
+</script>
+
+<script>
+/* ===== Names & translations ===== */
+const SIGN_EN=['Mesha','Vrishabha','Mithuna','Karka','Simha','Kanya','Tula','Vrishchika','Dhanu','Makara','Kumbha','Meena'];
+const SIGN_W=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+const SIGN_NE=['मेष','वृष','मिथुन','कर्कट','सिंह','कन्या','तुला','वृश्चिक','धनु','मकर','कुम्भ','मीन'];
+const SIGN_HI=['मेष','वृषभ','मिथुन','कर्क','सिंह','कन्या','तुला','वृश्चिक','धनु','मकर','कुम्भ','मीन'];
+const SIGN_LORD=['Mars','Venus','Mercury','Moon','Sun','Mercury','Venus','Mars','Jupiter','Saturn','Saturn','Jupiter'];
+const GN_EN={Sun:'Surya',Moon:'Chandra',Mars:'Mangal',Mercury:'Budha',Jupiter:'Guru',Venus:'Shukra',Saturn:'Shani',Rahu:'Rahu',Ketu:'Ketu'};
+const GN_DV={Sun:'सूर्य',Moon:'चन्द्र',Mars:'मङ्गल',Mercury:'बुध',Jupiter:'गुरु',Venus:'शुक्र',Saturn:'शनि',Rahu:'राहु',Ketu:'केतु'};
+const GAB_EN={Sun:'Su',Moon:'Mo',Mars:'Ma',Mercury:'Me',Jupiter:'Ju',Venus:'Ve',Saturn:'Sa',Rahu:'Ra',Ketu:'Ke'};
+const GAB_DV={Sun:'सू',Moon:'चं',Mars:'मं',Mercury:'बु',Jupiter:'गु',Venus:'शु',Saturn:'श',Rahu:'रा',Ketu:'के'};
+const NAK_EN=['Ashwini','Bharani','Krittika','Rohini','Mrigashira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishakha','Anuradha','Jyeshtha','Mula','Purva Ashadha','Uttara Ashadha','Shravana','Dhanishta','Shatabhisha','Purva Bhadrapada','Uttara Bhadrapada','Revati'];
+const NAK_DV=['अश्विनी','भरणी','कृत्तिका','रोहिणी','मृगशिरा','आर्द्रा','पुनर्वसु','पुष्य','आश्लेषा','मघा','पूर्वफाल्गुनी','उत्तरफाल्गुनी','हस्त','चित्रा','स्वाति','विशाखा','अनुराधा','ज्येष्ठा','मूल','पूर्वाषाढा','उत्तराषाढा','श्रवण','धनिष्ठा','शतभिषा','पूर्वभाद्रपद','उत्तरभाद्रपद','रेवती'];
+const NAAM=[['चु','चे','चो','ला'],['ली','लू','ले','लो'],['अ','ई','उ','ए'],['ओ','वा','वी','वू'],['वे','वो','का','की'],['कु','घ','ङ','छ'],['के','को','हा','ही'],['हू','हे','हो','डा'],['डी','डू','डे','डो'],['मा','मी','मू','मे'],['मो','टा','टी','टू'],['टे','टो','पा','पी'],['पू','ष','ण','ठ'],['पे','पो','रा','री'],['रू','रे','रो','ता'],['ती','तू','ते','तो'],['ना','नी','नू','ने'],['नो','या','यी','यू'],['ये','यो','भा','भी'],['भू','धा','फा','ढा'],['भे','भो','जा','जी'],['खी','खू','खे','खो'],['गा','गी','गू','गे'],['गो','सा','सी','सू'],['से','सो','दा','दी'],['दू','थ','झ','ञ'],['दे','दो','चा','ची']];
+const TITHI_EN=['Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami','Shashthi','Saptami','Ashtami','Navami','Dashami','Ekadashi','Dwadashi','Trayodashi','Chaturdashi','Purnima/Amavasya'];
+const TITHI_DV=['प्रतिपदा','द्वितीया','तृतीया','चतुर्थी','पञ्चमी','षष्ठी','सप्तमी','अष्टमी','नवमी','दशमी','एकादशी','द्वादशी','त्रयोदशी','चतुर्दशी'];
+const YOGA_EN=['Vishkambha','Priti','Ayushman','Saubhagya','Shobhana','Atiganda','Sukarma','Dhriti','Shula','Ganda','Vriddhi','Dhruva','Vyaghata','Harshana','Vajra','Siddhi','Vyatipata','Variyana','Parigha','Shiva','Siddha','Sadhya','Shubha','Shukla','Brahma','Indra','Vaidhriti'];
+const YOGA_DV=['विष्कम्भ','प्रीति','आयुष्मान्','सौभाग्य','शोभन','अतिगण्ड','सुकर्मा','धृति','शूल','गण्ड','वृद्धि','ध्रुव','व्याघात','हर्षण','वज्र','सिद्धि','व्यतीपात','वरीयान्','परिघ','शिव','सिद्ध','साध्य','शुभ','शुक्ल','ब्रह्म','ऐन्द्र','वैधृति'];
+const KAR_EN={K0:'Kimstughna',K1:'Bava',K2:'Balava',K3:'Kaulava',K4:'Taitila',K5:'Gara',K6:'Vanija',K7:'Vishti (Bhadra)',K8:'Shakuni',K9:'Chatushpada',K10:'Naga'};
+const KAR_DV={K0:'किंस्तुघ्न',K1:'बव',K2:'बालव',K3:'कौलव',K4:'तैतिल',K5:'गर',K6:'वणिज',K7:'विष्टि (भद्रा)',K8:'शकुनि',K9:'चतुष्पाद',K10:'नाग'};
+const WD_EN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const WD_NE=['आइतबार','सोमबार','मङ्गलबार','बुधबार','बिहीबार','शुक्रबार','शनिबार'];
+const WD_HI=['रविवार','सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
+const BSM_EN=['Baisakh','Jestha','Asar','Shrawan','Bhadra','Ashwin','Kartik','Mangsir','Poush','Magh','Falgun','Chaitra'];
+const BSM_NE=['बैशाख','जेठ','असार','साउन','भदौ','असोज','कार्तिक','मंसिर','पौष','माघ','फागुन','चैत'];
+const BSM_HI=['वैशाख','ज्येष्ठ','आषाढ़','श्रावण','भाद्रपद','आश्विन','कार्तिक','मार्गशीर्ष','पौष','माघ','फाल्गुन','चैत्र'];
+const WDLORD=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'];
+const EXALT={Sun:0,Moon:1,Mars:9,Mercury:5,Jupiter:3,Venus:11,Saturn:6};
+const DEBIL={Sun:6,Moon:7,Mars:3,Mercury:11,Jupiter:9,Venus:5,Saturn:0};
+const OWN={Sun:[4],Moon:[3],Mars:[0,7],Mercury:[2,5],Jupiter:[8,11],Venus:[1,6],Saturn:[9,10]};
+
+const PLACES=[
+ ['Nepal',[['Kathmandu',27.7172,85.3240],['Lalitpur',27.6588,85.3247],['Bhaktapur',27.6710,85.4298],['Kirtipur',27.6667,85.2833],['Banepa',27.6333,85.5167],['Dhulikhel',27.6167,85.5500],['Pokhara',28.2096,83.9856],['Gorkha',28.0000,84.6333],['Baglung',28.2667,83.5833],['Tansen (Palpa)',27.8667,83.5500],['Butwal',27.7006,83.4483],['Bhairahawa (Lumbini)',27.5000,83.4500],['Bharatpur (Chitwan)',27.6833,84.4333],['Hetauda',27.4287,85.0326],['Birgunj',27.0104,84.8770],['Janakpur',26.7288,85.9266],['Rajbiraj',26.5400,86.7500],['Biratnagar',26.4525,87.2718],['Itahari',26.6650,87.2750],['Dharan',26.8065,87.2846],['Dhankuta',26.9833,87.3333],['Damak',26.6600,87.7000],['Birtamod',26.6430,87.9930],['Ilam',26.9120,87.9280],['Nepalgunj',28.0500,81.6167],['Ghorahi (Dang)',28.0400,82.4900],['Surkhet',28.6000,81.6167],['Jumla',29.2747,82.1838],['Dhangadhi',28.6833,80.6000],['Bhimdatta (Mahendranagar)',28.9640,80.1800]],'Asia/Kathmandu'],
+ ['India',[['Delhi',28.6139,77.2090],['Mumbai',19.0760,72.8777],['Kolkata',22.5726,88.3639],['Chennai',13.0827,80.2707],['Bengaluru',12.9716,77.5946],['Hyderabad',17.3850,78.4867],['Varanasi',25.3176,82.9739],['Ayodhya',26.7922,82.1998],['Patna',25.5941,85.1376],['Lucknow',26.8467,80.9462],['Gorakhpur',26.7606,83.3732],['Jaipur',26.9124,75.7873],['Ahmedabad',23.0225,72.5714],['Pune',18.5204,73.8567],['Darjeeling',27.0360,88.2627],['Siliguri',26.7271,88.3953],['Gangtok',27.3389,88.6065],['Guwahati',26.1445,91.7362],['Haridwar',29.9457,78.1642],['Ujjain',23.1765,75.7885]],'Asia/Kolkata'],
+ ['Nearby',[['Thimphu, Bhutan',27.4728,89.6390,'Asia/Thimphu'],['Dhaka, Bangladesh',23.8103,90.4125,'Asia/Dhaka'],['Colombo, Sri Lanka',6.9271,79.8612,'Asia/Colombo']]],
+ ['Abroad (Nepali & Indian communities)',[['Harrisburg, PA, USA',40.2732,-76.8867,'America/New_York'],['Philadelphia, PA, USA',39.9526,-75.1652,'America/New_York'],['Pittsburgh, PA, USA',40.4406,-79.9959,'America/New_York'],['New York, NY, USA',40.7128,-74.0060,'America/New_York'],['Washington, DC, USA',38.9072,-77.0369,'America/New_York'],['Atlanta, GA, USA',33.7490,-84.3880,'America/New_York'],['Dallas, TX, USA',32.7767,-96.7970,'America/Chicago'],['Chicago, IL, USA',41.8781,-87.6298,'America/Chicago'],['Denver, CO, USA',39.7392,-104.9903,'America/Denver'],['San Francisco, CA, USA',37.7749,-122.4194,'America/Los_Angeles'],['Los Angeles, CA, USA',34.0522,-118.2437,'America/Los_Angeles'],['Toronto, Canada',43.6532,-79.3832,'America/Toronto'],['London, UK',51.5074,-0.1278,'Europe/London'],['Dubai, UAE',25.2048,55.2708,'Asia/Dubai'],['Doha, Qatar',25.2854,51.5310,'Asia/Qatar'],['Kuwait City',29.3759,47.9774,'Asia/Kuwait'],['Kuala Lumpur, Malaysia',3.1390,101.6869,'Asia/Kuala_Lumpur'],['Hong Kong',22.3193,114.1694,'Asia/Hong_Kong'],['Tokyo, Japan',35.6762,139.6503,'Asia/Tokyo'],['Sydney, Australia',-33.8688,151.2093,'Australia/Sydney']]]
+];
+
+const T={
+en:{appTitle:'Chhina',tagline:'Make a Nepali–Hindu horoscope from birth details, or read one from a photo.',tabCreate:'Create a chhina',tabRead:'Read a chhina',
+secPerson:'About the person',name:'Name',gender:'Gender',noSay:'Not stated',male:'Male',female:'Female',other:'Other',secBirth:'Birth details',calendar:'Enter date in',ad:'AD (Gregorian)',bs:'Bikram Sambat (BS)',
+date:'Date of birth',time:'Time of birth',timeUnknown:"I don't know the exact time",place:'Place of birth',lat:'Latitude (north +)',lon:'Longitude (east +)',tzName:'Time zone name',offset:'UTC offset override (hours)',
+tzHint:'The offset is found from the time zone name and date, including daylight saving. Override it only if you know the clock time was different.',secStyle:'Chart style',north:'North Indian (used in Nepal)',south:'South Indian',generate:'Make the chhina',
+emptyCreate:'Enter the birth details and choose Make the chhina. Your chhina appears here as a scroll.',emptyRead:'Upload a photo of a chhina. Claude will read the chart, list what is written and can explain it.',
+uploadTitle:'Upload a chhina',uploadHint:'Tap to choose a photo of the chhina. JPG, PNG or WebP. Keep the whole page in view and well lit. For a PDF, take a screenshot first.',choose:'Choose photo',readBtn:'Read this chhina',stop:'Stop',
+readNote:'The photo is sent to Claude on your own account to be read. Handwriting can be misread, so check the result against the original.',
+reading:'Reading the chhina. This can take up to a minute.',
+errNoDate:'Enter a valid date of birth.',errNoTime:'Enter the time of birth, or tick that you do not know it.',errNoPlace:'Enter the latitude and longitude of the birthplace.',errBS:'Enter the BS year, month and day.',
+errNoAI:'Reading and explaining need Claude, which is not available in this view.',errGranted:'Claude was not allowed for this page. Allow it in the page permissions and try again.',errRate:'Too many requests. Wait a little and try again.',errGeneric:'That did not work. Try again.',errImage:'That image could not be used. Choose another photo.',errJson:'The chhina could not be read into a structured form. Try a sharper, closer photo.',
+rangeWarn:'This date is outside 1800–2050, where the planet positions are less accurate.',unknownWarn:'Birth time unknown: the chart is drawn from the Moon sign (Chandra lagna) and the ascendant is not shown.',
+invocation:'॥ Shri Ganeshaya Namah ॥',scrollTitle:'Janma Patrika (Chhina)',secDetails:'Birth details',secPanchang:'Panchang at birth',secCharts:'Kundali',secGraha:'Graha positions',secDasha:'Vimshottari dasha',secYogas:'Notable yogas',
+adDate:'Date (AD)',bsDate:'Date (BS, approx.)',vs:'Vikram Samvat',shaka:'Shaka Samvat',timeLbl:'Time',placeLbl:'Place',coords:'Coordinates',offsetLbl:'UTC offset',
+vara:'Vara (weekday)',tithi:'Tithi',paksha:'Paksha',shukla:'Shukla',krishna:'Krishna',nakshatra:'Nakshatra',pada:'Pada',yoga:'Yoga',karana:'Karana',moonSign:'Janma rashi (Moon sign)',lagna:'Lagna (ascendant)',namaksh:'Naming syllables',ayan:'Ayanamsa (Lahiri)',
+lagnaChart:'Lagna kundali',navChart:'Navamsa (D9)',chandraChart:'Chandra kundali (from Moon)',graha:'Graha',rashi:'Rashi',degree:'Degree',nakPada:'Nakshatra · pada',bhava:'House',note:'Note',
+retro:'retrograde',exalted:'exalted',own:'own sign',debil:'debilitated',
+mahadasha:'Mahadasha',from:'From',to:'To',current:'Current',antardasha:'Antardasha in the current mahadasha',
+manglik:'Mars is in house {h} from the Lagna: Manglik (Kuja) dosha is present by this rule.',notManglik:'Mars is not in houses 1, 2, 4, 7, 8 or 12 from the Lagna: no Manglik dosha by this rule.',
+gajake:'Gajakesari yoga: Jupiter is in a kendra from the Moon.',budhad:'Budhaditya yoga: Sun and Mercury share a sign.',pm:'{p} Mahapurusha yoga: {g} is in its own or exalted sign in a kendra.',kaalsarp:'All seven planets lie on one side of the Rahu–Ketu axis (Kaal Sarpa pattern).',noYoga:'No special yogas were found by these basic rules.',
+saveHtml:'Save chhina (HTML)',saveSvg:'Save Lagna chart (SVG)',explain:'Explain this chhina (AI)',explainTitle:'Reading by Claude',stopAI:'Stop',saved:'Saved.',
+declined:'Save was cancelled or not allowed.',aiNote:'A general reading from classical rules. It is guidance for reflection, not a prediction, and not a substitute for a jyotishi.',
+extracted:'What the chhina says',person:'Person',lagnaWritten:'Lagna as written',panchWritten:'Panchang as written',planetsWritten:'Planets as written',notes:'Other text and notes',drawn:'Chart redrawn from the photo',compare:'Compare with calculation',useCreate:'Open in Create tab',
+cmpTitle:'Written chart vs calculated chart',written:'Written',calc:'Calculated',match:'Match',cmpNote:'Small differences are normal near a sign boundary, with a different ayanamsa, or when the birth time or place is approximate.',cmpNeed:'To compare, the photo needs a birth date, time and place.',
+unreadable:'not readable',houseLbl:'House',
+foot:'Planet positions are calculated in your browser with a compact ephemeris: Lahiri ayanamsa, mean lunar node, whole-sign houses. Planets are accurate to a few arcminutes and the Moon to about 0.05°. Bikram Sambat dates are derived from the Sun\u2019s sankranti and can differ by a day from the official calendar. For ceremonies such as nwaran, bratabandha or vivah, confirm with your family jyotishi.'},
+ne:{appTitle:'चिना',tagline:'जन्म विवरणबाट नेपाली–हिन्दु चिना बनाउनुहोस्, वा फोटोबाट चिना पढ्नुहोस्।',tabCreate:'चिना बनाउने',tabRead:'चिना पढ्ने',
+secPerson:'व्यक्तिको विवरण',name:'नाम',gender:'लिङ्ग',noSay:'उल्लेख नगर्ने',male:'पुरुष',female:'महिला',other:'अन्य',secBirth:'जन्म विवरण',calendar:'मिति कुन पात्रोमा',ad:'ईस्वी (AD)',bs:'विक्रम सम्वत् (BS)',
+date:'जन्म मिति',time:'जन्म समय',timeUnknown:'ठ्याक्कै समय थाहा छैन',place:'जन्म स्थान',lat:'अक्षांश (उत्तर +)',lon:'देशान्तर (पूर्व +)',tzName:'समय क्षेत्रको नाम',offset:'UTC अन्तर (घण्टा) आफैँ हाल्ने',
+tzHint:'समय क्षेत्र र मितिबाट UTC अन्तर (गर्मी समयसहित) आफैँ निकालिन्छ। घडीको समय फरक थियो भन्ने थाहा भए मात्र यहाँ बदल्नुहोस्।',secStyle:'कुण्डलीको शैली',north:'उत्तर भारतीय (नेपालमा प्रचलित)',south:'दक्षिण भारतीय',generate:'चिना बनाउनुहोस्',
+emptyCreate:'जन्म विवरण भरेर “चिना बनाउनुहोस्” थिच्नुहोस्। चिना यहाँ पाना (स्क्रोल) को रूपमा देखिन्छ।',emptyRead:'चिनाको फोटो राख्नुहोस्। Claude ले कुण्डली पढ्छ, लेखिएका कुरा सूचीबद्ध गर्छ र व्याख्या गर्न सक्छ।',
+uploadTitle:'चिना अपलोड गर्नुहोस्',uploadHint:'चिनाको फोटो छान्न थिच्नुहोस्। JPG, PNG वा WebP। पूरा पाना देखिने र उज्यालो हुने गरी खिच्नुहोस्। PDF भए पहिले स्क्रिनसट लिनुहोस्।',choose:'फोटो छान्नुहोस्',readBtn:'यो चिना पढ्नुहोस्',stop:'रोक्नुहोस्',
+readNote:'फोटो पढ्नका लागि तपाईंकै खाताबाट Claude लाई पठाइन्छ। हस्तलिखित अक्षर गलत पढिन सक्छ, त्यसैले नतिजा मूल चिनासँग मिलाउनुहोस्।',
+reading:'चिना पढिँदैछ। एक मिनेटसम्म लाग्न सक्छ।',
+errNoDate:'मान्य जन्म मिति हाल्नुहोस्।',errNoTime:'जन्म समय हाल्नुहोस्, वा थाहा छैन भने चिह्न लगाउनुहोस्।',errNoPlace:'जन्मस्थानको अक्षांश र देशान्तर हाल्नुहोस्।',errBS:'वि.सं. को साल, महिना र गते हाल्नुहोस्।',
+errNoAI:'पढ्न र व्याख्या गर्न Claude चाहिन्छ, जुन यो ठाउँमा उपलब्ध छैन।',errGranted:'यो पेजलाई Claude प्रयोग गर्न अनुमति दिइएको छैन। अनुमति दिएर फेरि प्रयास गर्नुहोस्।',errRate:'धेरै अनुरोध भए। केही बेरपछि फेरि प्रयास गर्नुहोस्।',errGeneric:'भएन। फेरि प्रयास गर्नुहोस्।',errImage:'त्यो तस्बिर प्रयोग गर्न सकिएन। अर्को फोटो छान्नुहोस्।',errJson:'चिना पढेर व्यवस्थित रूपमा ल्याउन सकिएन। अझ स्पष्ट र नजिकको फोटो प्रयास गर्नुहोस्।',
+rangeWarn:'यो मिति १८००–२०५० बाहिर परेकाले ग्रहस्थिति कम सटीक हुन्छ।',unknownWarn:'जन्म समय थाहा छैन: कुण्डली चन्द्र राशिबाट (चन्द्र लग्न) बनाइएको छ, लग्न देखाइएको छैन।',
+invocation:'॥ श्री गणेशाय नमः ॥',scrollTitle:'जन्मपत्रिका (चिना)',secDetails:'जन्म विवरण',secPanchang:'जन्मको पञ्चाङ्ग',secCharts:'कुण्डली',secGraha:'ग्रहस्थिति',secDasha:'विंशोत्तरी दशा',secYogas:'उल्लेखनीय योग',
+adDate:'मिति (ईस्वी)',bsDate:'मिति (वि.सं., अनुमानित)',vs:'विक्रम सम्वत्',shaka:'शक सम्वत्',timeLbl:'समय',placeLbl:'स्थान',coords:'निर्देशाङ्क',offsetLbl:'UTC अन्तर',
+vara:'वार',tithi:'तिथि',paksha:'पक्ष',shukla:'शुक्ल',krishna:'कृष्ण',nakshatra:'नक्षत्र',pada:'चरण',yoga:'योग',karana:'करण',moonSign:'जन्म राशि (चन्द्र राशि)',lagna:'लग्न',namaksh:'नामाक्षर',ayan:'अयनांश (लाहिरी)',
+lagnaChart:'लग्न कुण्डली',navChart:'नवांश (D9)',chandraChart:'चन्द्र कुण्डली',graha:'ग्रह',rashi:'राशि',degree:'अंश',nakPada:'नक्षत्र · चरण',bhava:'भाव',note:'टिप्पणी',
+retro:'वक्री',exalted:'उच्च',own:'स्वराशि',debil:'नीच',
+mahadasha:'महादशा',from:'देखि',to:'सम्म',current:'चलिरहेको',antardasha:'चलिरहेको महादशाभित्रको अन्तर्दशा',
+manglik:'मङ्गल लग्नबाट {h} औँ भावमा छ: यस नियमअनुसार मांगलिक (कुज) दोष छ।',notManglik:'मङ्गल लग्नबाट १, २, ४, ७, ८ वा १२ भावमा छैन: यस नियमअनुसार मांगलिक दोष छैन।',
+gajake:'गजकेसरी योग: गुरु चन्द्रमाबाट केन्द्रमा छ।',budhad:'बुधादित्य योग: सूर्य र बुध एउटै राशिमा छन्।',pm:'{p} महापुरुष योग: {g} स्वराशि वा उच्च राशिमा भई केन्द्रमा छ।',kaalsarp:'सातै ग्रह राहु–केतु अक्षको एकातिर छन् (कालसर्प स्वरूप)।',noYoga:'यी आधारभूत नियमअनुसार कुनै विशेष योग भेटिएन।',
+saveHtml:'चिना सेभ गर्नुहोस् (HTML)',saveSvg:'लग्न कुण्डली सेभ गर्नुहोस् (SVG)',explain:'यो चिनाको व्याख्या (AI)',explainTitle:'Claude को व्याख्या',stopAI:'रोक्नुहोस्',saved:'सेभ भयो।',
+declined:'सेभ रद्द भयो वा अनुमति भएन।',aiNote:'शास्त्रीय नियमअनुसारको सामान्य व्याख्या हो। यो चिन्तनका लागि मार्गदर्शन हो, भविष्यवाणी होइन, र ज्योतिषीको विकल्प होइन।',
+extracted:'चिनामा के लेखिएको छ',person:'व्यक्ति',lagnaWritten:'लेखिएको लग्न',panchWritten:'लेखिएको पञ्चाङ्ग',planetsWritten:'लेखिएका ग्रह',notes:'अन्य लेख र टिप्पणी',drawn:'फोटोबाट पुनः बनाइएको कुण्डली',compare:'गणनासँग तुलना गर्नुहोस्',useCreate:'“चिना बनाउने” मा खोल्नुहोस्',
+cmpTitle:'लेखिएको र गणना गरिएको कुण्डली',written:'लेखिएको',calc:'गणना गरिएको',match:'मिल्यो',cmpNote:'राशिको सिमानाको नजिक, फरक अयनांश, वा अनुमानित समय/स्थान भए सामान्य फरक देखिन्छ।',cmpNeed:'तुलना गर्न फोटोमा जन्म मिति, समय र स्थान चाहिन्छ।',
+unreadable:'पढ्न सकिएन',houseLbl:'भाव',
+foot:'ग्रहस्थिति तपाईंको ब्राउजरमै सङ्क्षिप्त गणनाबाट निकालिएको हो: लाहिरी अयनांश, औसत राहु-केतु, राशि-भाव। ग्रह केही कला भित्र र चन्द्र करिब ०.०५° सम्म सटीक छन्। वि.सं. मिति सूर्य सङ्क्रान्तिबाट निकालिएकाले आधिकारिक पात्रोसँग एक दिन फरक पर्न सक्छ। न्वारान, ब्रतबन्ध, विवाहजस्ता कार्यका लागि पारिवारिक ज्योतिषीसँग पुष्टि गर्नुहोस्।'},
+hi:{appTitle:'चिना',tagline:'जन्म विवरण से नेपाली–हिन्दू चिना बनाएँ, या फोटो से चिना पढ़ें।',tabCreate:'चिना बनाएँ',tabRead:'चिना पढ़ें',
+secPerson:'व्यक्ति का विवरण',name:'नाम',gender:'लिंग',noSay:'नहीं बताना',male:'पुरुष',female:'महिला',other:'अन्य',secBirth:'जन्म विवरण',calendar:'तिथि किस पंचांग में',ad:'ईस्वी (AD)',bs:'विक्रम संवत् (BS)',
+date:'जन्म तिथि',time:'जन्म समय',timeUnknown:'सही समय पता नहीं',place:'जन्म स्थान',lat:'अक्षांश (उत्तर +)',lon:'देशांतर (पूर्व +)',tzName:'समय क्षेत्र का नाम',offset:'UTC अंतर (घंटे) स्वयं डालें',
+tzHint:'समय क्षेत्र और तिथि से UTC अंतर (डेलाइट सेविंग सहित) अपने आप निकलता है। घड़ी का समय अलग था यह पता हो तभी यहाँ बदलें।',secStyle:'कुंडली शैली',north:'उत्तर भारतीय (नेपाल में प्रचलित)',south:'दक्षिण भारतीय',generate:'चिना बनाएँ',
+emptyCreate:'जन्म विवरण भरकर “चिना बनाएँ” दबाएँ। चिना यहाँ स्क्रोल के रूप में दिखेगा।',emptyRead:'चिना की फोटो डालें। Claude कुंडली पढ़ेगा, लिखी बातों की सूची देगा और व्याख्या कर सकता है।',
+uploadTitle:'चिना अपलोड करें',uploadHint:'चिना की फोटो चुनने के लिए दबाएँ। JPG, PNG या WebP। पूरा पन्ना दिखे और रोशनी अच्छी हो। PDF हो तो पहले स्क्रीनशॉट लें।',choose:'फोटो चुनें',readBtn:'यह चिना पढ़ें',stop:'रोकें',
+readNote:'फोटो पढ़ने के लिए आपके अपने खाते से Claude को भेजी जाती है। हस्तलिखित अक्षर गलत पढ़े जा सकते हैं, इसलिए नतीजे को मूल चिना से मिलाएँ।',
+reading:'चिना पढ़ा जा रहा है। एक मिनट तक लग सकता है।',
+errNoDate:'सही जन्म तिथि डालें।',errNoTime:'जन्म समय डालें, या पता न हो तो निशान लगाएँ।',errNoPlace:'जन्म स्थान का अक्षांश और देशांतर डालें।',errBS:'वि.सं. का वर्ष, महीना और दिन डालें।',
+errNoAI:'पढ़ने और व्याख्या के लिए Claude चाहिए, जो इस जगह उपलब्ध नहीं है।',errGranted:'इस पेज को Claude इस्तेमाल करने की अनुमति नहीं मिली। अनुमति देकर फिर कोशिश करें।',errRate:'बहुत अनुरोध हो गए। थोड़ी देर बाद फिर कोशिश करें।',errGeneric:'नहीं हो पाया। फिर कोशिश करें।',errImage:'वह चित्र इस्तेमाल नहीं हो सका। दूसरी फोटो चुनें।',errJson:'चिना को व्यवस्थित रूप में नहीं पढ़ा जा सका। अधिक साफ़ और नज़दीक की फोटो आज़माएँ।',
+rangeWarn:'यह तिथि 1800–2050 के बाहर है, जहाँ ग्रह स्थिति कम सटीक होती है।',unknownWarn:'जन्म समय पता नहीं: कुंडली चंद्र राशि (चंद्र लग्न) से बनी है, लग्न नहीं दिखाया गया।',
+invocation:'॥ श्री गणेशाय नमः ॥',scrollTitle:'जन्मपत्रिका (चिना)',secDetails:'जन्म विवरण',secPanchang:'जन्म का पंचांग',secCharts:'कुंडली',secGraha:'ग्रह स्थिति',secDasha:'विंशोत्तरी दशा',secYogas:'उल्लेखनीय योग',
+adDate:'तिथि (ईस्वी)',bsDate:'तिथि (वि.सं., अनुमानित)',vs:'विक्रम संवत्',shaka:'शक संवत्',timeLbl:'समय',placeLbl:'स्थान',coords:'निर्देशांक',offsetLbl:'UTC अंतर',
+vara:'वार',tithi:'तिथि',paksha:'पक्ष',shukla:'शुक्ल',krishna:'कृष्ण',nakshatra:'नक्षत्र',pada:'चरण',yoga:'योग',karana:'करण',moonSign:'जन्म राशि (चंद्र राशि)',lagna:'लग्न',namaksh:'नामाक्षर',ayan:'अयनांश (लाहिरी)',
+lagnaChart:'लग्न कुंडली',navChart:'नवांश (D9)',chandraChart:'चंद्र कुंडली',graha:'ग्रह',rashi:'राशि',degree:'अंश',nakPada:'नक्षत्र · चरण',bhava:'भाव',note:'टिप्पणी',
+retro:'वक्री',exalted:'उच्च',own:'स्वराशि',debil:'नीच',
+mahadasha:'महादशा',from:'से',to:'तक',current:'चालू',antardasha:'चालू महादशा के भीतर अंतर्दशा',
+manglik:'मंगल लग्न से {h} वें भाव में है: इस नियम से मांगलिक (कुज) दोष है।',notManglik:'मंगल लग्न से 1, 2, 4, 7, 8 या 12 भाव में नहीं है: इस नियम से मांगलिक दोष नहीं है।',
+gajake:'गजकेसरी योग: गुरु चंद्रमा से केंद्र में है।',budhad:'बुधादित्य योग: सूर्य और बुध एक ही राशि में हैं।',pm:'{p} महापुरुष योग: {g} स्वराशि या उच्च राशि में होकर केंद्र में है।',kaalsarp:'सातों ग्रह राहु–केतु अक्ष के एक ओर हैं (कालसर्प स्वरूप)।',noYoga:'इन बुनियादी नियमों से कोई विशेष योग नहीं मिला।',
+saveHtml:'चिना सेव करें (HTML)',saveSvg:'लग्न कुंडली सेव करें (SVG)',explain:'इस चिना की व्याख्या (AI)',explainTitle:'Claude की व्याख्या',stopAI:'रोकें',saved:'सेव हो गया।',
+declined:'सेव रद्द हुआ या अनुमति नहीं मिली।',aiNote:'शास्त्रीय नियमों पर आधारित सामान्य व्याख्या है। यह चिंतन के लिए मार्गदर्शन है, भविष्यवाणी नहीं, और ज्योतिषी का विकल्प नहीं।',
+extracted:'चिना में क्या लिखा है',person:'व्यक्ति',lagnaWritten:'लिखा हुआ लग्न',panchWritten:'लिखा हुआ पंचांग',planetsWritten:'लिखे हुए ग्रह',notes:'अन्य लेख और टिप्पणी',drawn:'फोटो से दोबारा बनी कुंडली',compare:'गणना से तुलना करें',useCreate:'“चिना बनाएँ” में खोलें',
+cmpTitle:'लिखी और गणना की गई कुंडली',written:'लिखा',calc:'गणना',match:'मेल',cmpNote:'राशि की सीमा के पास, अलग अयनांश या अनुमानित समय/स्थान होने पर छोटे अंतर सामान्य हैं।',cmpNeed:'तुलना के लिए फोटो में जन्म तिथि, समय और स्थान चाहिए।',
+unreadable:'पढ़ा नहीं जा सका',houseLbl:'भाव',
+foot:'ग्रह स्थिति आपके ब्राउज़र में ही संक्षिप्त गणना से निकाली गई है: लाहिरी अयनांश, औसत राहु-केतु, राशि-भाव। ग्रह कुछ कला तक और चंद्र लगभग 0.05° तक सटीक हैं। वि.सं. तिथि सूर्य संक्रांति से निकाली गई है और आधिकारिक पंचांग से एक दिन अलग हो सकती है। नामकरण, व्रतबंध, विवाह जैसे कार्यों के लिए पारिवारिक ज्योतिषी से पुष्टि करें।'}
+};
+
+Object.assign(T.en,{explainLangLbl:'Explain in',explain:'Explain this chhina',askTitle:'Ask about your chhina',askNote:'Ask anything about this chhina, including which puja to do, which god or goddess to worship, and what materials to prepare. Answers follow Nepali Hindu tradition and are guidance, not guarantees. For large rituals, call your purohit.',askPh:'Type your question…',send:'Ask'});
+Object.assign(T.ne,{explainLangLbl:'व्याख्याको भाषा',explain:'यो चिनाको व्याख्या गर्नुहोस्',askTitle:'आफ्नो चिनाबारे प्रश्न सोध्नुहोस्',askNote:'यो चिनाबारे जे पनि सोध्न सक्नुहुन्छ: कुन पूजा गर्ने, कुन देवी-देवताको आराधना गर्ने, र के-के सामग्री तयार गर्ने। उत्तर नेपाली हिन्दु परम्परामा आधारित मार्गदर्शन हो, ग्यारेन्टी होइन। ठूला पूजाका लागि आफ्नो पुरोहित बोलाउनुहोस्।',askPh:'आफ्नो प्रश्न यहाँ लेख्नुहोस्…',send:'सोध्नुहोस्'});
+Object.assign(T.hi,{explainLangLbl:'व्याख्या की भाषा',explain:'इस चिना की व्याख्या करें',askTitle:'अपने चिना के बारे में पूछें',askNote:'इस चिना के बारे में कुछ भी पूछें: कौन सी पूजा करें, किस देवी-देवता की आराधना करें, और क्या सामग्री तैयार करें। उत्तर परंपरा पर आधारित मार्गदर्शन है, गारंटी नहीं। बड़ी पूजा के लिए अपने पुरोहित को बुलाएँ।',askPh:'अपना प्रश्न यहाँ लिखें…',send:'पूछें'});
+const CHIPS={
+ ne:['मेरो चिनाले मेरो स्वभावबारे के भन्छ?','अहिले कुन दशा चलिरहेको छ र यसले के असर गर्छ?','मेरो चिनामा कुन ग्रह कमजोर छ र त्यसको शान्तिका लागि कुन पूजा गर्नुपर्छ?','मलाई काम र आम्दानीमा समस्या भइरहेको छ। कुन देवताको आराधना र कुन पूजा गर्दा राम्रो हुन्छ?','नवग्रह शान्ति पूजाका लागि के-के सामग्री तयार गर्नुपर्छ? पूरा सूची दिनुहोस्।','घरमै गर्न सकिने सजिलो पूजा, मन्त्र र दान बताउनुहोस्।','मेरो चिनामा मांगलिक वा कालसर्प दोष छ? छ भने के गर्नुपर्छ?'],
+ hi:['मेरा चिना मेरे स्वभाव के बारे में क्या कहता है?','अभी कौन सी दशा चल रही है और उसका क्या असर है?','मेरे चिना में कौन सा ग्रह कमज़ोर है और उसकी शांति के लिए कौन सी पूजा करें?','मुझे काम और आमदनी में परेशानी है। किस देवता की आराधना और कौन सी पूजा अच्छी रहेगी?','नवग्रह शांति पूजा के लिए क्या-क्या सामग्री चाहिए? पूरी सूची दें।','घर पर की जा सकने वाली आसान पूजा, मंत्र और दान बताइए।','क्या मेरे चिना में मांगलिक या कालसर्प दोष है? हो तो क्या करें?'],
+ en:['What does my chhina say about my nature?','Which dasha am I in now and what does it bring?','Which planet is weak in my chhina, and which puja calms it?','I am having trouble with work and income. Which deity should I worship and which puja helps?','What materials do I need for a Navagraha shanti puja? Give the full list.','Tell me a simple puja, mantra and donation I can do at home.','Is there Manglik or Kaal Sarpa dosha in my chhina? If so, what should I do?']
+};
+const ACK={ne:'हुन्छ, म यही चिनाका आधारमा सरल नेपालीमा उत्तर दिन्छु।',hi:'ठीक है, मैं इसी चिना के आधार पर उत्तर दूँगा।',en:'Understood. I will answer based on this chhina.'};
+Object.assign(T.en,{readNote:'The photo is sent to Claude (by Anthropic) only to read it, and this site does not store it. Handwriting can be misread, so check the result against the original.',errNoAI:'Reading and explaining are not available right now. You can still make a chhina.',errGranted:'Reading and explaining are not available right now. You can still make a chhina.',errRate:'You have used today\u2019s limit for readings and questions. Please try again later.'});
+Object.assign(T.ne,{readNote:'फोटो पढ्नका लागि मात्र Claude (Anthropic) लाई पठाइन्छ, यो साइटले फोटो राख्दैन। हस्तलिखित अक्षर गलत पढिन सक्छ, त्यसैले नतिजा मूल चिनासँग मिलाउनुहोस्।',errNoAI:'अहिले पढ्ने र व्याख्या गर्ने सुविधा उपलब्ध छैन। चिना भने बनाउन सकिन्छ।',errGranted:'अहिले पढ्ने र व्याख्या गर्ने सुविधा उपलब्ध छैन। चिना भने बनाउन सकिन्छ।',errRate:'आजको पढाइ र प्रश्नको सीमा पुग्यो। केही समयपछि फेरि प्रयास गर्नुहोस्।'});
+Object.assign(T.hi,{readNote:'फोटो केवल पढ़ने के लिए Claude (Anthropic) को भेजी जाती है, यह साइट फोटो नहीं रखती। हस्तलिखित अक्षर गलत पढ़े जा सकते हैं, इसलिए नतीजे को मूल चिना से मिलाएँ।',errNoAI:'अभी पढ़ने और व्याख्या की सुविधा उपलब्ध नहीं है। चिना फिर भी बना सकते हैं।',errGranted:'अभी पढ़ने और व्याख्या की सुविधा उपलब्ध नहीं है। चिना फिर भी बना सकते हैं।',errRate:'आज की पढ़ाई और प्रश्नों की सीमा पूरी हो गई। कुछ समय बाद फिर कोशिश करें।'});
+let lang='en';
+const t=k=>(T[lang][k]??T.en[k]??k);
+const isDv=()=>lang!=='en';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dn=s=>isDv()?String(s).replace(/[0-9]/g,d=>'०१२३४५६७८९'[d]):String(s);
+const pad=n=>String(n).padStart(2,'0');
+const signName=i=>lang==='en'?`${SIGN_EN[i]} (${SIGN_W[i]})`:(lang==='ne'?SIGN_NE[i]:SIGN_HI[i]);
+const signShort=i=>lang==='en'?SIGN_EN[i]:(lang==='ne'?SIGN_NE[i]:SIGN_HI[i]);
+const gName=k=>isDv()?GN_DV[k]:GN_EN[k];
+const gAb=k=>isDv()?GAB_DV[k]:GAB_EN[k];
+const nakName=i=>isDv()?NAK_DV[i]:NAK_EN[i];
+const wdName=i=>lang==='en'?WD_EN[i]:(lang==='ne'?WD_NE[i]:WD_HI[i]);
+const bsmName=i=>lang==='en'?BSM_EN[i]:(lang==='ne'?BSM_NE[i]:BSM_HI[i]);
+function tithiName(n){const k=(n-1)%15;
+  if(k===14) return n===15?(isDv()?'पूर्णिमा':'Purnima'):(isDv()?(lang==='ne'?'औँसी':'अमावस्या'):'Amavasya');
+  return isDv()?TITHI_DV[k]:TITHI_EN[k];}
+const fmtDeg=d=>{const dd=Math.floor(d),mm=Math.floor((d-dd)*60);return dn(`${dd}°${pad(mm)}′`);};
+const isoDate=ms=>new Date(ms).toISOString().slice(0,10);
+
+/* ===== i18n apply ===== */
+function applyLang(){
+  document.documentElement.lang=lang==='en'?'en':(lang==='ne'?'ne':'hi');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===lang));
+  const bsM=document.getElementById('bsM');const cur=bsM.value;
+  bsM.innerHTML=Array.from({length:12},(_,i)=>`<option value="${i}">${esc(bsmName(i))}</option>`).join('');
+  bsM.value=cur||'0';
+  if(lastChart) renderCreate(lastChart);
+  if(lastExtract) renderRead(lastExtract);
+}
+
+/* ===== Charts (SVG) ===== */
+const NPOLY_C=[[200,100],[100,33],[33,100],[100,200],[33,300],[100,367],[200,300],[300,367],[367,300],[300,200],[367,100],[300,33]];
+const NSIGN_P=[[200,178],[100,82],[82,100],[170,200],[82,300],[100,318],[200,222],[300,318],[318,300],[230,200],[318,100],[300,82]];
+const NPER=[3,2,2,3,2,2,3,2,2,3,2,2];
+function textBlock(items,cx,cy,per){
+  const lines=[];for(let i=0;i<items.length;i+=per)lines.push(items.slice(i,i+per));
+  const lh=18;let y=cy-(lines.length-1)*lh/2+5;
+  return lines.map(l=>{const s=`<text x="${cx}" y="${y}" text-anchor="middle" font-size="15.5" font-weight="600" fill="#3A0C16">${l.map(it=>esc(it.a)+(it.r?'<tspan font-size="9" fill="#A5171F">R</tspan>':'')).join(' ')}</text>`;y+=lh;return s;}).join('');
+}
+const SVGHEAD=(title)=>`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 412 412" role="img" aria-label="${esc(title)}" font-family="Hind,'Noto Sans Devanagari',sans-serif">`;
+function svgNorth(housePl,signs,title,ascLabel){
+  let s=SVGHEAD(title)+`<rect width="400" height="400" fill="#F1E3B6" stroke="#3A0C16" stroke-width="3"/>`+
+   `<path d="M0 0L400 400M400 0L0 400M200 0L400 200L200 400L0 200Z" fill="none" stroke="#3A0C16" stroke-width="2"/>`;
+  for(let h=0;h<12;h++){
+    if(signs&&signs[h]!=null) s+=`<text x="${NSIGN_P[h][0]}" y="${NSIGN_P[h][1]+4}" text-anchor="middle" font-size="13" fill="#A5171F">${dn(signs[h]+1)}</text>`;
+    if(housePl[h]&&housePl[h].length) s+=textBlock(housePl[h],NPOLY_C[h][0],NPOLY_C[h][1],NPER[h]);
+  }
+  if(ascLabel) s+=`<text x="200" y="38" text-anchor="middle" font-size="14" font-weight="600" fill="#A5171F">${esc(ascLabel)}</text>`;
+  return s+'</svg>';
+}
+const SPOS={11:[0,0],0:[1,0],1:[2,0],2:[3,0],10:[0,1],3:[3,1],9:[0,2],4:[3,2],8:[0,3],7:[1,3],6:[2,3],5:[3,3]};
+function svgSouth(signPl,lagnaSign,title,ascLabel){
+  let s=SVGHEAD(title)+`<rect width="400" height="400" fill="#F1E3B6" stroke="#3A0C16" stroke-width="3"/>`;
+  for(let i=1;i<4;i++){
+    s+=`<path d="M${i*100} 0V${i===2?0:400}" stroke="#3A0C16" stroke-width="2"/>`;
+  }
+  // draw cell borders explicitly
+  s=SVGHEAD(title)+`<rect width="400" height="400" fill="#F1E3B6" stroke="#3A0C16" stroke-width="3"/>`;
+  for(const k in SPOS){const [c,r]=SPOS[k];s+=`<rect x="${c*100}" y="${r*100}" width="100" height="100" fill="none" stroke="#3A0C16" stroke-width="2"/>`;}
+  for(const k in SPOS){const [c,r]=SPOS[k];const x=c*100,y=r*100;const sg=+k;
+    s+=`<text x="${x+7}" y="${y+16}" font-size="12" fill="#A5171F">${dn(sg+1)}</text>`;
+    if(sg===lagnaSign){s+=`<path d="M${x} ${y}L${x+26} ${y}L${x} ${y+26}Z" fill="#A5171F" opacity=".35"/>`;}
+    const items=signPl[sg]||[];
+    if(items.length) s+=textBlock(items,x+50,y+54,2);
+  }
+  if(ascLabel) s+=`<text x="200" y="190" text-anchor="middle" font-size="16" fill="#A5171F">${esc(ascLabel)}</text>`;
+  return s+'</svg>';
+}
+function chartSvg(style,items,lagnaSign,title,ascLabel){ // items: [{sign,a,r}]
+  if(style==='south'){const sp=Array.from({length:12},()=>[]);items.forEach(i=>sp[i.sign].push(i));return svgSouth(sp,lagnaSign,title,ascLabel);}
+  const hp=Array.from({length:12},()=>[]);items.forEach(i=>hp[(i.sign-lagnaSign+12)%12].push(i));
+  const signs=Array.from({length:12},(_,h)=>(lagnaSign+h)%12);
+  return svgNorth(hp,signs,title,ascLabel);
+}
+
+/* ===== Chart-derived text ===== */
+function dignityNote(g){
+  const k=g.k;if(k==='Rahu'||k==='Ketu')return '';
+  const n=[];if(EXALT[k]===g.sign)n.push(t('exalted'));if(DEBIL[k]===g.sign)n.push(t('debil'));if(OWN[k].includes(g.sign))n.push(t('own'));
+  return n.join(', ');
+}
+function yogaList(ch){
+  const out=[];const g=ch.g;const L=ch.lagnaSign;
+  if(!ch.timeUnknown){
+    if([1,2,4,7,8,12].includes(g.Mars.house)) out.push(t('manglik').replace('{h}',dn(g.Mars.house)));else out.push(t('notManglik'));
+  }
+  const dm=((g.Jupiter.sign-g.Moon.sign)+12)%12; if([0,3,6,9].includes(dm)) out.push(t('gajake'));
+  if(g.Sun.sign===g.Mercury.sign) out.push(t('budhad'));
+  if(!ch.timeUnknown){
+    const pm={Mars:{en:'Ruchaka',dv:'रुचक'},Mercury:{en:'Bhadra',dv:'भद्र'},Jupiter:{en:'Hamsa',dv:'हंस'},Venus:{en:'Malavya',dv:'मालव्य'},Saturn:{en:'Shasha',dv:'शश'}};
+    for(const k in pm){const gg=g[k];const kendra=[1,4,7,10].includes(gg.house);if(kendra&&(OWN[k].includes(gg.sign)||EXALT[k]===gg.sign))
+      out.push(t('pm').replace('{p}',isDv()?pm[k].dv:pm[k].en).replace('{g}',gName(k)));}
+  }
+  const r=g.Rahu.lon;const inArc=(a,b,x)=>norm(x-a)<norm(b-a);
+  const seven=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'];
+  if(seven.every(k=>inArc(r,r+180,g[k].lon))||seven.every(k=>inArc(r+180,r+360,g[k].lon))) out.push(t('kaalsarp'));
+  return out.length?out:[t('noYoga')];
+}
+function currentDasha(ch){
+  const now=Date.now();const md=ch.dasha.find(m=>now>=m.start&&now<m.end);
+  return md?{md,ad:md.ad.find(a=>now>=a.start&&now<a.end)}:null;
+}
+
+/* ===== Scroll rendering ===== */
+function renderScroll(ch){
+  const {inp,g,panch,asc}=ch;
+  const items=ch.gr.map(x=>({sign:x.sign,a:gAb(x.k),r:x.retro&&x.k!=='Rahu'&&x.k!=='Ketu'}));
+  const style=document.getElementById('style').value;
+  const lagTitle=ch.timeUnknown?t('chandraChart'):t('lagnaChart');
+  const ascLabel=ch.timeUnknown?'':(isDv()?'ल':'Asc');
+  const chart1=chartSvg(style,items,ch.lagnaSign,lagTitle,ascLabel);
+  const navItems=ch.gr.map(x=>({sign:x.nav,a:gAb(x.k),r:false}));
+  const navLagna=ch.timeUnknown?g.Moon.nav:Math.floor(asc.lon*9/30)%12;
+  const chart2=chartSvg(style,navItems,navLagna,t('navChart'),ascLabel);
+  const bs=ch.bs;const sunriseTxt=`${dn(pad(Math.floor(panch.sunrise)))}:${dn(pad(Math.floor((panch.sunrise%1)*60)))}`;
+  const paksha=panch.tithiN<=15?t('shukla'):t('krishna');
+  const moonNak=g.Moon.nak;const naam=NAAM[moonNak][g.Moon.pada-1];
+  const tzs=(ch.tzH>=0?'+':'−')+dn(pad(Math.floor(Math.abs(ch.tzH))))+':'+dn(pad(Math.round((Math.abs(ch.tzH)%1)*60)));
+  const kv=(a,b)=>`<div><span>${esc(a)}</span><span>${b}</span></div>`;
+  const nm=document.getElementById('nm').value.trim();
+  const details=[
+    kv(t('adDate'),`${dn(`${inp.y}-${pad(inp.m)}-${pad(inp.d)}`)}`),
+    kv(t('bsDate'),`${dn(bs.y)} ${esc(bsmName(bs.m))} ${dn(bs.d)}`),
+    kv(t('vs'),dn(bs.y)),kv(t('shaka'),dn(bs.y-135)),
+    kv(t('timeLbl'),ch.timeUnknown?'—':dn(`${pad(inp.h)}:${pad(inp.mi)}`)),
+    kv(t('placeLbl'),esc(inp.placeName||'—')),
+    kv(t('coords'),`${dn(inp.lat.toFixed(3))}°, ${dn(inp.lon.toFixed(3))}°`),
+    kv(t('offsetLbl'),`UTC${tzs}`)
+  ].join('');
+  const sig=i=>esc(signShort(i));
+  const panchRows=[
+    kv(t('vara'),esc(wdName(panch.wd))+' · '+esc(gName(WDLORD[panch.wd]))),
+    kv(t('tithi'),`${esc(paksha)} ${esc(tithiName(panch.tithiN))}`),
+    kv(t('nakshatra'),`${esc(nakName(moonNak))} · ${t('pada')} ${dn(g.Moon.pada)}`),
+    kv(t('yoga'),esc(isDv()?YOGA_DV[panch.yogaN]:YOGA_EN[panch.yogaN])),
+    kv(t('karana'),esc(isDv()?KAR_DV[panch.karana]:KAR_EN[panch.karana])),
+    kv(t('moonSign'),esc(signName(g.Moon.sign))),
+    ch.timeUnknown?'':kv(t('lagna'),`${esc(signName(asc.sign))} · ${fmtDeg(asc.deg)}`),
+    kv(t('namaksh'),esc(naam)),
+    kv(t('ayan'),dn(fmtDeg(ch.ay)))
+  ].join('');
+  const rows=ch.gr.map(x=>{
+    const notes=[x.retro&&x.k!=='Rahu'&&x.k!=='Ketu'?t('retro'):'',dignityNote(x)].filter(Boolean).join(', ');
+    return `<tr><td>${esc(gName(x.k))}</td><td>${esc(signShort(x.sign))}</td><td>${fmtDeg(x.deg)}</td><td>${esc(nakName(x.nak))} · ${dn(x.pada)}</td><td>${ch.timeUnknown?'—':dn(x.house)}</td><td>${esc(notes)}</td></tr>`;}).join('');
+  const cd=currentDasha(ch);
+  const dRows=ch.dasha.slice(0,10).map(m=>{const cur=cd&&cd.md===m;const st=Math.max(m.start,ch.ms);
+    return `<tr class="${cur?'cur':''}"><td>${esc(gName(m.lord))}${cur?' · '+esc(t('current')):''}</td><td>${dn(isoDate(st))}</td><td>${dn(isoDate(m.end))}</td></tr>`;}).join('');
+  const aRows=cd?cd.md.ad.map(a=>{const cur=cd.ad===a;return `<tr class="${cur?'cur':''}"><td>${esc(gName(cd.md.lord))}–${esc(gName(a.lord))}</td><td>${dn(isoDate(Math.max(a.start,ch.ms)))}</td><td>${dn(isoDate(a.end))}</td></tr>`;}).join(''):'';
+  const yogas=yogaList(ch).map(y=>`<li>${esc(y)}</li>`).join('');
+  const warns=[];
+  if(inp.y<1800||inp.y>2050)warns.push(t('rangeWarn'));
+  if(ch.timeUnknown)warns.push(t('unknownWarn'));
+  return `<div class="scrollwrap"><article class="scroll" id="scroll" lang="${lang}">
+    <div class="inv"><div class="om">ॐ</div><div class="gan">${esc(t('invocation'))}</div></div>
+    <div class="ttl">${esc(t('scrollTitle'))}</div>
+    ${nm?`<div class="who">${esc(nm)}</div>`:''}
+    ${warns.map(w=>`<p class="small">⚠ ${esc(w)}</p>`).join('')}
+    <h3>${esc(t('secDetails'))}</h3><div class="kv">${details}</div>
+    <h3>${esc(t('secPanchang'))}</h3><div class="kv">${panchRows}</div>
+    <h3>${esc(t('secCharts'))}</h3>
+    <div class="charts"><figure id="fig1">${chart1}<figcaption>${esc(lagTitle)}</figcaption></figure><figure>${chart2}<figcaption>${esc(t('navChart'))}</figcaption></figure></div>
+    <h3>${esc(t('secGraha'))}</h3>
+    <div class="tw"><table><thead><tr><th>${esc(t('graha'))}</th><th>${esc(t('rashi'))}</th><th>${esc(t('degree'))}</th><th>${esc(t('nakPada'))}</th><th>${esc(t('bhava'))}</th><th>${esc(t('note'))}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <h3>${esc(t('secDasha'))}</h3>
+    <div class="tw"><table><thead><tr><th>${esc(t('mahadasha'))}</th><th>${esc(t('from'))}</th><th>${esc(t('to'))}</th></tr></thead><tbody>${dRows}</tbody></table></div>
+    ${cd?`<p style="margin:14px 0 4px;font-weight:600">${esc(t('antardasha'))}</p><div class="tw"><table><tbody>${aRows}</tbody></table></div>`:''}
+    <h3>${esc(t('secYogas'))}</h3><ul>${yogas}</ul>
+  </article></div>`;
+}
+
+/* ===== AI helpers ===== */
+let sampleFn=null, imgLimits=null, aiReady=false;
+const API='/api/claude';
+async function initAI(){
+  try{const r=await fetch(API,{method:'GET'});const j=await r.json();if(j&&j.ok){sampleFn=true;imgLimits={mediaTypes:['image/jpeg','image/png','image/webp','image/gif','image/heic','image/heif']};}}
+  catch(e){sampleFn=null;}
+  aiReady=true;
+  updateReadState(); if(lastChart) renderCreate(lastChart);
+}
+function httpErr(status,body){
+  const code=status===429?'rate_limited':status===503?'sampling_disabled':status===413?'image_rejected':(body&&body.code)||'upstream_error';
+  return {code,message:(body&&body.error)||('HTTP '+status)};
+}
+async function apiStream(payload,{signal,onText}={}){
+  let text='';
+  let r;
+  try{r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal});}
+  catch(e){throw {code:e&&e.name==='AbortError'?'cancelled':'upstream_error',message:String(e)};}
+  if(!r.ok){let j=null;try{j=await r.json();}catch(e){}throw httpErr(r.status,j);}
+  const rd=r.body.getReader();const dec=new TextDecoder();
+  try{
+    for(;;){const {done,value}=await rd.read();if(done)break;
+      text+=dec.decode(value,{stream:true});
+      const i=text.indexOf('\u0000ERR:');
+      if(i>=0){const code=text.slice(i+5).trim()||'upstream_error';text=text.slice(0,i);throw {code,message:'stream error',text:text||undefined};}
+      if(onText)onText({text});}
+  }catch(e){if(e&&e.code)throw e;throw {code:signal&&signal.aborted?'cancelled':'upstream_error',message:String(e),text:text||undefined};}
+  if(!text.trim())throw {code:'empty_completion',message:'empty'};
+  return {text};
+}
+function shrinkImage(file){
+  return new Promise((res,rej)=>{
+    const url=URL.createObjectURL(file);const img=new Image();
+    img.onload=()=>{const max=1800;let w=img.naturalWidth,h=img.naturalHeight;const k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
+      const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',0.86).split(',')[1]);};
+    img.onerror=()=>{URL.revokeObjectURL(url);rej({code:'image_rejected',message:'decode'});};
+    img.src=url;});
+}
+async function apiRead(file,signal){
+  const image=await shrinkImage(file);
+  let r;
+  try{r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'read',image,mediaType:'image/jpeg'}),signal});}
+  catch(e){throw {code:e&&e.name==='AbortError'?'cancelled':'upstream_error',message:String(e)};}
+  let j=null;try{j=await r.json();}catch(e){}
+  if(!r.ok)throw httpErr(r.status,j);
+  if(!j||!j.data)throw {code:'invalid_json',message:'no data'};
+  return j.data;
+}
+function errCopy(e){
+  switch(e&&e.code){
+    case 'not_granted':case 'sampling_disabled':case 'not_declared':case 'capability_disabled':case 'capability_removed':return t('errGranted');
+    case 'rate_limited':return t('errRate');
+    case 'image_rejected':case 'images_unavailable':return t('errImage');
+    case 'invalid_json':return t('errJson');
+    case 'cancelled':return '';
+    default:return t('errGeneric');}
+}
+function mdLite(s){
+  const lines=esc(s).split(/\n+/);let html='';
+  for(const ln of lines){
+    const l=ln.trim();if(!l)continue;
+    const m=l.match(/^#{1,4}\s*(.+)$/);
+    const bold=x=>x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    if(m)html+=`<h4>${bold(m[1])}</h4>`;
+    else if(/^[-*•]\s+/.test(l))html+=`<p>• ${bold(l.replace(/^[-*•]\s+/,''))}</p>`;
+    else html+=`<p>${bold(l)}</p>`;
+  }return html;
+}
+function chartSummary(ch){
+  const lines=[];
+  lines.push(`Birth: ${ch.inp.y}-${pad(ch.inp.m)}-${pad(ch.inp.d)} ${ch.timeUnknown?'(time unknown)':pad(ch.inp.h)+':'+pad(ch.inp.mi)}, place ${ch.inp.placeName||''}`);
+  lines.push(`Bikram Sambat (approx.): ${ch.bs.y} ${BSM_EN[ch.bs.m]} ${ch.bs.d}`);
+  lines.push(`Lagna: ${ch.timeUnknown?'unknown (chart from Moon sign)':SIGN_EN[ch.asc.sign]+' '+ch.asc.deg.toFixed(1)+'°'}`);
+  ch.gr.forEach(x=>lines.push(`${x.k}: ${SIGN_EN[x.sign]} ${x.deg.toFixed(1)}°, nakshatra ${NAK_EN[x.nak]} pada ${x.pada}, house ${ch.timeUnknown?'?':x.house}${x.retro&&x.k!=='Rahu'&&x.k!=='Ketu'?', retrograde':''}${dignityNote(x)?' ('+dignityNote(x).replace(/.*/,m=>m)+')':''}`));
+  lines.push(`Tithi: ${ch.panch.tithiN<=15?'Shukla':'Krishna'} ${TITHI_EN[(ch.panch.tithiN-1)%15]}; Yoga: ${YOGA_EN[ch.panch.yogaN]}; Karana: ${KAR_EN[ch.panch.karana]}; Weekday: ${WD_EN[ch.panch.wd]}`);
+  const cd=currentDasha(ch);
+  if(cd)lines.push(`Current Vimshottari: ${cd.md.lord} mahadasha (${isoDate(cd.md.start)} to ${isoDate(cd.md.end)})${cd.ad?`, ${cd.ad.lord} antardasha until ${isoDate(cd.ad.end)}`:''}`);
+  lines.push('Yogas noted: '+yogaList(ch).join(' | '));
+  return lines.join('\n');
+}
+let explainLang='ne';
+const aiState={c:{exp:'',turns:[],busy:false},r:{exp:'',turns:[],busy:false}};
+const chipHandlers={};
+function resetAI(px){aiState[px]={exp:'',turns:[],busy:false};}
+const LANGNAME={en:'English',ne:'Nepali',hi:'Hindi'};
+function aiPanels(px){
+  const opts=['ne','en','hi'].map(l=>`<option value="${l}" ${l===explainLang?'selected':''}>${{ne:'नेपाली',en:'English',hi:'हिन्दी'}[l]}</option>`).join('');
+  return `<div class="card ai"><div class="aihead"><h2>${esc(t('explainTitle'))}</h2>
+      <label class="inl">${esc(t('explainLangLbl'))} <select id="${px}Lang">${opts}</select></label></div>
+    <div class="btnrow"><button class="btn" id="${px}Exp" type="button" ${sampleFn?'':'disabled'}>${esc(t('explain'))}</button>
+      <button class="btn ghost hidden" id="${px}Stop" type="button">${esc(t('stopAI'))}</button></div>
+    <div class="out" id="${px}Out"><p class="hint">${esc(t('aiNote'))}</p></div></div>
+  <div class="card ai"><h2>${esc(t('askTitle'))}</h2><p class="hint">${esc(t('askNote'))}</p>
+    <div class="chips" id="${px}Chips"></div>
+    <div class="chat" id="${px}Chat" aria-live="polite"></div>
+    <div class="askrow"><textarea id="${px}Q" rows="2" placeholder="${esc(t('askPh'))}" ${sampleFn?'':'disabled'}></textarea>
+      <button class="btn" id="${px}Send" type="button" ${sampleFn?'':'disabled'}>${esc(t('send'))}</button>
+      <button class="btn ghost hidden" id="${px}QStop" type="button">${esc(t('stopAI'))}</button></div></div>`;
+}
+function renderChips(px){
+  const box=document.getElementById(px+'Chips');if(!box)return;
+  box.innerHTML=CHIPS[explainLang].map((c,i)=>`<button type="button" data-i="${i}" ${sampleFn?'':'disabled'}>${esc(c)}</button>`).join('');
+  box.querySelectorAll('button').forEach(b=>b.onclick=()=>chipHandlers[px]&&chipHandlers[px](CHIPS[explainLang][+b.dataset.i]));
+}
+function renderChat(px){
+  const box=document.getElementById(px+'Chat');if(!box)return;
+  box.innerHTML=aiState[px].turns.map(m=>`<div class="msg ${m.role==='user'?'u':'a'}">${m.role==='user'?esc(m.content):mdLite(m.content)}</div>`).join('');
+}
+function wireAI(px,summaryFn,extra,mode){
+  const $=id=>document.getElementById(px+id);
+  const sel=$('Lang');
+  sel.onchange=()=>{explainLang=sel.value;document.querySelectorAll('select[id$="Lang"]').forEach(x=>x.value=explainLang);renderChips('c');renderChips('r');};
+  $('Exp').onclick=()=>runExplain(px,summaryFn(),extra,mode);
+  if(aiState[px].exp)$('Out').innerHTML=mdLite(aiState[px].exp);
+  chipHandlers[px]=q=>askChat(px,q,summaryFn,extra);
+  renderChips(px);renderChat(px);
+  const send=()=>{const q=$('Q').value.trim();if(q)askChat(px,q,summaryFn,extra);};
+  $('Send').onclick=send;
+  $('Q').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}};
+}
+async function runExplain(px,summary,extra,mode){
+  const g=id=>document.getElementById(px+id);
+  if(!sampleFn){const o=g('Out');if(o)o.innerHTML=`<p class="err">${esc(t('errNoAI'))}</p>`;return;}
+  const ctl=new AbortController();const st=g('Stop');st.onclick=()=>ctl.abort();st.classList.remove('hidden');g('Exp').disabled=true;
+  g('Out').innerHTML=`<p class="hint">…</p>`;let errMsg='';
+  try{
+    await apiStream({kind:'explain',lang:explainLang,mode,summary},{signal:ctl.signal,onText:({text})=>{aiState[px].exp=text;const o=g('Out');if(o)o.innerHTML=mdLite(text);}});
+  }catch(e){if(e&&e.text)aiState[px].exp=e.text;errMsg=errCopy(e);}
+  finally{
+    const o=g('Out');if(o){o.innerHTML=aiState[px].exp?mdLite(aiState[px].exp):'';if(errMsg)o.insertAdjacentHTML('beforeend',`<p class="err">${esc(errMsg)}</p>`);}
+    const b=g('Exp');if(b)b.disabled=false;const s2=g('Stop');if(s2)s2.classList.add('hidden');
+  }
+}
+async function askChat(px,q,summaryFn,extra){
+  const g=id=>document.getElementById(px+id);
+  const st=aiState[px];
+  if(!sampleFn){const c=g('Chat');if(c)c.insertAdjacentHTML('beforeend',`<p class="err">${esc(t('errNoAI'))}</p>`);return;}
+  if(st.busy)return;st.busy=true;
+  st.turns.push({role:'user',content:q});g('Q').value='';renderChat(px);
+  g('Chat').insertAdjacentHTML('beforeend',`<div class="msg a" id="${px}Live"><p class="hint">…</p></div>`);
+  const ctl=new AbortController();const stop=g('QStop');stop.onclick=()=>ctl.abort();stop.classList.remove('hidden');g('Send').disabled=true;
+  const hist=st.turns.length>15?st.turns.slice(-15):st.turns;
+  let errMsg='';
+  try{
+    const {text}=await apiStream({kind:'chat',lang:explainLang,source:extra?'read':'create',summary:summaryFn(),turns:hist},{signal:ctl.signal,onText:({text})=>{const l=document.getElementById(px+'Live');if(l)l.innerHTML=mdLite(text);}});
+    st.turns.push({role:'assistant',content:text});
+  }catch(e){
+    if(e&&e.text)st.turns.push({role:'assistant',content:e.text});
+    else{st.turns.pop();const qq=g('Q');if(qq)qq.value=q;}
+    errMsg=errCopy(e);
+  }finally{
+    st.busy=false;renderChat(px);
+    if(errMsg){const c=g('Chat');if(c)c.insertAdjacentHTML('beforeend',`<p class="err">${esc(errMsg)}</p>`);}
+    const s2=g('QStop');if(s2)s2.classList.add('hidden');const sd=g('Send');if(sd)sd.disabled=false;
+  }
+}
+const READ_EXTRA='This chhina was transcribed from a photograph. Explain the chhina as written. If a placement looks unclear, inconsistent or missing, say so briefly instead of guessing. Where a calculated check is included, treat the written chhina as primary and mention any big difference only briefly.';
+function readSummary(ex){
+  const b=ex.birth||{},p=ex.person||{},pc=ex.panchang||{};const lines=[];
+  lines.push('WRITTEN CHHINA (read from a photo, may contain misreadings)');
+  lines.push(`Name: ${p.name||'unknown'}; gender: ${p.gender||'unknown'}; birth: AD ${b.ad_date||'?'}, BS ${b.bs_date||'?'}, time ${b.time_24h||'?'}, place ${b.place||'?'}`);
+  lines.push(`Chart style: ${ex.chart_style||'?'}; Lagna sign: ${Number.isInteger(ex.lagna_sign)?SIGN_EN[ex.lagna_sign-1]:'not written'}`);
+  (ex.planets||[]).forEach(pl=>lines.push(`${pl.name}: sign ${Number.isInteger(pl.sign)?SIGN_EN[pl.sign-1]:'?'}, house ${pl.house||'?'}${pl.degrees?', '+pl.degrees:''}${pl.retrograde?', retrograde':''}`));
+  lines.push(`Panchang as written: ${JSON.stringify(pc)}`);
+  if(ex.dasha&&(ex.dasha.balance_at_birth||ex.dasha.other))lines.push(`Dasha as written: ${[ex.dasha.balance_at_birth,ex.dasha.other].filter(Boolean).join('; ')}`);
+  if(ex.notes)lines.push(`Other text on the chhina: ${ex.notes}`);
+  const inp=birthFromExtract(ex);
+  if(inp){try{lines.push('\nCALCULATED CHECK from the written birth details (Lahiri, whole-sign):\n'+chartSummary(computeChart(inp)));}catch(e){}}
+  return lines.join('\n');
+}
+/* ===== Download helpers ===== */
+async function saveFile(name,data,statusEl){
+  try{
+    const type=name.endsWith('.svg')?'image/svg+xml':'text/html';
+    const url=URL.createObjectURL(new Blob([data],{type:type+';charset=utf-8'}));
+    const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);statusEl.textContent=t('saved');
+  }catch(e){statusEl.textContent=t('errGeneric');}
+}
+function standaloneHtml(){
+  const sc=document.getElementById('scroll');
+  const css=document.getElementById('scrollcss').textContent;
+  return `<!DOCTYPE html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chhina</title>`+
+   `<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&family=Yatra+One&display=swap" rel="stylesheet"><style>body{margin:0;padding:24px 14px;background:#2b1d14}${css}</style></head><body>${sc.outerHTML}</body></html>`;
+}
+
+/* ===== Create tab ===== */
+let lastChart=null;
+function renderCreate(ch){
+  const box=document.getElementById('createOut');
+  box.innerHTML=renderScroll(ch)+
+   `<div class="btnrow" style="justify-content:center">
+      <button class="btn" id="bSave" type="button">${esc(t('saveHtml'))}</button>
+      <button class="btn ghost" id="bSvg" type="button">${esc(t('saveSvg'))}</button>
+    </div><p class="hint" id="saveMsg" style="text-align:center"></p>
+    ${aiPanels('c')}`;
+  const msg=document.getElementById('saveMsg');
+  document.getElementById('bSave').onclick=()=>saveFile('chhina.html',standaloneHtml(),msg);
+  document.getElementById('bSvg').onclick=()=>{const svg=document.querySelector('#fig1 svg').outerHTML;saveFile('chhina-lagna.svg','<?xml version="1.0" encoding="UTF-8"?>\n'+svg,msg);};
+  wireAI('c',()=>chartSummary(ch),'','create');
+}
+function readForm(){
+  const err=m=>{throw new Error(m)};
+  const mode=document.getElementById('calMode').value;
+  let y,m,d;
+  if(mode==='AD'){const v=document.getElementById('adDate').value;if(!v)err(t('errNoDate'));[y,m,d]=v.split('-').map(Number);if(!y||y<1000)err(t('errNoDate'));}
+  else{const by=+document.getElementById('bsY').value,bm=+document.getElementById('bsM').value,bd=+document.getElementById('bsD').value;
+    if(!by||!bd||bd<1||bd>32)err(t('errBS'));const a=bsToAD(by,bm,bd);y=a.y;m=a.m;d=a.d;}
+  const unk=document.getElementById('tmUnknown').checked;
+  let h=12,mi=0;
+  if(!unk){const tv=document.getElementById('tm').value;if(!tv)err(t('errNoTime'));[h,mi]=tv.split(':').map(Number);}
+  const lat=parseFloat(document.getElementById('lat').value),lon=parseFloat(document.getElementById('lon').value);
+  if(isNaN(lat)||isNaN(lon)||Math.abs(lat)>89||Math.abs(lon)>180)err(t('errNoPlace'));
+  const tz=document.getElementById('tzName').value.trim()||'Asia/Kathmandu';
+  try{new Intl.DateTimeFormat('en-US',{timeZone:tz});}catch(e){err('Time zone name not recognised, e.g. Asia/Kathmandu or America/New_York.');}
+  const ov=document.getElementById('offOv').value;
+  const sel=document.getElementById('place');
+  return {y,m,d,h,mi,lat,lon,tz,offOv:ov===''?null:parseFloat(ov),timeUnknown:unk,placeName:sel.value==='custom'?`${lat.toFixed(2)}°, ${lon.toFixed(2)}°`:sel.options[sel.selectedIndex].text};
+}
+function generate(){
+  const e=document.getElementById('formErr');e.textContent='';
+  try{const inp=readForm();lastChart=computeChart(inp);resetAI('c');renderCreate(lastChart);
+    document.getElementById('createOut').scrollIntoView({behavior:'smooth',block:'start'});}
+  catch(x){e.textContent=x.message;}
+}
+
+/* ===== Read tab ===== */
+let lastExtract=null,imgFile=null;
+function updateReadState(){
+  const b=document.getElementById('readBtn');
+  b.disabled=!(sampleFn&&imgFile);
+  const er=document.getElementById('readErr');
+  if(aiReady&&(!sampleFn||!imgLimits)&&!er.textContent) er.textContent=t('errNoAI');
+}
+function setFile(f){
+  if(!f)return;imgFile=f;
+  const rd=new FileReader();rd.onload=()=>{const p=document.getElementById('prev');p.src=rd.result;p.classList.remove('hidden');};rd.readAsDataURL(f);
+  document.getElementById('readErr').textContent='';updateReadState();
+}
+async function doRead(){
+  const er=document.getElementById('readErr');er.textContent='';
+  const btn=document.getElementById('readBtn'),stop=document.getElementById('stopRead'),out=document.getElementById('readOut');
+  if(!sampleFn||!imgFile){er.textContent=t('errNoAI');return;}
+  const ctl=new AbortController();stop.onclick=()=>ctl.abort();stop.classList.remove('hidden');btn.disabled=true;
+  out.innerHTML=`<div class="card"><p>${esc(t('reading'))}</p></div>`;
+  try{
+    const data=await apiRead(imgFile,ctl.signal);
+    resetAI('r');lastExtract=data;renderRead(data);
+    runExplain('r',readSummary(data),READ_EXTRA,'read');
+  }catch(e){
+    out.innerHTML='';const c=errCopy(e);if(c)er.textContent=c;
+    out.innerHTML=`<div class="empty"><div class="om">ॐ</div><p>${esc(t('emptyRead'))}</p></div>`;
+  }finally{stop.classList.add('hidden');updateReadState();}
+}
+const nz=v=>(v===null||v===undefined||v==='')?`<span style="color:var(--muted)">${esc(t('unreadable'))}</span>`:esc(v);
+function extractedItems(ex){
+  const L=Number.isInteger(ex.lagna_sign)?ex.lagna_sign-1:null;
+  const items=[];const loose=[];
+  (ex.planets||[]).forEach(p=>{
+    if(!GRAHA.includes(p.name))return;
+    let sign=Number.isInteger(p.sign)?p.sign-1:null;
+    if(sign==null&&L!=null&&Number.isInteger(p.house))sign=(L+p.house-1)%12;
+    if(sign==null&&L==null&&Number.isInteger(p.house)){loose.push({p,house:p.house});return;}
+    if(sign==null){loose.push({p,house:null});return;}
+    items.push({sign,a:gAb(p.name),r:!!p.retrograde&&p.name!=='Rahu'&&p.name!=='Ketu',k:p.name});
+  });
+  return {L,items,loose};
+}
+function renderRead(ex){
+  const out=document.getElementById('readOut');
+  const {L,items,loose}=extractedItems(ex);
+  const b=ex.birth||{},p=ex.person||{},pc=ex.panchang||{};
+  let chartHtml='';
+  if(L!=null&&items.length){
+    chartHtml=chartSvg('north',items,L,t('drawn'),isDv()?'ल':'Asc');
+  }else if(loose.length&&loose.every(l=>l.house)){
+    const hp=Array.from({length:12},()=>[]);loose.forEach(l=>hp[l.house-1].push({a:gAb(l.p.name),r:!!l.p.retrograde}));
+    chartHtml=svgNorth(hp,null,t('drawn'),isDv()?'ल':'Asc');
+  }
+  const kv=(a,v)=>`<tr><th>${esc(a)}</th><td>${v}</td></tr>`;
+  const planetsRows=(ex.planets||[]).map(pl=>`<tr><td>${esc(gName(pl.name)||pl.name)}</td><td>${Number.isInteger(pl.sign)?esc(signShort(pl.sign-1)):'—'}</td><td>${Number.isInteger(pl.house)?dn(pl.house):'—'}</td><td>${esc(pl.degrees||'')}${pl.retrograde?' (R)':''}</td></tr>`).join('');
+  out.innerHTML=`<div class="card"><h2>${esc(t('extracted'))}</h2>
+    <div class="tw"><table class="mini"><tbody>
+      ${kv(t('name'),nz(p.name))}${kv(t('gender'),nz(p.gender))}
+      ${kv(t('adDate'),nz(b.ad_date))}${kv(t('bsDate'),nz(b.bs_date))}${kv(t('timeLbl'),nz(b.time_24h))}${kv(t('placeLbl'),nz(b.place))}
+      ${kv(t('lagnaWritten'),Number.isInteger(ex.lagna_sign)?esc(signName(ex.lagna_sign-1)):nz(null))}
+      ${kv(t('moonSign'),Number.isInteger(pc.moon_sign)?esc(signName(pc.moon_sign-1)):nz(null))}
+      ${kv(t('tithi'),nz([pc.paksha,pc.tithi].filter(Boolean).join(' ')||null))}${kv(t('nakshatra'),nz(pc.nakshatra?(pc.nakshatra+(pc.pada?' · '+pc.pada:'')):null))}
+      ${kv(t('yoga'),nz(pc.yoga))}${kv(t('karana'),nz(pc.karana))}${kv(t('vara'),nz(pc.weekday))}
+    </tbody></table></div></div>
+    ${chartHtml?`<div class="card" style="margin-top:18px"><h2>${esc(t('drawn'))}</h2><div class="scroll" style="margin:10px auto;max-width:420px;padding:20px;border:0;background:var(--paper)"><div class="charts"><figure style="max-width:380px">${chartHtml}</figure></div></div></div>`:''}
+    <div class="card" style="margin-top:18px"><h2>${esc(t('planetsWritten'))}</h2><div class="tw"><table class="mini"><thead><tr><th>${esc(t('graha'))}</th><th>${esc(t('rashi'))}</th><th>${esc(t('bhava'))}</th><th>${esc(t('degree'))}</th></tr></thead><tbody>${planetsRows||`<tr><td colspan="4">${esc(t('unreadable'))}</td></tr>`}</tbody></table></div>
+      ${ex.dasha&&(ex.dasha.balance_at_birth||ex.dasha.other)?`<p class="hint">${esc([ex.dasha.balance_at_birth,ex.dasha.other].filter(Boolean).join(' · '))}</p>`:''}
+    </div>
+    ${ex.notes?`<div class="card" style="margin-top:18px"><h2>${esc(t('notes'))}</h2><p style="white-space:pre-wrap;margin:0">${esc(ex.notes)}</p></div>`:''}
+    <div class="btnrow">
+      <button class="btn" id="rCmp" type="button">${esc(t('compare'))}</button>
+      <button class="btn ghost" id="rUse" type="button">${esc(t('useCreate'))}</button>
+    </div>
+    <div id="cmpOut"></div>
+    ${aiPanels('r')}`;
+  document.getElementById('rCmp').onclick=()=>compareWithCalc(ex);
+  document.getElementById('rUse').onclick=()=>useInCreate(ex);
+  wireAI('r',()=>readSummary(ex),READ_EXTRA,'read');
+}
+function birthFromExtract(ex){
+  const b=ex.birth||{};let y,m,d;
+  if(b.ad_date&&/^\d{4}-\d{2}-\d{2}$/.test(b.ad_date)){[y,m,d]=b.ad_date.split('-').map(Number);}
+  else if(b.bs_date&&/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(b.bs_date)){const [by,bm,bd]=b.bs_date.split('/').map(Number);const a=bsToAD(by,bm-1,bd);y=a.y;m=a.m;d=a.d;}
+  else return null;
+  if(!b.time_24h||!/^\d{1,2}:\d{2}$/.test(b.time_24h))return null;
+  const [h,mi]=b.time_24h.split(':').map(Number);
+  if(typeof b.lat!=='number'||typeof b.lon!=='number')return null;
+  let tz=b.tz_iana||'Asia/Kathmandu';try{new Intl.DateTimeFormat('en-US',{timeZone:tz});}catch(e){tz='Asia/Kathmandu';}
+  return {y,m,d,h,mi,lat:b.lat,lon:b.lon,tz,offOv:null,timeUnknown:false,placeName:b.place||''};
+}
+function compareWithCalc(ex){
+  const out=document.getElementById('cmpOut');const inp=birthFromExtract(ex);
+  if(!inp){out.innerHTML=`<div class="card" style="margin-top:18px"><p class="hint">${esc(t('cmpNeed'))}</p></div>`;return;}
+  const ch=computeChart(inp);
+  const rows=[];
+  const cmp=(label,w,c)=>{const ok=w!=null&&w===c;rows.push(`<tr><td>${esc(label)}</td><td>${w!=null?esc(signShort(w)):'—'}</td><td>${esc(signShort(c))}</td><td class="${ok?'ok':'bad'}">${w==null?'—':ok?'✓':'✗'}</td></tr>`);};
+  cmp(t('lagna'),Number.isInteger(ex.lagna_sign)?ex.lagna_sign-1:null,ch.asc.sign);
+  const {items}=extractedItems(ex);
+  GRAHA.forEach(k=>{const w=items.find(i=>i.k===k);cmp(gName(k),w?w.sign:null,ch.g[k].sign);});
+  out.innerHTML=`<div class="card" style="margin-top:18px"><h2>${esc(t('cmpTitle'))}</h2><div class="tw"><table class="mini"><thead><tr><th></th><th>${esc(t('written'))}</th><th>${esc(t('calc'))}</th><th>${esc(t('match'))}</th></tr></thead><tbody>${rows.join('')}</tbody></table></div><p class="hint">${esc(t('cmpNote'))}</p></div>`;
+}
+function useInCreate(ex){
+  const b=ex.birth||{},p=ex.person||{};
+  document.getElementById('nm').value=p.name||'';
+  if(b.ad_date&&/^\d{4}-\d{2}-\d{2}$/.test(b.ad_date)){document.getElementById('calMode').value='AD';document.getElementById('adDate').value=b.ad_date;}
+  else if(b.bs_date&&/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(b.bs_date)){const [y,m,d]=b.bs_date.split('/').map(Number);document.getElementById('calMode').value='BS';document.getElementById('bsY').value=y;document.getElementById('bsM').value=m-1;document.getElementById('bsD').value=d;}
+  syncCal();
+  if(b.time_24h&&/^\d{1,2}:\d{2}$/.test(b.time_24h)){document.getElementById('tm').value=b.time_24h.split(':').map(x=>pad(+x)).join(':');document.getElementById('tmUnknown').checked=false;}
+  if(typeof b.lat==='number'&&typeof b.lon==='number'){document.getElementById('place').value='custom';document.getElementById('lat').value=b.lat;document.getElementById('lon').value=b.lon;document.getElementById('tzName').value=b.tz_iana||'Asia/Kathmandu';}
+  showTab('create');
+}
+
+/* ===== Wiring ===== */
+function syncCal(){const m=document.getElementById('calMode').value;document.getElementById('adBox').classList.toggle('hidden',m!=='AD');document.getElementById('bsBox').classList.toggle('hidden',m!=='BS');}
+function showTab(n){
+  document.getElementById('paneCreate').classList.toggle('hidden',n!=='create');
+  document.getElementById('paneRead').classList.toggle('hidden',n!=='read');
+  document.getElementById('tabC').setAttribute('aria-selected',n==='create');
+  document.getElementById('tabR').setAttribute('aria-selected',n==='read');
+}
+(function init(){
+  const sel=document.getElementById('place');
+  let html='';PLACES.forEach(([grp,list,tz])=>{html+=`<optgroup label="${esc(grp)}">`+list.map(p=>`<option value="${esc(p[0])}" data-lat="${p[1]}" data-lon="${p[2]}" data-tz="${p[3]||tz}">${esc(p[0])}</option>`).join('')+'</optgroup>';});
+  html+=`<option value="custom">${esc(T.en.custom||'Other place (enter coordinates)')}</option>`;
+  sel.innerHTML=html;
+  T.en.custom='Other place (enter coordinates)';T.ne.custom='अन्य ठाउँ (अक्षांश/देशान्तर हाल्नुहोस्)';T.hi.custom='अन्य स्थान (निर्देशांक डालें)';
+  function onPlace(){const o=sel.options[sel.selectedIndex];if(o.value==='custom')return;
+    document.getElementById('lat').value=o.dataset.lat;document.getElementById('lon').value=o.dataset.lon;document.getElementById('tzName').value=o.dataset.tz;}
+  sel.addEventListener('change',onPlace);
+  sel.value='Kathmandu';onPlace();
+  ['lat','lon','tzName'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{sel.value='custom';}));
+  document.getElementById('calMode').addEventListener('change',syncCal);
+  document.getElementById('tmUnknown').addEventListener('change',e=>{document.getElementById('tm').disabled=e.target.checked;});
+  document.getElementById('go').addEventListener('click',generate);
+  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.lang;applyLang();
+    const c=document.querySelector('#place option[value="custom"]');if(c)c.textContent=t('custom');}));
+  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+  const file=document.getElementById('file'),drop=document.getElementById('drop');
+  const pick=()=>file.click();
+  drop.addEventListener('click',pick);drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+  document.getElementById('pick').addEventListener('click',pick);
+  file.addEventListener('change',()=>setFile(file.files[0]));
+  ['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('on');}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('on');}));
+  drop.addEventListener('drop',e=>{if(e.dataTransfer&&e.dataTransfer.files[0])setFile(e.dataTransfer.files[0]);});
+  document.getElementById('readBtn').addEventListener('click',doRead);
+  applyLang();
+  const c=document.querySelector('#place option[value="custom"]');if(c)c.textContent=t('custom');
+  initAI();
+})();
+</script>
+</body>
+</html>
