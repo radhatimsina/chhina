@@ -143,6 +143,14 @@ details.pc .pcb{padding:0 14px 12px;}
 .scroll .tw{overflow-x:auto}
 .scroll ul{margin:6px 0 0;padding-left:20px}
 .scroll .small{font-size:13px;color:#6B3A1A;margin-top:18px}
+.scroll .shloka{text-align:center;font-style:italic;color:#6B3A1A;margin:6px 0 2px;line-height:1.5}
+.scroll .para{text-align:justify;margin:12px 0 4px;line-height:1.65;border-top:1px dotted rgba(58,12,22,.35);border-bottom:1px dotted rgba(58,12,22,.35);padding:8px 0}
+.scroll .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.scroll .cgrid.c3{grid-template-columns:1fr 1fr 1fr}
+.scroll .cgrid figure{margin:0;text-align:center}
+.scroll .cgrid svg{width:100%;height:auto;display:block}
+.scroll .cgrid figcaption{font-weight:600;font-size:13px;margin-top:3px}
+.scroll .num{white-space:nowrap}
 /* One-page Letter sheet used to make the PDF */
 .sheet{position:fixed;left:-20000px;top:0;width:816px;height:1056px;background:#fff;padding:30px;overflow:hidden;}
 .sheet .fit{width:756px;transform-origin:top left;}
@@ -155,10 +163,13 @@ details.pc .pcb{padding:0 14px 12px;}
 .sheet .scroll h3{font-size:14.5px;margin:9px 0 5px;padding-bottom:2px;}
 .sheet .scroll .kv{grid-template-columns:1fr 1fr;gap:1px 20px;}
 .sheet .scroll .kv div{padding:1px 0;}
-.sheet .scroll .charts{gap:16px;flex-wrap:nowrap;}
-.sheet .scroll .charts{justify-content:center;gap:40px;}
-.sheet .scroll .charts figure{flex:0 0 255px;max-width:255px;}
-.sheet .scroll .charts figcaption{font-size:12px;margin-top:2px;}
+.sheet .cols{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;}
+.sheet .colB{border-left:1.5px solid rgba(122,20,32,.45);padding-left:16px;}
+.sheet .scroll .cgrid{gap:8px 14px;grid-template-columns:repeat(2,168px);justify-content:center;}
+.sheet .scroll .cgrid.c3{grid-template-columns:repeat(3,110px);}
+.sheet .scroll .cgrid figcaption{font-size:11px;margin-top:1px;}
+.sheet .scroll .para{font-size:11.5px;line-height:1.45;margin:6px 0 2px;}
+.sheet .scroll .shloka{font-size:11.5px;margin:2px 0;}
 .sheet .scroll table{font-size:12px;}
 .sheet .scroll th,.sheet .scroll td{padding:2px 5px;}
 .sheet .scroll ul{margin:2px 0 0;}
@@ -201,6 +212,12 @@ details.pc .pcb{padding:0 14px 12px;}
         <legend data-i18n="secPerson"></legend>
         <label for="nm" data-i18n="name"></label>
         <input type="text" id="nm" maxlength="80">
+        <div class="row2">
+          <div><label for="fName" data-i18n="fatherName"></label><input type="text" id="fName" maxlength="80"></div>
+          <div><label for="mName2" data-i18n="motherName"></label><input type="text" id="mName2" maxlength="80"></div>
+        </div>
+        <label for="gotra" data-i18n="gotra"></label>
+        <input type="text" id="gotra" maxlength="40">
         <label for="gender" data-i18n="gender"></label>
         <select id="gender"><option value="" data-i18n="noSay"></option><option value="m" data-i18n="male"></option><option value="f" data-i18n="female"></option><option value="o" data-i18n="other"></option></select>
       </fieldset>
@@ -601,6 +618,21 @@ let lang='en';
 Object.assign(T.en,{savePdf:'Save as PDF (8.5 × 11 in)',pdfMaking:'Making the PDF…',pdfDone:'PDF saved.',pdfFail:'The PDF could not be made here. Use your browser\u2019s Print and choose "Save as PDF".',pdfMade:'Made on chhina.vercel.app'});
 Object.assign(T.ne,{savePdf:'PDF मा सेभ गर्नुहोस् (८.५ × ११ इन्च)',pdfMaking:'PDF बनाउँदै…',pdfDone:'PDF सेभ भयो।',pdfFail:'यहाँ PDF बन्न सकेन। ब्राउजरको Print मा गएर "Save as PDF" छान्नुहोस्।',pdfMade:'chhina.vercel.app मा बनाइएको'});
 Object.assign(T.hi,{savePdf:'PDF सेव करें (8.5 × 11 इंच)',pdfMaking:'PDF बन रहा है…',pdfDone:'PDF सेव हो गया।',pdfFail:'यहाँ PDF नहीं बन सका। ब्राउज़र के Print में जाकर "Save as PDF" चुनें।',pdfMade:'chhina.vercel.app पर बनाया गया'});
+Object.assign(T.en,{fatherName:"Father's name",motherName:"Mother's name",gotra:'Gotra',samvatsar:'Samvatsar',ayana:'Ayana',uttarayana:'Uttarayana',dakshinayana:'Dakshinayana',ritu:'Ritu (season)',masa:'Lunar month',ishtakal:'Ishtakal (from sunrise)',sunriseLbl:'Sunrise',ghadi:'ghadi',pala:'pala',
+secAvak:'Avakahada chakra',varna:'Varna',vashya:'Vashya',yoni:'Yoni',gana:'Gana',nadi:'Nadi',tatva:'Tatva',rashiLord:'Rashi lord',nakLord:'Nakshatra lord',
+spashta:'Spashta (s-°-′-″)',gati:'Speed / day',chalitChart:'Bhava chalit',saptavarga:'Saptavarga charts',hora:'Hora (D2)',drek:'Drekkana (D3)',sapt:'Saptamsha (D7)',dwad:'Dwadashamsha (D12)',trim:'Trimshamsha (D30)',
+dashaBal:'Dasha balance at birth (bhogya)',yoginiT:'Yogini dasha',yogini:'Yogini',secPhal:'Phal (results)',yrs:'y',mons:'m',dys:'d',
+paraNote:'Samvatsar and lunar month follow common North Indian/Nepali reckoning and may differ by a year or month near boundaries.'});
+Object.assign(T.ne,{fatherName:'बुबाको नाम',motherName:'आमाको नाम',gotra:'गोत्र',samvatsar:'संवत्सर',ayana:'अयन',uttarayana:'उत्तरायण',dakshinayana:'दक्षिणायन',ritu:'ऋतु',masa:'चान्द्र मास',ishtakal:'इष्टकाल (सूर्योदयदेखि)',sunriseLbl:'सूर्योदय',ghadi:'घडी',pala:'पला',
+secAvak:'अवकहडा चक्र',varna:'वर्ण',vashya:'वश्य',yoni:'योनि',gana:'गण',nadi:'नाडी',tatva:'तत्त्व',rashiLord:'राशि स्वामी',nakLord:'नक्षत्र स्वामी',
+spashta:'स्पष्ट (रा-अं-क-वि)',gati:'दैनिक गति',chalitChart:'भाव चलित',saptavarga:'सप्तवर्ग कुण्डली',hora:'होरा (D2)',drek:'द्रेष्काण (D3)',sapt:'सप्तांश (D7)',dwad:'द्वादशांश (D12)',trim:'त्रिंशांश (D30)',
+dashaBal:'जन्म समयको दशा शेष (भोग्य)',yoginiT:'योगिनी दशा',yogini:'योगिनी',secPhal:'फल',yrs:'व',mons:'म',dys:'दि',
+paraNote:'संवत्सर र चान्द्र मास प्रचलित उत्तर भारतीय/नेपाली गणनाअनुसार हुन्, सिमानाको नजिक एक वर्ष वा महिना फरक पर्न सक्छ।'});
+Object.assign(T.hi,{fatherName:'पिता का नाम',motherName:'माता का नाम',gotra:'गोत्र',samvatsar:'संवत्सर',ayana:'अयन',uttarayana:'उत्तरायण',dakshinayana:'दक्षिणायन',ritu:'ऋतु',masa:'चांद्र मास',ishtakal:'इष्टकाल (सूर्योदय से)',sunriseLbl:'सूर्योदय',ghadi:'घटी',pala:'पल',
+secAvak:'अवकहड़ा चक्र',varna:'वर्ण',vashya:'वश्य',yoni:'योनि',gana:'गण',nadi:'नाड़ी',tatva:'तत्त्व',rashiLord:'राशि स्वामी',nakLord:'नक्षत्र स्वामी',
+spashta:'स्पष्ट (रा-अं-क-वि)',gati:'दैनिक गति',chalitChart:'भाव चलित',saptavarga:'सप्तवर्ग कुंडली',hora:'होरा (D2)',drek:'द्रेष्काण (D3)',sapt:'सप्तांश (D7)',dwad:'द्वादशांश (D12)',trim:'त्रिंशांश (D30)',
+dashaBal:'जन्म समय दशा शेष (भोग्य)',yoginiT:'योगिनी दशा',yogini:'योगिनी',secPhal:'फल',yrs:'व',mons:'मा',dys:'दि',
+paraNote:'संवत्सर और चांद्र मास प्रचलित उत्तर भारतीय गणना से हैं, सीमा के पास एक वर्ष या मास अलग हो सकता है।'});
 let guideLang='ne';
 const t=k=>(T[lang][k]??T.en[k]??k);
 const isDv=()=>lang!=='en';
@@ -706,33 +738,135 @@ function currentDasha(ch){
   return md?{md,ad:md.ad.find(a=>now>=a.start&&now<a.end)}:null;
 }
 
+/* ===== Traditional extras ===== */
+const SAMV_DV=['प्रभव','विभव','शुक्ल','प्रमोद','प्रजापति','अङ्गिरा','श्रीमुख','भाव','युवा','धाता','ईश्वर','बहुधान्य','प्रमाथी','विक्रम','वृष','चित्रभानु','सुभानु','तारण','पार्थिव','व्यय','सर्वजित्','सर्वधारी','विरोधी','विकृति','खर','नन्दन','विजय','जय','मन्मथ','दुर्मुख','हेमलम्ब','विलम्ब','विकारी','शार्वरी','प्लव','शुभकृत्','शोभन','क्रोधी','विश्वावसु','पराभव','प्लवङ्ग','कीलक','सौम्य','साधारण','विरोधकृत्','परिधावी','प्रमादी','आनन्द','राक्षस','नल','पिङ्गल','कालयुक्त','सिद्धार्थी','रौद्र','दुर्मति','दुन्दुभि','रुधिरोद्गारी','रक्ताक्ष','क्रोधन','क्षय'];
+const SAMV_EN=['Prabhava','Vibhava','Shukla','Pramoda','Prajapati','Angira','Shrimukha','Bhava','Yuva','Dhata','Ishvara','Bahudhanya','Pramathi','Vikrama','Vrisha','Chitrabhanu','Subhanu','Tarana','Parthiva','Vyaya','Sarvajit','Sarvadhari','Virodhi','Vikriti','Khara','Nandana','Vijaya','Jaya','Manmatha','Durmukha','Hemalamba','Vilamba','Vikari','Sharvari','Plava','Shubhakrit','Shobhana','Krodhi','Vishvavasu','Parabhava','Plavanga','Kilaka','Saumya','Sadharana','Virodhakrit','Paridhavi','Pramadi','Ananda','Rakshasa','Nala','Pingala','Kalayukta','Siddharthi','Raudra','Durmati','Dundubhi','Rudhirodgari','Raktaksha','Krodhana','Kshaya'];
+const MASA_DV=['चैत्र','वैशाख','ज्येष्ठ','आषाढ','श्रावण','भाद्र','आश्विन','कार्तिक','मार्गशीर्ष','पौष','माघ','फाल्गुन'];
+const MASA_EN=['Chaitra','Vaishakha','Jyeshtha','Ashadha','Shravana','Bhadra','Ashwin','Kartik','Margashirsha','Pausha','Magha','Phalguna'];
+const RITU_DV=['वसन्त','ग्रीष्म','वर्षा','शरद्','हेमन्त','शिशिर'],RITU_EN=['Vasanta','Grishma','Varsha','Sharad','Hemanta','Shishira'];
+const VARNA_DV=['क्षत्रिय','वैश्य','शूद्र','ब्राह्मण'],VARNA_EN=['Kshatriya','Vaishya','Shudra','Brahmin'];
+const VASHYA_DV={C:'चतुष्पद',M:'मानव (द्विपद)',J:'जलचर',V:'वनचर',K:'कीट'},VASHYA_EN={C:'Chatushpada',M:'Manava',J:'Jalachara',V:'Vanachara',K:'Keeta'};
+const YONI_IDX=[0,1,2,3,3,4,5,2,5,6,6,7,8,9,8,9,10,10,4,11,12,11,13,0,13,7,1];
+const YONI_DV=['अश्व','गज','मेष','सर्प','श्वान','मार्जार','मूषक','गौ','महिष','व्याघ्र','मृग','वानर','नकुल','सिंह'];
+const YONI_EN=['Horse','Elephant','Goat','Serpent','Dog','Cat','Rat','Cow','Buffalo','Tiger','Deer','Monkey','Mongoose','Lion'];
+const NADI_DV=['आदि','मध्य','अन्त्य'],NADI_EN=['Adi','Madhya','Antya'];
+const TATVA_DV=['अग्नि','पृथ्वी','वायु','जल'],TATVA_EN=['Fire','Earth','Air','Water'];
+const GANA_DV={D:'देव',M:'मनुष्य',R:'राक्षस'},GANA_EN={D:'Deva',M:'Manushya',R:'Rakshasa'};
+const GANA_STR='DMRMDMDDRRMMDRDRDRRMMDRRMMD';
+const YOG_DV=['मङ्गला','पिङ्गला','धान्या','भ्रामरी','भद्रिका','उल्का','सिद्धा','संकटा'],YOG_EN=['Mangala','Pingala','Dhanya','Bhramari','Bhadrika','Ulka','Siddha','Sankata'];
+const YOG_LORD=['Moon','Sun','Jupiter','Mars','Mercury','Saturn','Venus','Rahu'];
+const L3=(dv,en,i)=>isDv()?dv[i]:en[i];
+
+function vargaSign(lon,n){
+  const s=Math.floor(lon/30),d=lon-s*30,odd=s%2===0;
+  switch(n){
+    case 2: return odd?(d<15?4:3):(d<15?3:4);
+    case 3: return (s+4*Math.floor(d/10))%12;
+    case 7: return ((odd?s:s+6)+Math.floor(d/(30/7)))%12;
+    case 9: return Math.floor(lon*9/30)%12;
+    case 12: return (s+Math.floor(d/2.5))%12;
+    case 30: return odd?(d<5?0:d<10?10:d<18?8:d<25?2:6):(d<5?1:d<12?5:d<20?11:d<25?9:7);
+  }
+  return s;
+}
+function vashyaOf(lon){const s=Math.floor(lon/30),d=lon%30;
+  return ['C','C','M','J','V','M','M','K',d<15?'M':'C',d<15?'C':'J','M','J'][s];}
+function ymd(ms){const Y=365.25*864e5;let y=Math.floor(ms/Y);let r=ms-y*Y;let m=Math.floor(r/(Y/12));r-=m*(Y/12);let d=Math.floor(r/864e5);
+  return `${dn(y)}${t('yrs')} ${dn(m)}${t('mons')} ${dn(d)}${t('dys')}`;}
+function yoginiDasha(moonLon,birthMs){
+  const nl=360/27,ni=Math.floor(moonLon/nl),frac=(moonLon-ni*nl)/nl,Y=365.25*864e5;
+  const s=(ni+1+3)%8,first=s===0?7:s-1;
+  let t0=birthMs-frac*(first+1)*Y;const list=[];
+  for(let i=0;i<24;i++){const k=(first+i)%8;const dur=(k+1)*Y;list.push({k,start:t0,end:t0+dur});t0+=dur;}
+  return list;
+}
+function extras(ch){
+  const {jd,pos,inp,panch,g}=ch;
+  const sunS=Math.floor(pos.Sun.lon/30);
+  const ayana=[9,10,11,0,1,2].includes(sunS)?'uttarayana':'dakshinayana';
+  const ritu=Math.floor(((sunS+1)%12)/2);
+  // previous new moon -> amanta month; Nepal names months purnimanta
+  let e=norm(moonTrop(jd)-sunTrop(jd)),jn=jd-e/12.1907;
+  for(let i=0;i<4;i++){let e2=norm(moonTrop(jn)-sunTrop(jn));if(e2>180)e2-=360;jn-=e2/12.1907;}
+  let masa=(Math.floor(norm(sunTrop(jn)-ayanamsa(jn))/30)+1)%12;
+  if(panch.tithiN>15)masa=(masa+1)%12;
+  const samv=((ch.bs.y-110)%60+60)%60;
+  let ish=null;
+  if(!ch.timeUnknown){let tt=inp.h+inp.mi/60-panch.sunrise;if(tt<0)tt+=24;const gh=tt*60/24;ish={gh:Math.floor(gh),pl:Math.floor((gh-Math.floor(gh))*60)};}
+  const a=allPositions(jd-0.5).pos,b=allPositions(jd+0.5).pos;
+  const speed={};GRAHA.forEach(k=>speed[k]=wrap180(b[k].lon-a[k].lon));
+  const ml=pos.Moon.lon;
+  const avak={varna:Math.floor(ml/30)%4,vashya:vashyaOf(ml),yoni:YONI_IDX[g.Moon.nak],gana:GANA_STR[g.Moon.nak],nadi:[0,1,2,2,1,0][g.Moon.nak%6],tatva:Math.floor(ml/30)%4,
+    rashiLord:SIGN_LORD[Math.floor(ml/30)],nakLord:DSEQ[g.Moon.nak%9]};
+  const vargas={};
+  [2,3,7,9,12,30].forEach(n=>{vargas[n]={lagna:ch.timeUnknown?vargaSign(ml,n):vargaSign(ch.asc.lon,n),items:ch.gr.map(x=>({sign:vargaSign(x.lon,n),a:gAb(x.k),r:false}))};});
+  const chalit=ch.gr.map(x=>({house:Math.floor(norm(x.lon-ch.asc.lon+15)/30)+1,a:gAb(x.k),r:x.retro&&x.k!=='Rahu'&&x.k!=='Ketu'}));
+  const bal=ch.dasha[0].end-ch.ms;
+  return {ayana,ritu,masa,samv,ish,speed,avak,vargas,chalit,bal,yog:yoginiDasha(ml,ch.ms)};
+}
+function fmtSpashta(lon){const s=Math.floor(lon/30),d=lon-s*30,dd=Math.floor(d),mf=(d-dd)*60,mm=Math.floor(mf),ss=Math.floor((mf-mm)*60);
+  return dn(`${s}-${pad(dd)}°${pad(mm)}′${pad(ss)}″`);}
+function fmtSpeed(v){const a=Math.abs(v),dd=Math.floor(a),mm=Math.floor((a-dd)*60);return (v<0?'−':'')+dn(`${dd}°${pad(mm)}′`);}
+function birthPara(ch,X){
+  const {inp,panch,g,bs}=ch;
+  const nm=document.getElementById('nm').value.trim(),fa=document.getElementById('fName').value.trim(),mo=document.getElementById('mName2').value.trim(),go=document.getElementById('gotra').value.trim();
+  const gen=document.getElementById('gender').value;
+  const paksha=panch.tithiN<=15?t('shukla'):t('krishna');
+  const tithi=tithiName(panch.tithiN),nak=nakName(g.Moon.nak),yoga=isDv()?YOGA_DV[panch.yogaN]:YOGA_EN[panch.yogaN],kar=isDv()?KAR_DV[panch.karana]:KAR_EN[panch.karana];
+  const samv=L3(SAMV_DV,SAMV_EN,X.samv),masa=L3(MASA_DV,MASA_EN,X.masa),ritu=L3(RITU_DV,RITU_EN,X.ritu),ay=t(X.ayana);
+  const lag=ch.timeUnknown?'':signShort(ch.asc.sign),ras=signShort(g.Moon.sign);
+  const ish=X.ish?(lang==='en'?`${X.ish.gh} ghadi ${X.ish.pl} pala after sunrise`:`सूर्योदयदेखि इष्टकाल ${dn(X.ish.gh)} ${t('ghadi')} ${dn(X.ish.pl)} ${t('pala')}`):'';
+  if(lang==='en'){
+    const child=gen==='m'?'a son':gen==='f'?'a daughter':'a child';
+    let who=fa?` to Shri ${fa}${go?` of ${go} gotra`:''}${mo?` and Shrimati ${mo}`:''}, ${child}${nm?`, ${nm},`:''} was born`:`${nm?` ${nm}`:' the native'} was born`;
+    return `Svasti. In Vikram Samvat ${bs.y}, Shaka ${bs.y-135}, the ${samv} samvatsara, ${ay}, ${ritu} ritu, in the lunar month of ${masa}, ${paksha} paksha, on ${bsmName(bs.m)} ${bs.d}, ${wdName(panch.wd)}, tithi ${tithi}, nakshatra ${nak} (pada ${g.Moon.pada}), ${yoga} yoga, ${kar} karana${ish?`, ${ish}`:''}${lag?`, in ${lag} lagna`:''} and ${ras} rashi,${who}. Shubham.`;
+  }
+  const hi=lang==='hi';
+  const child=gen==='m'?(hi?'पुत्र':'पुत्र'):gen==='f'?(hi?'पुत्री':'पुत्री'):(hi?'संतान':'सन्तान');
+  let who;
+  if(hi) who=fa?`${go?go+' गोत्रीय ':''}श्री ${fa}${mo?` एवं श्रीमती ${mo}`:''} के घर ${child}रत्न${nm?` ${nm}`:''} का शुभ जन्म हुआ`:`${nm||'जातक'} का शुभ जन्म हुआ`;
+  else who=fa?`${go?go+' गोत्रका ':''}श्री ${fa}${mo?`की धर्मपत्नी श्रीमती ${mo}को गर्भबाट`:'को घरमा'} ${child}रत्न${nm?` ${nm}`:''}को शुभ जन्म भयो`:`${nm||'जातक'}को शुभ जन्म भयो`;
+  return `स्वस्ति श्रीमन्नृपविक्रमादित्य संवत् ${dn(bs.y)}, शाके ${dn(bs.y-135)}, ${samv} नाम संवत्सर, ${ay}, ${ritu} ऋतु, ${masa} ${hi?'मास':'महिना'} ${paksha} पक्ष, ${bsmName(bs.m)} ${dn(bs.d)} ${hi?'गते':'गते'} ${wdName(panch.wd)}, ${t('tithi')} ${tithi}, ${t('nakshatra')} ${nak} (${t('pada')} ${dn(g.Moon.pada)}), ${yoga} ${t('yoga')}, ${kar} ${t('karana')}${ish?`, ${ish}`:''}${lag?`, ${lag} ${t('lagna')}`:''}, ${ras} ${hi?'राशि में':'राशिमा'} ${who}। शुभम्।`;
+}
+
 /* ===== Scroll rendering ===== */
 function renderScroll(ch){
   const {inp,g,panch,asc}=ch;
+  const X=extras(ch);
   const items=ch.gr.map(x=>({sign:x.sign,a:gAb(x.k),r:x.retro&&x.k!=='Rahu'&&x.k!=='Ketu'}));
   const style=document.getElementById('style').value;
+  const ascL=isDv()?'ल':'Asc';
   const lagTitle=ch.timeUnknown?t('chandraChart'):t('lagnaChart');
-  const ascLabel=ch.timeUnknown?'':(isDv()?'ल':'Asc');
-  const chart1=chartSvg(style,items,ch.lagnaSign,lagTitle,ascLabel);
-  const navItems=ch.gr.map(x=>({sign:x.nav,a:gAb(x.k),r:false}));
-  const navLagna=ch.timeUnknown?g.Moon.nav:Math.floor(asc.lon*9/30)%12;
-  const chart2=chartSvg(style,navItems,navLagna,t('navChart'),ascLabel);
-  const bs=ch.bs;const sunriseTxt=`${dn(pad(Math.floor(panch.sunrise)))}:${dn(pad(Math.floor((panch.sunrise%1)*60)))}`;
+  const fig=(svg,cap,id)=>`<figure${id?` id="${id}"`:''}>${svg}<figcaption>${esc(cap)}</figcaption></figure>`;
+  const cLagna=chartSvg(style,items,ch.lagnaSign,lagTitle,ch.timeUnknown?'':ascL);
+  const cMoon=chartSvg(style,items,g.Moon.sign,t('chandraChart'),'');
+  const cNav=chartSvg(style,X.vargas[9].items,X.vargas[9].lagna,t('navChart'),ascL);
+  let cChalit='';
+  if(!ch.timeUnknown){
+    if(style==='south'){const sp=Array.from({length:12},()=>[]);X.chalit.forEach(c=>sp[(ch.lagnaSign+c.house-1)%12].push(c));cChalit=svgSouth(sp,ch.lagnaSign,t('chalitChart'),'');}
+    else{const hp=Array.from({length:12},()=>[]);X.chalit.forEach(c=>hp[c.house-1].push(c));cChalit=svgNorth(hp,Array.from({length:12},(_,h)=>(ch.lagnaSign+h)%12),t('chalitChart'),ascL);}
+  }
+  const small=[[2,'hora'],[3,'drek'],[7,'sapt'],[12,'dwad'],[30,'trim']].map(([n,k])=>fig(chartSvg(style,X.vargas[n].items,X.vargas[n].lagna,t(k),''),t(k))).join('');
+  const bs=ch.bs;
   const paksha=panch.tithiN<=15?t('shukla'):t('krishna');
   const moonNak=g.Moon.nak;const naam=NAAM[moonNak][g.Moon.pada-1];
   const tzs=(ch.tzH>=0?'+':'−')+dn(pad(Math.floor(Math.abs(ch.tzH))))+':'+dn(pad(Math.round((Math.abs(ch.tzH)%1)*60)));
   const kv=(a,b)=>`<div><span>${esc(a)}</span><span>${b}</span></div>`;
   const nm=document.getElementById('nm').value.trim();
+  const sr=panch.sunrise;
   const details=[
-    kv(t('adDate'),`${dn(`${inp.y}-${pad(inp.m)}-${pad(inp.d)}`)}`),
+    kv(t('adDate'),dn(`${inp.y}-${pad(inp.m)}-${pad(inp.d)}`)),
     kv(t('bsDate'),`${dn(bs.y)} ${esc(bsmName(bs.m))} ${dn(bs.d)}`),
     kv(t('vs'),dn(bs.y)),kv(t('shaka'),dn(bs.y-135)),
+    kv(t('samvatsar'),esc(L3(SAMV_DV,SAMV_EN,X.samv))),kv(t('ayana'),esc(t(X.ayana))),
+    kv(t('ritu'),esc(L3(RITU_DV,RITU_EN,X.ritu))),kv(t('masa'),`${esc(L3(MASA_DV,MASA_EN,X.masa))} ${esc(paksha)}`),
     kv(t('timeLbl'),ch.timeUnknown?'—':dn(`${pad(inp.h)}:${pad(inp.mi)}`)),
+    kv(t('ishtakal'),X.ish?`${dn(X.ish.gh)} ${esc(t('ghadi'))} ${dn(X.ish.pl)} ${esc(t('pala'))}`:'—'),
+    kv(t('sunriseLbl'),dn(`${pad(Math.floor(sr))}:${pad(Math.floor((sr%1)*60))}`)),
     kv(t('placeLbl'),esc(inp.placeName||'—')),
     kv(t('coords'),`${dn(inp.lat.toFixed(3))}°, ${dn(inp.lon.toFixed(3))}°`),
     kv(t('offsetLbl'),`UTC${tzs}`)
   ].join('');
-  const sig=i=>esc(signShort(i));
   const panchRows=[
     kv(t('vara'),esc(wdName(panch.wd))+' · '+esc(gName(WDLORD[panch.wd]))),
     kv(t('tithi'),`${esc(paksha)} ${esc(tithiName(panch.tithiN))}`),
@@ -744,32 +878,64 @@ function renderScroll(ch){
     kv(t('namaksh'),esc(naam)),
     kv(t('ayan'),dn(fmtDeg(ch.ay)))
   ].join('');
+  const A=X.avak;
+  const avakRows=[
+    kv(t('varna'),esc(L3(VARNA_DV,VARNA_EN,A.varna))),kv(t('vashya'),esc((isDv()?VASHYA_DV:VASHYA_EN)[A.vashya])),
+    kv(t('yoni'),esc(L3(YONI_DV,YONI_EN,A.yoni))),kv(t('gana'),esc((isDv()?GANA_DV:GANA_EN)[A.gana])),
+    kv(t('nadi'),esc(L3(NADI_DV,NADI_EN,A.nadi))),kv(t('tatva'),esc(L3(TATVA_DV,TATVA_EN,A.tatva))),
+    kv(t('rashiLord'),esc(gName(A.rashiLord))),kv(t('nakLord'),esc(gName(A.nakLord)))
+  ].join('');
   const rows=ch.gr.map(x=>{
     const notes=[x.retro&&x.k!=='Rahu'&&x.k!=='Ketu'?t('retro'):'',dignityNote(x)].filter(Boolean).join(', ');
-    return `<tr><td>${esc(gName(x.k))}</td><td>${esc(signShort(x.sign))}</td><td>${fmtDeg(x.deg)}</td><td>${esc(nakName(x.nak))} · ${dn(x.pada)}</td><td>${ch.timeUnknown?'—':dn(x.house)}</td><td>${esc(notes)}</td></tr>`;}).join('');
+    return `<tr><td>${esc(gName(x.k))}</td><td>${esc(signShort(x.sign))}</td><td class="num">${fmtSpashta(x.lon)}</td><td class="num">${fmtSpeed(X.speed[x.k])}</td><td>${esc(nakName(x.nak))} · ${dn(x.pada)}</td><td>${ch.timeUnknown?'—':dn(x.house)}</td><td>${esc(notes)}</td></tr>`;}).join('')+
+    (ch.timeUnknown?'':`<tr><td>${esc(t('lagna'))}</td><td>${esc(signShort(asc.sign))}</td><td class="num">${fmtSpashta(asc.lon)}</td><td></td><td>${esc(nakName(asc.nak))} · ${dn(asc.pada)}</td><td>${dn(1)}</td><td></td></tr>`);
   const cd=currentDasha(ch);
   const dRows=ch.dasha.slice(0,10).map(m=>{const cur=cd&&cd.md===m;const st=Math.max(m.start,ch.ms);
-    return `<tr class="${cur?'cur':''}"><td>${esc(gName(m.lord))}${cur?' · '+esc(t('current')):''}</td><td>${dn(isoDate(st))}</td><td>${dn(isoDate(m.end))}</td></tr>`;}).join('');
-  const aRows=cd?cd.md.ad.map(a=>{const cur=cd.ad===a;return `<tr class="${cur?'cur':''}"><td>${esc(gName(cd.md.lord))}–${esc(gName(a.lord))}</td><td>${dn(isoDate(Math.max(a.start,ch.ms)))}</td><td>${dn(isoDate(a.end))}</td></tr>`;}).join(''):'';
-  const yogas=yogaList(ch).map(y=>`<li>${esc(y)}</li>`).join('');
+    return `<tr class="${cur?'cur':''}"><td>${esc(gName(m.lord))}${cur?' · '+esc(t('current')):''}</td><td class="num">${dn(isoDate(st))}</td><td class="num">${dn(isoDate(m.end))}</td></tr>`;}).join('');
+  const aRows=cd?cd.md.ad.filter(a=>a.end>ch.ms).map(a=>{const cur=cd.ad===a;return `<tr class="${cur?'cur':''}"><td>${esc(gName(cd.md.lord))}–${esc(gName(a.lord))}</td><td class="num">${dn(isoDate(Math.max(a.start,ch.ms)))}</td><td class="num">${dn(isoDate(a.end))}</td></tr>`;}).join(''):'';
+  const now=Date.now();let yi=X.yog.filter(y=>y.end>ch.ms).findIndex(y=>now>=y.start&&now<y.end);if(yi<0)yi=0;
+  const yStart=Math.max(0,yi-2);
+  const yRows=X.yog.filter(y=>y.end>ch.ms).slice(yStart,yStart+9).map(y=>{const cur=now>=y.start&&now<y.end;
+    return `<tr class="${cur?'cur':''}"><td>${esc(L3(YOG_DV,YOG_EN,y.k))} (${esc(gName(YOG_LORD[y.k]))})</td><td class="num">${dn(isoDate(Math.max(y.start,ch.ms)))}</td><td class="num">${dn(isoDate(y.end))}</td></tr>`;}).join('');
+  const PL=lang==='en'?'en':'ne';
+  const phal=[];
+  if(typeof GK!=='undefined'){
+    if(!ch.timeUnknown)phal.push(`${t('lagna')} ${signShort(asc.sign)}: ${GK.signTraits[PL][asc.sign]}`);
+    phal.push(`${t('moonSign').split(' (')[0]} ${signShort(g.Moon.sign)}: ${GK.signTraits[PL][g.Moon.sign]}`);
+    phal.push(`${nakName(moonNak)}: ${GK.nak[PL][moonNak]}`);
+    if(cd)phal.push(`${gName(cd.md.lord)} ${t('mahadasha')}: ${GK.dasha[PL][cd.md.lord]}`);
+  }
+  const yogas=phal.concat(yogaList(ch)).map(y=>`<li>${esc(y)}</li>`).join('');
   const warns=[];
   if(inp.y<1800||inp.y>2050)warns.push(t('rangeWarn'));
   if(ch.timeUnknown)warns.push(t('unknownWarn'));
   return `<div class="scrollwrap"><article class="scroll" id="scroll" lang="${lang}">
     <div class="inv"><div class="om">ॐ</div><div class="gan">${esc(t('invocation'))}</div></div>
+    <p class="shloka">जननी जन्मसौख्यानां वर्धनी कुलसम्पदाम्। पदवी पूर्वपुण्यानां लिख्यते जन्मपत्रिका॥</p>
     <div class="ttl">${esc(t('scrollTitle'))}</div>
     ${nm?`<div class="who">${esc(nm)}</div>`:''}
+    <p class="para">${esc(birthPara(ch,X))}</p>
     ${warns.map(w=>`<p class="small">⚠ ${esc(w)}</p>`).join('')}
+    <div class="cols"><div class="colA">
     <h3>${esc(t('secDetails'))}</h3><div class="kv">${details}</div>
     <h3>${esc(t('secPanchang'))}</h3><div class="kv">${panchRows}</div>
-    <h3>${esc(t('secCharts'))}</h3>
-    <div class="charts"><figure id="fig1">${chart1}<figcaption>${esc(lagTitle)}</figcaption></figure><figure>${chart2}<figcaption>${esc(t('navChart'))}</figcaption></figure></div>
+    <h3>${esc(t('secAvak'))}</h3><div class="kv">${avakRows}</div>
     <h3>${esc(t('secGraha'))}</h3>
-    <div class="tw"><table><thead><tr><th>${esc(t('graha'))}</th><th>${esc(t('rashi'))}</th><th>${esc(t('degree'))}</th><th>${esc(t('nakPada'))}</th><th>${esc(t('bhava'))}</th><th>${esc(t('note'))}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="tw"><table><thead><tr><th>${esc(t('graha'))}</th><th>${esc(t('rashi'))}</th><th>${esc(t('spashta'))}</th><th>${esc(t('gati'))}</th><th>${esc(t('nakPada'))}</th><th>${esc(t('bhava'))}</th><th>${esc(t('note'))}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <h3>${esc(t('secPhal'))}</h3><ul>${yogas}</ul>
     <h3>${esc(t('secDasha'))}</h3>
+    <p style="margin:2px 0 6px">${esc(t('dashaBal'))}: <b>${esc(gName(ch.dasha[0].lord))} ${ymd(X.bal)}</b></p>
     <div class="tw"><table><thead><tr><th>${esc(t('mahadasha'))}</th><th>${esc(t('from'))}</th><th>${esc(t('to'))}</th></tr></thead><tbody>${dRows}</tbody></table></div>
-    ${cd?`<p style="margin:14px 0 4px;font-weight:600">${esc(t('antardasha'))}</p><div class="tw"><table><tbody>${aRows}</tbody></table></div>`:''}
-    <h3>${esc(t('secYogas'))}</h3><ul>${yogas}</ul>
+    </div><div class="colB">
+    <h3>${esc(t('secCharts'))}</h3>
+    <div class="cgrid">${fig(cLagna,lagTitle,'fig1')}${fig(cMoon,t('chandraChart'))}${fig(cNav,t('navChart'))}${cChalit?fig(cChalit,t('chalitChart')):''}</div>
+    <h3>${esc(t('saptavarga'))}</h3>
+    <div class="cgrid c3">${small}</div>
+    ${cd?`<h3>${esc(t('antardasha'))}</h3><div class="tw"><table><tbody>${aRows}</tbody></table></div>`:''}
+    <h3>${esc(t('yoginiT'))}</h3>
+    <div class="tw"><table><thead><tr><th>${esc(t('yogini'))}</th><th>${esc(t('from'))}</th><th>${esc(t('to'))}</th></tr></thead><tbody>${yRows}</tbody></table></div>
+    </div></div>
+    <p class="small">${esc(t('paraNote'))}</p>
   </article></div>`;
 }
 
@@ -805,9 +971,11 @@ async function savePdf(statusEl,btn){
     foot.textContent=t('pdfMade')+' · '+dn(new Date().toISOString().slice(0,10));
     fit.appendChild(clone);fit.appendChild(foot);sheet.appendChild(fit);document.body.appendChild(sheet);
     // Shrink to fit one page: widen the layout and scale it down until it fits the height.
+    // Fit one page: scale down to the page height, widen the text to use the full width, repeat until stable.
     const W=756,H=996;let scale=1;
-    for(let i=0;i<4;i++){fit.style.width=(W/scale)+'px';fit.style.transform=`scale(${scale})`;
-      const h=fit.scrollHeight*scale;if(h<=H+1)break;scale=scale*H/h;}
+    for(let i=0;i<6;i++){fit.style.width=(W/scale)+'px';const h=fit.scrollHeight;const ns=Math.min(1,H/h);if(Math.abs(ns-scale)<0.004){scale=Math.min(scale,ns);break;}scale=ns;}
+    fit.style.width=(W/scale)+'px';if(fit.scrollHeight*scale>H)scale=H/fit.scrollHeight;
+    fit.style.transform=`scale(${scale})`;
     const canvas=await html2canvas(sheet,{scale:2.5,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:1200});
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({unit:'in',format:'letter',orientation:'portrait'});
